@@ -3,21 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <title>La Pâtisserie</title>
-    
-    <!-- Link to external CSS -->
+
+    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="style.css" />
-    
-    <!-- Import Nunito font -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+
+    <!-- Import Nunito font from Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
-    
-    <!-- Header with logo and navigation -->
+    <!-- ================= HEADER ================= -->
     <header>
       <div class="header-content">
-        
-        <!-- Logo: icon + brand name -->
+        <!-- Logo section: croissant icon + brand name -->
         <div class="logo">
           <img
             src="images/croissant.svg"
@@ -27,8 +28,8 @@
           <span>La Pâtisserie</span>
         </div>
 
-        <!-- Navigation menu -->
-        <nav>
+        <!-- Main navigation menu -->
+        <nav class="header-nav">
           <ul>
             <li><a href="index.html" class="active">Home</a></li>
             <li><a href="products.html">Products</a></li>
@@ -36,19 +37,54 @@
             <li><a href="#">Contact</a></li>
           </ul>
         </nav>
-
       </div>
     </header>
 
-    <!-- Main content section -->
+    <!-- ================= MAIN ================= -->
     <main>
-      <!-- Hero image and introduction coming soon -->
+      <h1>Welcome to La Pâtisserie!</h1>
+      <!-- Main content will go here -->
     </main>
 
-    <!-- Footer section (placeholder) -->
-    <footer>
-      <!-- Footer content goes here -->
-    </footer>
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <!-- Footer columns (Visit Us + Explore) -->
+        <div class="footer-columns">
+          <!-- Column 1: Location and hours -->
+          <div class="footer-column">
+            <h3>Visit Us</h3>
+            <ul>
+              <li><a href="#">23 Rue de la Madeleine</a></li>
+              <li><a href="#">Paris, France</a></li>
+              <li><a href="#">Open daily: 7am – 6pm</a></li>
+            </ul>
+          </div>
 
+          <!-- Column 2: Explore section -->
+          <div class="footer-column">
+            <h3>Explore</h3>
+            <ul>
+              <li><a href="#">Our Pastries</a></li>
+              <li><a href="#">Order Online</a></li>
+              <li><a href="#">Gift Cards</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Social media icons and copyright -->
+        <div class="footer-bottom">
+          <!-- Social media links -->
+          <div class="social-icons">
+            <a href="#"><img src="images/instagram.svg" alt="Instagram" /></a>
+            <a href="#"><img src="images/facebook.svg" alt="Facebook" /></a>
+            <a href="#"><img src="images/youtube.svg" alt="YouTube" /></a>
+          </div>
+
+          <!-- Copyright notice -->
+          <p>© 2025 La Pâtisserie</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
