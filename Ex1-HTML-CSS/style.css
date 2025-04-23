@@ -1,6 +1,5 @@
 /* ========== GENERAL LAYOUT ========== */
 
-/* Wrapper that limits content width and centers it */
 .page-wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -9,7 +8,6 @@
   flex-direction: column;
 }
 
-/* Make body take full height and allow footer to stick */
 html, body {
   height: 100%;
   margin: 0;
@@ -19,17 +17,14 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Main grows to push footer to bottom */
 main {
   flex: 1;
 }
 
-/* Apply border-box to all elements */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-/* Set base font and background */
 body {
   font-family: 'Nunito', sans-serif;
   background-color: #fff;
@@ -37,39 +32,26 @@ body {
 
 /* ========== HEADER ========== */
 
-/* Header background and spacing */
 header {
   background-color: #fff;
-  padding-bottom: 32px; /* Matches spacing from Figma */
+  padding-bottom: 32px;
 }
 
-/* Header inner container: logo + nav */
 .header-content {
-  max-width: 1200px;
+  max-width: 1046px;
   width: 100%;
   height: 64px;
   margin: 32px auto 0 auto;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 135px; /* Space between logo and nav */
+  gap: 135px;
   position: relative;
   padding: 0 32px;
 }
 
-/* Decorative underline below header content */
-.header-content::after {
-  content: "";
-  position: absolute;
-  bottom: 7px;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(to right, #ac7fd8, #b28dd5);
-  border-radius: 2px;
-}
 
-/* Logo section (image + text) */
+
 .logo {
   display: flex;
   align-items: center;
@@ -82,7 +64,6 @@ header {
   filter: hue-rotate(250deg) saturate(25%);
 }
 
-/* Logo text */
 .logo span {
   font-family: 'Nunito', sans-serif;
   font-weight: 700;
@@ -91,23 +72,24 @@ header {
   letter-spacing: 6px;
   text-transform: uppercase;
   color: #3E3F43;
+  white-space: nowrap;
+  
 }
 
-/* Navigation menu */
 nav ul {
   list-style: none;
   display: flex;
   margin: 0;
   padding: 0;
   gap: 64px;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
-/* Adjust spacing between nav items */
 nav ul li + li {
   margin-left: -2px;
 }
 
-/* Navigation links */
 nav a {
   font-family: 'Nunito', sans-serif;
   font-size: 30px;
@@ -121,17 +103,16 @@ nav a {
   padding-top: 6px;
 }
 
-/* Active link */
 nav a.active {
   font-weight: 700;
 }
 
-/* Hover effect */
 nav a:hover {
   color: #a678e2;
 }
 
 /* ========== HERO IMAGE (FULL WIDTH) ========== */
+
 .hero-section {
   position: relative;
   width: 100%;
@@ -145,15 +126,17 @@ nav a:hover {
 }
 
 .hero-text {
-  position: absolute;
+ position: absolute;
+  top: 32px;
+  left: 32px;
   color: white;
   font-family: 'Nunito', sans-serif;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6)
 }
 
 .hero-text.top-left {
-  top: 40px; /* המרחק מהחלק העליון */
-  left: 80px; /* המרחק מהצד השמאלי */
+  top: 40px;
+  left: 32px;
 }
 
 .hero-text h1 {
@@ -167,9 +150,11 @@ nav a:hover {
   margin: 0;
 }
 
+/* ========== PRODUCT INTRO ========== */
+
 .product-intro {
-  padding: 80px 32px;
-  text-align:left;
+  padding: 80px 20px;
+  text-align: left;
   font-family: 'Nunito', sans-serif;
   color: #3E3F43;
 }
@@ -179,11 +164,148 @@ nav a:hover {
   font-weight: 700;
   color: #612999;
   text-align: left;
-  margin: 0 auto 32px auto;
+  margin: 0 0 32px 0; /* ✅ מרווח רק מתחת, בלי מרכז */
 }
 
 
+/* ========== DESSERT SECTION ========== */
 
+.dessert-section {
+  padding: 80px 32px;
+  background-color: #fdfaff;
+}
+
+.section-title {
+  font-size: 28px;
+  color: #612999;
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: left;
+  padding-left: 32px;
+}
+
+.product-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(389px, 1fr));
+  gap: 32px;
+  padding: 0 32px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card {
+  background-color: #efebff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.image-wrapper {
+  height: 450px;
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}
+
+.favorite-placeholder {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.card-details {
+  padding: 16px;
+  background-color: #efebff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-details h3 {
+  font-size: 30px;
+  margin: 0 0 8px;
+  color: #3E3F43;
+}
+
+.card-details p {
+  font-size: 18px;
+  color: #555;
+  margin: 0 0 16px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 35px;
+  font-weight: bold;
+  color: #612999;
+}
+
+
+.cart-button {
+  background-color: #612999;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 63px;
+  height: 63px;
+  font-size: 31px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.cart-button:hover {
+  background-color: #7a3fc2;
+}
+
+.image-wrapper {
+  position: relative;
+  height: 270px;
+  overflow: hidden;
+}
+
+.favorite-placeholder {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 47px;
+  height: 47px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favorite-placeholder svg {
+  width: 23px;
+  height: 23px;
+  fill: #F51264;
+}
 
 
 
@@ -204,8 +326,8 @@ nav a:hover {
   height: 287px;
   font-family: 'Nunito', sans-serif;
   color: #333333;
-    align-items: flex-start; /* הוספה חשובה */
-  text-align: left;        /* מוודא שגם טקסט יישר לשמאל */
+  align-items: flex-start;
+  text-align: left;
 }
 
 .footer-columns {
@@ -250,7 +372,7 @@ nav a:hover {
   flex-direction: column;
   gap: 16px;
   margin-top: 14px;
-   text-align: left;
+  text-align: left;
   align-items: flex-start;
 }
 
@@ -281,6 +403,14 @@ nav a:hover {
   nav ul {
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .product-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    text-align: center;
   }
 
   .hero-banner {

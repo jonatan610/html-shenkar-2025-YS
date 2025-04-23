@@ -3,32 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>La Pâtisserie</title>
-
-    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="style.css" />
-
-    <!-- Import Nunito font from Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
   </head>
 
   <body>
-    <!-- ================= HEADER ================= -->
+    <!-- ========== HEADER ========== -->
     <header>
       <div class="header-content">
-        <!-- Logo section -->
         <div class="logo">
-          <img
-            src="images/croissant.svg"
-            alt="Croissant icon"
-            class="logo-icon"
-          />
+          <img src="images/croissant.svg" alt="Croissant icon" class="logo-icon" />
           <span>La Pâtisserie</span>
         </div>
-
-        <!-- Navigation -->
         <nav class="header-nav">
           <ul>
             <li><a href="index.html" class="active">Home</a></li>
@@ -40,33 +26,158 @@
       </div>
     </header>
 
-    <!-- ================= HERO ================= -->
+    <!-- ========== HERO ========== -->
     <section class="hero-section">
       <img src="images/cake1.png" alt="Hero banner" class="hero-img" />
       <div class="hero-text top-left">
         <h1>Precision. Passion. Pâtisserie.</h1>
-        <p>
-          Our new seasonal desserts are blooming. Discover them now at our
-          boutique pâtisserie.
-        </p>
+        <p>Our new seasonal desserts are blooming. Discover them now at our boutique pâtisserie.</p>
       </div>
     </section>
 
-<section class="product-intro">
-    <div class="page-wrapper"></div>
-    <h2>Discover Our Signature Dessert</h2>
-    <p>Crafted with layers of rich chocolate, smooth raspberry cream, and a crisp almond crust — our signature tart is a tribute to French elegance.</p>
-    <p>Every element is handmade daily by our pâtissiers, using only the finest seasonal ingredients sourced from local farms and Parisian markets.</p>
-    <p>Whether you're celebrating a special occasion or indulging in a quiet moment, this dessert promises to elevate every experience.</p>
-  </div>
-</section>
+    <!-- ========== PRODUCT INTRO ========== -->
+    <section class="product-intro">
+        <h2>Discover Our Signature Dessert</h2>
+        <p>Crafted with layers of rich chocolate, smooth raspberry cream, and a crisp almond crust — our signature tart is a tribute to French elegance.</p>
+        <p>Every element is handmade daily by our pâtissiers, using only the finest seasonal ingredients sourced from local farms and Parisian markets.</p>
+        <p>Whether you're celebrating a special occasion or indulging in a quiet moment, this dessert promises to elevate every experience.</p>
+      </div>
+    </section>
 
-    <!-- ================= MAIN ================= -->
-    <main>
-      <h1>Welcome to La Pâtisserie!</h1>
-    </main>
+    <!-- ========== PRODUCT GALLERY ========== -->
+    <section class="dessert-section">
+      <h2 class="section-title">Our Dessert Collection</h2>
+      <div class="product-gallery">
 
-    <!-- ================= FOOTER ================= -->
+        <!-- CARD 1 -->
+        <div class="card">
+          <div class="image-wrapper">
+            <img src="images/card1.png" alt="Chocolate Raspberry Tart" />
+            <div class="favorite-placeholder"></div>
+          </div>
+          <div class="card-details">
+            <h3>Fraisier</h3>
+            <p>Layer cake made with soft génoise sponge,
+              rich mousseline cream, and fresh strawberrie</p>
+            <div class="card-footer">
+              <span class="price">€8.50</span>
+              <button class="cart-button">🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Repeat same card structure for cards 2 to 8 -->
+        <div class="card">
+          <div class="image-wrapper">
+            <img src="images/card2.png" alt="Chocolate Raspberry Tart" />
+            <div class="favorite-placeholder"></div>
+          </div>
+          <div class="card-details">
+            <h3>Macaron aux fruits des bois</h3>
+            <p>Filled with light cream and fresh berries</p>
+            <div class="card-footer">
+              <span class="price">€8.50</span>
+              <button class="cart-button">🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image-wrapper">
+            <img src="images/card3.png" alt="Chocolate Raspberry Tart" />
+            <div class="favorite-placeholder"></div>
+          </div>
+          <div class="card-details">
+            <h3>Entremets au praliné et chocolat</h3>
+            <p>Rich chocolate mousse, silky praliné cream, and a crisp nutty base</p>
+            <div class="card-footer">
+              <span class="price">€8.50</span>
+              <button class="cart-button">🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image-wrapper">
+            <img src="images/card4.png" alt="Chocolate Raspberry Tart" />
+            <div class="favorite-placeholder"></div>
+          </div>
+          <div class="card-details">
+            <h3>Mille-feuille</h3>
+            <p>layers of crisp puff pastry filled with rich vanilla pastry cream.</p>
+            <div class="card-footer">
+              <span class="price">€8.50</span>
+              <button class="cart-button">🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image-wrapper">
+            <img src="images/card5.png" alt="Chocolate Raspberry Tart" />
+            <div class="favorite-placeholder"></div>
+          </div>
+          <div class="card-details">
+            <h3>Mont-Blanc</h3>
+            <p>Sweet chestnut cream vermicelli, light whipped cream, and a crisp meringue base</p>
+            <div class="card-footer">
+              <span class="price">€8.50</span>
+              <button class="cart-button">🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image-wrapper">
+            <img src="images/card6.png" alt="Chocolate Raspberry Tart" />
+            <div class="favorite-placeholder"></div>
+          </div>
+          <div class="card-details">
+            <h3>Saint-Honoré</h3>
+            <p>Caramel-glazed cream puffs,filled with silky vanilla cream </p>
+            <div class="card-footer">
+              <span class="price">€8.50</span>
+              <button class="cart-button">🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image-wrapper">
+            <img src="images/card7.png" alt="Chocolate Raspberry Tart" />
+            <div class="favorite-placeholder"></div>
+          </div>
+          <div class="card-details">
+            <h3>Basque Burnt Cheesecake</h3>
+            <p>Crustless cheesecake with a deeply caramelized top and a creamy</p>
+            <div class="card-footer">
+              <span class="price">€8.50</span>
+              <button class="cart-button">🛒</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="image-wrapper">
+            <img src="images/card8.png" alt="Chocolate Raspberry Tart" />
+            <div class="favorite-placeholder"></div>
+          </div>
+          <div class="card-details">
+            <h3>Moelleux au chocolat</h3>
+            <p>Half-baked chocolate cake with a molten cente</p>
+            <div class="card-footer">
+              <span class="price">€8.50</span>
+              <button class="cart-button">🛒</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========== MAIN PLACEHOLDER ========== -->
+  
+    <!-- ========== FOOTER ========== -->
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-columns">
@@ -75,7 +186,6 @@
             <ul>
               <li>23 Rue de la Madeleine</li>
               <li>Paris, France</li>
-              <li></li>
               <li>Open daily: 7am – 6pm</li>
             </ul>
           </div>
