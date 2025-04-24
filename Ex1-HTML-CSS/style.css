@@ -32,6 +32,8 @@ body {
 
 /* ========== HEADER ========== */
 
+
+
 header {
   background-color: #fff;
   padding-bottom: 32px;
@@ -50,7 +52,10 @@ header {
   padding: 0 32px;
 }
 
-
+.logo,
+nav {
+  flex-shrink: 0; /* מונע קיבוץ שעלול לשבור שורה */
+}
 
 .logo {
   display: flex;
@@ -73,7 +78,6 @@ header {
   text-transform: uppercase;
   color: #3E3F43;
   white-space: nowrap;
-  
 }
 
 nav ul {
@@ -83,7 +87,7 @@ nav ul {
   padding: 0;
   gap: 64px;
   white-space: nowrap;
-  overflow-x: auto;
+  overflow-x: auto; /* אם חסר מקום – גלילה אופקית */
 }
 
 nav ul li + li {
@@ -170,6 +174,7 @@ nav a:hover {
 
 /* ========== DESSERT SECTION ========== */
 
+
 .dessert-section {
   padding: 80px 32px;
   background-color: #fdfaff;
@@ -204,7 +209,8 @@ nav a:hover {
 }
 
 .image-wrapper {
-  height: 450px;
+  position: relative;
+  height: 270px;
   overflow: hidden;
 }
 
@@ -218,15 +224,27 @@ nav a:hover {
 }
 
 .favorite-placeholder {
+  width: 47px;
+  height: 47px;
+  display: flex;
+  background: #EFECFF;
+  border-radius: 23.5px;
   position: absolute;
+  padding: 13px 12px;
+flex-direction: column;
+align-items: flex-start;
   top: 12px;
   right: 12px;
-  width: 32px;
-  height: 32px;
-  background: white;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+gap: 10px;
+
 }
+
+.heart-icon {
+  width: 23px;
+  height: 20px;
+
+}
+
 
 .card-details {
   padding: 16px;
@@ -261,52 +279,24 @@ nav a:hover {
   color: #612999;
 }
 
-
 .cart-button {
   background-color: #612999;
-  color: #ffffff;
   border: none;
   border-radius: 50%;
   width: 63px;
   height: 63px;
-  font-size: 31px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease;
+  padding: 0;
+  overflow: hidden; /* מונע גלישה החוצה */
 }
 
-.cart-button:hover {
-  background-color: #7a3fc2;
+.cart-icon {
+  width: 31px;
+  height: 31px;
+  object-fit: contain;
 }
-
-.image-wrapper {
-  position: relative;
-  height: 270px;
-  overflow: hidden;
-}
-
-.favorite-placeholder {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 47px;
-  height: 47px;
-  background: #ffffff;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.favorite-placeholder svg {
-  width: 23px;
-  height: 23px;
-  fill: #F51264;
-}
-
 
 
 /* ========== FOOTER ========== */
@@ -394,6 +384,21 @@ nav a:hover {
 
 /* ========== RESPONSIVE ========== */
 
+@media (max-width: 1100px) {
+  .header-content {
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a {
+    font-size: 24px;
+  }
+}
 @media (max-width: 768px) {
   .footer-columns {
     flex-direction: column;
