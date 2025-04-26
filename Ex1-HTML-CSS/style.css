@@ -483,6 +483,42 @@ gap: 10px;
 }
 
 
+.video-section {
+  padding: 80px 32px;
+  text-align: center;
+}
+
+.section-title {
+  color: #612999;
+  font-family: 'Rubik', sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+  margin-bottom: 32px; /* רווח מתחת לכותרת */
+}
+
+.video-frame {
+  width: 1136px;
+  height: 503px;
+  background: #EFECFF;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 24px; 
+  margin: 0 auto; 
+  padding: 16px;
+}
+
+.video-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px; 
+}
+
 /* ========== RESPONSIVE ========== */
 
 @media (max-width: 1100px) {
