@@ -394,7 +394,7 @@ gap: 10px;
   gap: 32px;
   padding: 40px 32px;
   flex-wrap: wrap;
-  margin-top: 128px; /* מרחק אנכי מהחלק העליון (card1 לחנות) */
+  margin-top: 128px; 
   margin-bottom: 32px;
 }
 
@@ -409,19 +409,19 @@ gap: 10px;
 
 .first {
    width: 300px;
-  margin-left: 32px;     /* מהקצה השמאלי */
+  margin-left: 32px;    
   margin-right: 32px;
 }
 .second {
    width: 388.286px;
-  margin-top: -3px;      /* כדי להגיע מ־42 ל־39 */
+  margin-top: -3px;     
   margin-right: 32px;
 }
 
 .third {
    width: 300px;
-  margin-top: -5px;      /* כדי להגיע מ־42 ל־37 */
-  margin-right: 116px;   /* מהקצה הימני של הדף */
+  margin-top: -5px;      
+  margin-right: 116px;   
 }
 
 /* ========== DESSERT LIST SECTION ========== */
