@@ -32,11 +32,11 @@ body {
 
 /* ========== HEADER ========== */
 
-
-
 header {
   background-color: #fff;
   padding-bottom: 32px;
+ overflow-x: clip; 
+
 }
 
 .header-content {
@@ -54,7 +54,7 @@ header {
 
 .logo,
 nav {
-  flex-shrink: 0; /* מונע קיבוץ שעלול לשבור שורה */
+  flex-shrink: 0; 
 }
 
 .logo {
@@ -80,15 +80,19 @@ nav {
   white-space: nowrap;
 }
 
+
 nav ul {
   list-style: none;
   display: flex;
   margin: 0;
   padding: 0;
   gap: 64px;
+  overflow-x: hidden;
+  overflow-y: hidden; 
   white-space: nowrap;
-  overflow-x: auto; /* אם חסר מקום – גלילה אופקית */
 }
+
+
 
 nav ul li + li {
   margin-left: -2px;
@@ -168,7 +172,7 @@ nav a:hover {
   font-weight: 700;
   color: #612999;
   text-align: left;
-  margin: 0 0 32px 0; /* ✅ מרווח רק מתחת, בלי מרכז */
+  margin: 0 0 32px 0; 
 }
 
 
@@ -390,6 +394,8 @@ gap: 10px;
   gap: 32px;
   padding: 40px 32px;
   flex-wrap: wrap;
+  margin-top: 128px; /* מרחק אנכי מהחלק העליון (card1 לחנות) */
+  margin-bottom: 32px;
 }
 
 .product-box {
@@ -401,6 +407,22 @@ gap: 10px;
   border-radius: 8px;
 }
 
+.first {
+   width: 300px;
+  margin-left: 32px;     /* מהקצה השמאלי */
+  margin-right: 32px;
+}
+.second {
+   width: 388.286px;
+  margin-top: -3px;      /* כדי להגיע מ־42 ל־39 */
+  margin-right: 32px;
+}
+
+.third {
+   width: 300px;
+  margin-top: -5px;      /* כדי להגיע מ־42 ל־37 */
+  margin-right: 116px;   /* מהקצה הימני של הדף */
+}
 
 /* ========== DESSERT LIST SECTION ========== */
 
