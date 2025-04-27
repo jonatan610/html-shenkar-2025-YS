@@ -129,6 +129,7 @@ nav a:hover {
 
 .hero-img {
   width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
 }
@@ -495,7 +496,7 @@ gap: 10px;
   font-style: normal;
   font-weight: 500;
   line-height: 40px;
-  margin-bottom: 32px; /* רווח מתחת לכותרת */
+  margin-bottom: 32px; 
 }
 
 .video-frame {
@@ -525,6 +526,18 @@ gap: 10px;
   .header-content {
     gap: 40px;
     flex-wrap: wrap;
+    max-width: 100%;
+    padding: 0 32px;
+  }
+
+  .video-frame {
+    width: 100%;
+    height: auto;
+  }
+
+  .dessert-list-section {
+    width: 100%;
+    padding: 0 32px;
   }
 
   nav ul {
@@ -536,6 +549,7 @@ gap: 10px;
     font-size: 24px;
   }
 }
+
 @media (max-width: 768px) {
   .footer-columns {
     flex-direction: column;
@@ -570,4 +584,13 @@ gap: 10px;
   .hero-text p {
     font-size: 18px;
   }
+}
+@media (max-width: 1100px) {
+  .dessert-list-section {
+    width: 100%;
+    padding: 0 32px;
+  }
+}
+a, button {
+  cursor: pointer;
 }
