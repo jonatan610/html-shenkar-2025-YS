@@ -26,7 +26,7 @@ main {
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+   font-family: 'Nunito', sans-serif;
   background-color: #fff;
 }
 
@@ -80,7 +80,6 @@ nav {
   white-space: nowrap;
 }
 
-
 nav ul {
   list-style: none;
   display: flex;
@@ -91,8 +90,6 @@ nav ul {
   overflow-y: hidden; 
   white-space: nowrap;
 }
-
-
 
 nav ul li + li {
   margin-left: -2px;
@@ -118,20 +115,19 @@ nav a.active {
 nav a:hover {
   color: #a678e2;
 }
-
-/* ========== HERO IMAGE (FULL WIDTH) ========== */
-
+/* ========== HERO IMAGE ========== */
 .hero-section {
   position: relative;
   width: 100%;
   height: auto;
+  aspect-ratio: 1200 / 797;
+  margin-top: 39px;
 }
 
 .hero-img {
   width: 100%;
-  max-width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-text {
@@ -149,37 +145,50 @@ nav a:hover {
 }
 
 .hero-text h1 {
-  font-size: 60px;
+  font-size: 96px;
   font-weight: 700;
   margin: 0 0 10px;
+  margin-left: 32px;
+ font-family: 'Nunito', sans-serif;
+font-style: normal;
 }
 
 .hero-text p {
-  font-size: 20px;
+  font-size: 24px;
+  margin: 0; 
+  word-wrap: break-word;
+ font-family: 'Nunito', sans-serif;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+max-width: 450px;
+margin-left: 32px;
+
+}
+
+.hero-text h1,
+.hero-text p {
   margin: 0;
 }
 
 /* ========== PRODUCT INTRO ========== */
-
 .product-intro {
-  padding: 80px 20px;
+  padding: 80px 32px;
   text-align: left;
   font-family: 'Nunito', sans-serif;
+  font-style: normal;
   color: #3E3F43;
 }
 
 .product-intro h2 {
   font-size: 40px;
   font-weight: 700;
+   font-family: 'Nunito', sans-serif;
   color: #612999;
   text-align: left;
   margin: 0 0 32px 0; 
 }
-
-
 /* ========== DESSERT SECTION ========== */
-
-
 .dessert-section {
   padding: 80px 32px;
   background-color: #fdfaff;
@@ -187,6 +196,7 @@ nav a:hover {
 
 .section-title {
   font-size: 28px;
+   font-family: 'Nunito', sans-serif;
   color: #612999;
   font-weight: 700;
   margin-bottom: 40px;
@@ -215,18 +225,20 @@ nav a:hover {
 
 .image-wrapper {
   position: relative;
-  height: 270px;
+  width: 100%;
+  height: 357.212px;
   overflow: hidden;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
 }
 
 .image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
+ 
 }
+
 
 .favorite-placeholder {
   width: 47px;
@@ -249,7 +261,6 @@ gap: 10px;
   height: 20px;
 
 }
-
 
 .card-details {
   padding: 16px;
@@ -294,7 +305,7 @@ gap: 10px;
   align-items: center;
   justify-content: center;
   padding: 0;
-  overflow: hidden; /* מונע גלישה החוצה */
+  overflow: hidden; 
 }
 
 .cart-icon {
@@ -302,7 +313,6 @@ gap: 10px;
   height: 31px;
   object-fit: contain;
 }
-
 
 /* ========== FOOTER ========== */
 
@@ -334,6 +344,7 @@ gap: 10px;
   font-size: 18px;
   font-weight: 700;
   line-height: 28px;
+   font-family: 'Nunito', sans-serif;
   color: #333333;
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -353,6 +364,7 @@ gap: 10px;
   font-size: 16px;
   font-weight: 400;
   line-height: 100%;
+   font-family: 'Nunito', sans-serif;
   color: #333333;
   text-decoration: none;
 }
@@ -386,8 +398,7 @@ gap: 10px;
   font-weight: 600;
   margin: 0;
 }
-
-/* ========== Products GALLERY (PAGE 2) ========== */
+/* ========== Products GALLERY ========== */
 
 .products-gallery-section {
   display: flex;
@@ -433,11 +444,12 @@ gap: 10px;
   padding-left: 32px;
   height: 2000px;
   background: #FFF;
+   font-family: 'Nunito', sans-serif;
 }
 
 .dessert-list-title {
   color: #612999;
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 40px;
   font-style: normal;
   font-weight: 500;
@@ -448,6 +460,7 @@ gap: 10px;
 .dessert-list {
   display: flex;
   flex-direction: column;
+   font-family: 'Nunito', sans-serif;
   gap: 32px;
 }
 
@@ -476,14 +489,13 @@ gap: 10px;
 
 .dessert-label {
   color: #000000;
-  font-family: 'Rubik', sans-serif;
+   font-family: 'Nunito', sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: 14px;
 }
-
-
+/* ========== Video-section ========== */
 .video-section {
   padding: 80px 32px;
   text-align: center;
@@ -496,7 +508,8 @@ gap: 10px;
   font-style: normal;
   font-weight: 500;
   line-height: 40px;
-  margin-bottom: 32px; 
+  margin-bottom: 32px;
+  text-align: center;
 }
 
 .video-frame {
@@ -508,8 +521,8 @@ gap: 10px;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  border-radius: 24px; 
-  margin: 0 auto; 
+  border-radius: 24px;
+  margin: 0 auto;
   padding: 16px;
 }
 
@@ -517,7 +530,6 @@ gap: 10px;
   width: 100%;
   height: 100%;
   border: none;
-  border-radius: 16px; 
 }
 
 /* ========== RESPONSIVE ========== */
@@ -591,6 +603,10 @@ gap: 10px;
     padding: 0 32px;
   }
 }
+
 a, button {
   cursor: pointer;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
 }
