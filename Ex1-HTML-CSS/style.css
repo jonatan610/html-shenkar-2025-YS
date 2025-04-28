@@ -31,16 +31,16 @@ body {
 }
 
 /* ========== HEADER ========== */
-
 header {
   background-color: #fff;
   padding-bottom: 32px;
- overflow-x: clip; 
-
+  overflow-x: clip; 
+  width: 100%;
+  max-width: 1200px;
+  height: 3000px;
 }
 
 .header-content {
-  max-width: 1046px;
   width: 100%;
   height: 64px;
   margin: 32px auto 0 auto;
@@ -52,32 +52,30 @@ header {
   padding: 0 32px;
 }
 
-.logo,
-nav {
-  flex-shrink: 0; 
-}
-
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
+  margin-top: 53px;
+  left: 93px;
+  gap: 10px;
 
+}
 .logo-icon {
   width: 64px;
   height: 64px;
   filter: hue-rotate(250deg) saturate(25%);
+  top: 32px;
+  left: 32px;
 }
 
 .logo span {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 24px;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  color: #3E3F43;
-  white-space: nowrap;
+ color: #3E3F43;
+font-family: Nunito;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: 6px;
 }
 
 nav ul {
@@ -85,14 +83,15 @@ nav ul {
   display: flex;
   margin: 0;
   padding: 0;
-  gap: 64px;
+  gap: 62px;
+  left:135px;
   overflow-x: hidden;
   overflow-y: hidden; 
   white-space: nowrap;
 }
 
 nav ul li + li {
-  margin-left: -2px;
+  margin-left: +2px;
 }
 
 nav a {
@@ -104,8 +103,7 @@ nav a {
   color: #612999;
   transition: color 0.3s ease;
   display: inline-block;
-  height: 41px;
-  padding-top: 6px;
+  margin-top: 48px;
 }
 
 nav a.active {
@@ -115,14 +113,17 @@ nav a.active {
 nav a:hover {
   color: #a678e2;
 }
+
+
 /* ========== HERO IMAGE ========== */
 .hero-section {
   position: relative;
   width: 100%;
   height: auto;
   aspect-ratio: 1200 / 797;
-  margin-top: 39px;
+  margin-top: 32px;  
 }
+
 
 .hero-img {
   width: 100%;
@@ -166,44 +167,43 @@ margin-left: 32px;
 
 }
 
-.hero-text h1,
-.hero-text p {
-  margin: 0;
-}
-
 /* ========== PRODUCT INTRO ========== */
-.product-intro {
-  padding: 80px 32px;
-  text-align: left;
-  font-family: 'Nunito', sans-serif;
-  font-style: normal;
-  color: #3E3F43;
-}
+
 
 .product-intro h2 {
   font-size: 40px;
   font-weight: 700;
-   font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito', sans-serif;
   color: #612999;
   text-align: left;
-  margin: 0 0 32px 0; 
-}
-/* ========== DESSERT SECTION ========== */
-.dessert-section {
-  padding: 80px 32px;
-  background-color: #fdfaff;
+  margin-left: 32px;
+  margin-top: 32px;
+ 
 }
 
-.section-title {
-  font-size: 28px;
-   font-family: 'Nunito', sans-serif;
+.product-intro p {
+  margin-top: 32px;
+  margin-left: 32px;
+  margin-right: 32px;
+  color: #000;
+}
+
+/* ========== dessert-section ========== */
+.dessert-section-title {
+  font-size: 40px;
+  font-family: 'Nunito', sans-serif;
   color: #612999;
   font-weight: 700;
   margin-bottom: 40px;
   text-align: left;
-  padding-left: 32px;
+  padding: 0;
+  display: block;
+  width: 100%;
+  margin-left: 32px;
+  margin-top: 32px;
 }
 
+/* ========== product-gallery ========== */
 .product-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(389px, 1fr));
@@ -221,6 +221,9 @@ margin-left: 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-top: 27px;
+  margin-bottom: 32px;
+  gap: 19px;
 }
 
 .image-wrapper {
@@ -248,11 +251,11 @@ margin-left: 32px;
   border-radius: 23.5px;
   position: absolute;
   padding: 13px 12px;
-flex-direction: column;
-align-items: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
   top: 12px;
   right: 12px;
-gap: 10px;
+  gap: 10px;
 
 }
 
@@ -448,13 +451,13 @@ gap: 10px;
 }
 
 .dessert-list-title {
-  color: #612999;
+ font-size: 40px;
+  font-weight: 700;
   font-family: 'Nunito', sans-serif;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 40px;
-  margin-bottom: 40px;
+  color: #612999;
+  text-align: left;
+  margin-left: 32px;
+  margin-top: 32px;
 }
 
 .dessert-list {
@@ -502,18 +505,20 @@ gap: 10px;
 }
 
 .section-title {
+ font-size: 40px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
   color: #612999;
-  font-family: 'Rubik', sans-serif;
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 40px;
+  text-align: left;
+  margin-left: 32px;
+  margin-top: 32px;
   margin-bottom: 32px;
-  text-align: center;
+  left: 32px;
+  text-align: left;
 }
 
 .video-frame {
-  width: 1136px;
+  max-width: 1136px;
   height: 503px;
   background: #EFECFF;
   flex-shrink: 0;
@@ -522,45 +527,48 @@ gap: 10px;
   align-items: center;
   overflow: hidden;
   border-radius: 24px;
-  margin: 0 auto;
   padding: 16px;
 }
 
 .video-frame iframe {
-  width: 100%;
+  width:100%;
   height: 100%;
   border: none;
 }
-
 /* ========== RESPONSIVE ========== */
 
-@media (max-width: 1100px) {
+@media (max-width: 768px) {
   .header-content {
-    gap: 40px;
-    flex-wrap: wrap;
-    max-width: 100%;
-    padding: 0 32px;
-  }
-
-  .video-frame {
-    width: 100%;
-    height: auto;
-  }
-
-  .dessert-list-section {
-    width: 100%;
-    padding: 0 32px;
+    gap: 20px;
+    padding: 0 16px;
   }
 
   nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 32px;
+    justify-content: space-between;
   }
 
   nav a {
     font-size: 24px;
   }
 }
+
+@media (max-width: 480px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  nav a {
+    font-size: 20px;
+  }
+}
+
 
 @media (max-width: 768px) {
   .footer-columns {
