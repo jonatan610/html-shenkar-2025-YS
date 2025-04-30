@@ -1,13 +1,5 @@
 /* ========== GENERAL LAYOUT ========== */
 
-.page-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 32px;
-  display: flex;
-  flex-direction: column;
-}
-
 html, body {
   height: 100%;
   margin: 0;
@@ -26,58 +18,47 @@ main {
 }
 
 body {
-   font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background-color: #fff;
+  margin: 0;
+  padding: 0;
+
 }
 
 /* ========== HEADER ========== */
-header {
+.header {
   background-color: #fff;
-  padding-bottom: 32px;
-  overflow-x: clip;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  height: auto;
+  padding-top: 32px;
 }
 
 .header-content {
-  width: 100%;
-  max-width: 1200px;
-  height: 64px;
-  margin: 32px auto 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 135px;
-  position: relative;
+  max-width: 1572px;
+  margin: 0 auto;
   padding: 0 32px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  margin-top: 53px;
-  left: 93px;
   gap: 10px;
-
 }
+
 .logo-icon {
   width: 64px;
   height: 64px;
   filter: hue-rotate(250deg) saturate(25%);
-  top: 32px;
-  left: 32px;
 }
 
 .logo span {
- color: #3E3F43;
-font-family: Nunito;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-letter-spacing: 6px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #3E3F43;
 }
 
 nav ul {
@@ -86,26 +67,16 @@ nav ul {
   margin: 0;
   padding: 0;
   gap: 62px;
-  left:135px;
-  overflow-x: hidden;
-  overflow-y: hidden; 
-  white-space: nowrap;
-}
-
-nav ul li + li {
-  margin-left: +2px;
+  flex-wrap: wrap;
 }
 
 nav a {
   font-family: 'Nunito', sans-serif;
   font-size: 30px;
   font-weight: 400;
-  line-height: 30px;
-  text-decoration: none;
   color: #612999;
+  text-decoration: none;
   transition: color 0.3s ease;
-  display: inline-block;
-  margin-top: 48px;
 }
 
 nav a.active {
@@ -116,21 +87,19 @@ nav a:hover {
   color: #a678e2;
 }
 
-
 /* ========== HERO IMAGE ========== */
 .hero-section {
   position: relative;
   width: 100%;
   height: auto;
   aspect-ratio: 1200 / 797;
-  margin-top: 32px;  
 }
-
 
 .hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+   margin-top: 39px;
 }
 
 .hero-text {
@@ -152,6 +121,7 @@ nav a:hover {
   font-weight: 700;
   margin: 0 0 10px;
   margin-left: 32px;
+  padding-top: 32px;
  font-family: 'Nunito', sans-serif;
 font-style: normal;
 }
@@ -166,29 +136,30 @@ font-weight: 600;
 line-height: normal;
 max-width: 450px;
 margin-left: 32px;
-
 }
 
 /* ========== PRODUCT INTRO ========== */
-
-
 .product-intro h2 {
-  font-size: 40px;
-  font-weight: 700;
+   font-size: 40px;
   font-family: 'Nunito', sans-serif;
   color: #612999;
+  font-weight: 700;
+  margin-bottom: 40px;
   text-align: left;
+  padding: 0;
+  display: block;
+  width: 100%;
   margin-left: 32px;
-  margin-top: 32px;
- 
+  padding-top: 32px;
 }
 
 .product-intro p {
-  margin-top: 32px;
+  font-size: 18px;
+  color: #333;
   margin-left: 32px;
-  margin-right: 32px;
-  color: #000;
+  
 }
+
 
 /* ========== dessert-section ========== */
 .dessert-section-title {
@@ -202,7 +173,7 @@ margin-left: 32px;
   display: block;
   width: 100%;
   margin-left: 32px;
-  margin-top: 32px;
+  padding-top: 32px;
 }
 
 /* ========== product-gallery ========== */
@@ -243,7 +214,6 @@ margin-left: 32px;
   object-fit: cover;
  
 }
-
 
 .favorite-placeholder {
   width: 47px;
@@ -408,8 +378,10 @@ margin-left: 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 1052px;
-  margin: 128px auto 0;
+  width: 100%;
+  max-width: 1572px;
+  margin: 39px auto 0;
+  padding: 0 32px;
   gap: 32px;
 }
 
@@ -419,7 +391,7 @@ margin-left: 32px;
   background-position: center;
   border: 4px solid #E6DBFE;
   border-radius: 8px;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 .box1,
@@ -428,7 +400,7 @@ margin-left: 32px;
 }
 
 .box2 {
-  width: 388.29px;
+  width: 388.286px;
 }
 
 /* ========== DESSERT LIST SECTION ========== */
@@ -438,7 +410,6 @@ margin-left: 32px;
   margin-left: 32px;
   margin-top: 80px;
   padding-left: 32px;
-  height: 2000px;
   background: #FFF;
   font-family: 'Nunito', sans-serif;
 }
@@ -494,11 +465,10 @@ margin-left: 32px;
 
 /* ========== Video-section ========== */
 .video-section {
-  width: 100%;
-  max-width: 1136px;
-  margin: 32px auto;
+  width: 100vw;
   padding: 80px 32px;
-  text-align: center;
+  box-sizing: border-box;
+  margin-bottom: 198px;
 }
 
 .section-title {
@@ -514,17 +484,17 @@ margin-left: 32px;
 
 .video-frame {
   width: 100%;
-  max-width: 1136px;
-  height: 503px;
+  height: 575px;
+  margin: 0 auto;
   background: #EFECFF;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   border-radius: 24px;
-  margin: 0 auto;
   padding: 16px;
 }
+
 
 .video-frame iframe {
   width: 100%;
@@ -532,8 +502,6 @@ margin-left: 32px;
   border: none;
   object-fit: contain;
 }
-
-/* ========== RESPONSIVE ========== */
 
 /* ========== RESPONSIVE @media 768px ========== */
 @media (max-width: 768px) {
@@ -545,7 +513,7 @@ margin-left: 32px;
   nav ul {
     gap: 32px;
     justify-content: space-between;
-    flex-wrap: wrap;   /* איחוד כללי ה־nav */
+    flex-wrap: wrap; 
   }
   nav a {
     font-size: 24px;
