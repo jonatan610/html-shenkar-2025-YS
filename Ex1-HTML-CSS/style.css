@@ -29,13 +29,12 @@ body {
 .header {
   background-color: #fff;
   width: 100%;
-  padding-top: 32px;
+   margin-top: 32px;
+   margin-left: 32px;
 }
 
 .header-content {
   max-width: 1572px;
-  margin: 0 auto;
-  padding: 0 32px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -45,12 +44,15 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+
 }
 
 .logo-icon {
   width: 64px;
   height: 64px;
   filter: hue-rotate(250deg) saturate(25%);
+  padding-top: 21px;
+
 }
 
 .logo span {
@@ -59,6 +61,7 @@ body {
   font-weight: 700;
   letter-spacing: 6px;
   color: #3E3F43;
+  padding-top: 21px;
 }
 
 nav ul {
@@ -68,6 +71,8 @@ nav ul {
   padding: 0;
   gap: 62px;
   flex-wrap: wrap;
+  padding-top: 16px;
+  padding-right: 122px;
 }
 
 nav a {
