@@ -23,9 +23,9 @@ function createCard(item) {
         <h3 class="card-title">${item.title}</h3>
         <span class="badge-author">${item.author}</span>
         <p class="card-text">${item.description}</p>
-        <p><strong>Year:</strong> ${item.year}</p>
-        <p><strong>Genre:</strong> ${item.genre}</p>
-        <p><strong>Rating:</strong> ${item.rating} ⭐</p>
+        <p class="card-meta"><strong>Year:</strong> ${item.year}</p>
+        <p class="card-meta"><strong>Genre:</strong> ${item.genre}</p>
+        <p class="card-meta"><strong>Rating:</strong> ${item.rating} <span class="rating-star">⭐</span></p>
       </div>
     </article>
   `;
