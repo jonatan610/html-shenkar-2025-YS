@@ -1,0 +1,166 @@
+/* ─── Base Reset & Body Gradient ───────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ─── HEADER ───────────────────────────────────────────────────────────────── */
+.header-bg {
+  background: linear-gradient(135deg, #45567d 0%, #6b7f8e 100%);
+  min-height: 25vh;
+}
+.header-bg h1,
+.header-bg p {
+  color: #fff;
+}
+.search-wrap {
+  flex-grow: 1;   /* allow it to expand */
+  max-width: none; /* remove previous cap */
+  width: 100%;
+}
+.search-input {
+  width: 100%;    /* fill its parent */
+  border: none;
+  border-radius: 50px;
+  padding-left: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+.search-input:focus {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+/* ─── CARD IMAGE CONTAINER (no cropping) ───────────────────────────────────── */
+.card-img-container {
+  width: 100%;
+  background-color: #f0f0f0;
+  display: block;
+}
+.card-img-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.card-custom:hover .card-img-container img {
+  transform: scale(1.05);
+}
+
+/* ─── CARD STYLING ─────────────────────────────────────────────────────────── */
+.card-custom {
+  position: relative;
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+              background-color 0.3s ease, color 0.3s ease;
+}
+.card-custom:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.card-title {
+  color: #3a506b; /* muted slate-blue */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.card-subtitle {
+  margin-bottom: 0.5rem;
+  color: #5bc0be; /* muted teal */
+}
+.card-text {
+  flex-grow: 1;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* ─── BADGE ───────────────────────────────────────────────────────────────── */
+.badge-author {
+  background-color: #5bc0be; /* muted teal */
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 0.4em 0.75em;
+  border-radius: 0.5rem;
+}
+
+/* ─── SPINNER & ERROR ─────────────────────────────────────────────────────── */
+#errorContainer {
+  min-height: 1.5rem;
+  font-weight: 500;
+}
+
+/* ─── FOOTER ───────────────────────────────────────────────────────────────── */
+.footer-bg {
+  background: #6b7f8e; /* muted gray-blue */
+  color: #fff;
+}
+
+/* ─── DARK MODE OVERRIDES ──────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  background: #121212;
+  color: #e0e0e0;
+}
+[data-theme="dark"] .header-bg {
+  background: linear-gradient(135deg, #212529 0%, #2c3035 100%);
+}
+[data-theme="dark"] .card-custom {
+  background-color: rgba(40, 40, 40, 0.9);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+[data-theme="dark"] .card-body {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+[data-theme="dark"] .card-title {
+  color: #b0c4de;
+}
+[data-theme="dark"] .card-subtitle {
+  color: #76c7c0;
+}
+[data-theme="dark"] .badge-author {
+  background-color: #76c7c0;
+}
+[data-theme="dark"] .footer-bg {
+  background: #212529;
+}
+
+/* ─── RESPONSIVE TWEAKS ───────────────────────────────────────────────────── */
+@media (max-width: 400px) {
+  .card-img-container img {
+    width: 100%;
+  }
+}
+.pride-background {
+  background: linear-gradient(90deg,
+    #E40303 0%,
+    #FF8C00 16.6%,
+    #FFED00 33.3%,
+    #008026 50%,
+    #004DFF 66.6%,
+    #750787 83.3%
+  );
+  background-size: 600% 600%;
+  animation: prideWave 10s ease infinite;
+  color: rgb(5, 2, 2);
+}
+
+@keyframes prideWave {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}

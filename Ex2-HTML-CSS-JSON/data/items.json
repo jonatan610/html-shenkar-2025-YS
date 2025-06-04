@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "The Little Red Book",
+    "author": "Alice T.",
+    "image": "https://picsum.photos/seed/book1/300/200",
+    "description": "An inspiring tale about coding for beginners."
+  },
+  {
+    "id": 2,
+    "title": "Journey Through JavaScript",
+    "author": "Bob J.",
+    "image": "https://picsum.photos/seed/book2/300/200",
+    "description": "Deep dive into JS concepts, from basics to async/await."
+  },
+  {
+    "id": 3,
+    "title": "CSS Secrets Unveiled",
+    "author": "C. Designer",
+    "image": "https://picsum.photos/seed/book3/300/200",
+    "description": "A guide to responsive layouts and modern CSS tricks."
+  },
+  {
+    "id": 4,
+    "title": "NodeJS for Novices",
+    "author": "D. Backender",
+    "image": "https://picsum.photos/seed/book4/300/200",
+    "description": "Getting started with server-side JavaScript—no server code here!"
+  },
+  {
+    "id": 5,
+    "title": "Async/Await Demystified",
+    "author": "E. Async",
+    "image": "https://picsum.photos/seed/book5/300/200",
+    "description": "Mastering asynchronous patterns in modern JavaScript."
+  },
+  {
+    "id": 6,
+    "title": "ES6 & Beyond",
+    "author": "F. Future",
+    "image": "https://picsum.photos/seed/book6/300/200",
+    "description": "Explore all the features introduced since ES6."
+  }
+]
