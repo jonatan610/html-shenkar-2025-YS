@@ -1,4 +1,6 @@
-
+/* =========================================================
+    Base Styles
+========================================================= */
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +14,9 @@ body {
   min-height: 100vh;
   padding: 20px 15px;
 }
-
+/* =========================================================
+   Header Section
+========================================================= */
 
 .header-bg {
   background: linear-gradient(135deg, #45567d 0%, #6b7f8e 100%);
@@ -33,6 +37,9 @@ body {
   font-size: 1rem;
   opacity: 0.85;
 }
+/* =========================================================
+   Controls: Search, Sort, Theme & Pride Toggle
+========================================================= */
 .controls {
   display: flex;
   gap: 12px;
@@ -73,6 +80,9 @@ body {
   box-shadow: 0 0 12px rgba(53, 122, 189, 0.6);
   outline: none;
 }
+/* =========================================================
+   Theme & Pride Toggle Buttons
+========================================================= */
 button#themeToggle,
 button#prideToggle {
   border-radius: 50px;
@@ -100,6 +110,25 @@ button#prideToggle.btn-primary {
   border: none;
   color: #fff;
 }
+/* =========================================================
+   Card Container (Overall Layout)
+========================================================= */
+.card-custom {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  transition: transform 0.5s ease, box-shadow 0.15s ease;
+}
+
+.card-custom:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================================
+   Card Image Container
+========================================================= */
 .card-img-container {
   width: 100%;
   overflow: hidden;
@@ -107,8 +136,9 @@ button#prideToggle.btn-primary {
   border-top-right-radius: 1rem;
   display: block;
   position: relative;
-  padding-top: 56.25%;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
 }
+
 .card-img-container img {
   position: absolute;
   top: 0;
@@ -120,23 +150,14 @@ button#prideToggle.btn-primary {
   transition: transform 0.3s ease;
 }
 
-.card-custom {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.card-custom:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.card-img-container img {
-  transition: transform 0.15s ease;
-}
-
 .card-custom:hover .card-img-container img {
   transform: scale(1.05);
 }
 
+
+/* =========================================================
+   Card Body (Content Area)
+========================================================= */
 .card-body {
   flex-grow: 1;
   display: flex;
@@ -145,30 +166,45 @@ button#prideToggle.btn-primary {
   padding: 1rem;
   width: 100%;
 }
+
+
+/* =========================================================
+   Card Text Elements
+========================================================= */
 .card-title {
   color: #3a506b;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
+
 .card-subtitle {
   margin-bottom: 0.5rem;
   color: #5bc0be;
 }
+
 .card-text {
   flex-grow: 1;
-  color: #555;
-  line-height: 1.4;
+  font-size: 0.9rem;
+  max-height: 4.5em; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+
+/* =========================================================
+   Badge & Metadata
+========================================================= */
 .badge-author {
   background-color: #5bc0be;
   color: #fff;
   font-size: 0.85rem;
   padding: 0.4em 0.75em;
   border-radius: 0.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   display: inline-block;
   font-weight: 600;
 }
+
 .card-meta {
   display: block;
   width: 100%;
@@ -178,11 +214,16 @@ button#prideToggle.btn-primary {
   border-bottom: 1px solid #ccc;
   color: #444;
 }
+
 .card-meta:last-child {
   border-bottom: none;
   margin-bottom: 0;
   padding-bottom: 0;
 }
+
+/* =========================================================
+   Error Message Container
+========================================================= */
 #errorContainer {
   min-height: 1.5rem;
   font-weight: 500;
@@ -192,7 +233,10 @@ button#prideToggle.btn-primary {
   margin-top: 20px;
 }
 
-/* ─── FOOTER ───────────────────────────────────────────────────────────────── */
+
+/* =========================================================
+   Footer
+========================================================= */
 .footer-bg {
   background: #6b7f8e;
   color: #fff;
@@ -201,6 +245,9 @@ button#prideToggle.btn-primary {
   margin-top: 40px;
   border-radius: 1rem;
 }
+/* =========================================================
+   Dark Theme Overrides
+========================================================= */
 [data-theme="dark"] {
   background: #121212;
   color: #e0e0e0;
@@ -228,11 +275,17 @@ button#prideToggle.btn-primary {
 [data-theme="dark"] .footer-bg {
   background: #212529;
 }
+/* =========================================================
+   Responsive Adjustments
+========================================================= */
 @media (max-width: 400px) {
   .card-img-container img {
     width: 100%;
   }
 }
+/* =========================================================
+   Pride Background Animation
+========================================================= */
 .pride-background {
   background: linear-gradient(90deg,
     #E40303 0%,

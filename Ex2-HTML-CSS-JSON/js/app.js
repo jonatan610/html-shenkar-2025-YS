@@ -1,36 +1,54 @@
+// =======================
+// DOM Elements Selection
+// =======================
 const cardsContainer = document.getElementById('cardsContainer');
 const errorContainer = document.getElementById('errorContainer');
 const searchInput = document.getElementById('searchInput');
 const sortSelect = document.getElementById('sortSelect');
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = document.getElementById('themeIcon');
+
+// =======================
+// Pride Mode Button Setup
+// =======================
 const prideToggle = document.createElement('button');
 prideToggle.textContent = '🌈 Pride Mode';
 prideToggle.className = 'btn btn-outline-primary ms-2';
 prideToggle.id = 'prideToggle';
 document.querySelector('header .container > section:last-child').appendChild(prideToggle);
 
+// =======================
+// Data Variables
+// =======================
 let items = [];
 let filteredItems = [];
 
+// =======================
+// Card Creation Function
+// =======================
 function createCard(item) {
   return `
-    <article class="card-custom col">
-      <div class="card-img-container">
-        <img src="${item.image}" alt="${item.title}" onerror="this.style.display='none'" />
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">${item.title}</h3>
-        <span class="badge-author">${item.author}</span>
-        <p class="card-text">${item.description}</p>
-        <p class="card-meta"><strong>Year:</strong> ${item.year}</p>
-        <p class="card-meta"><strong>Genre:</strong> ${item.genre}</p>
-        <p class="card-meta"><strong>Rating:</strong> ${item.rating} <span class="rating-star">⭐</span></p>
-      </div>
-    </article>
+    <div class="col">
+      <article class="card-custom">
+        <section class="card-img-container">
+          <img src="${item.image}" alt="${item.title}" onerror="this.style.display='none'" />
+        </section>
+        <section class="card-body">
+          <h3 class="card-title">${item.title}</h3>
+          <span class="badge-author">${item.author}</span>
+          <p class="card-text">${item.description}</p>
+          <p class="card-meta"><strong>Year:</strong> ${item.year}</p>
+          <p class="card-meta"><strong>Genre:</strong> ${item.genre}</p>
+          <p class="card-meta"><strong>Rating:</strong> ${item.rating} <span class="rating-star">⭐</span></p>
+        </section>
+      </article>
+    </div>
   `;
 }
 
+// =======================
+// Card Display Function
+// =======================
 function displayCards(list) {
   if (list.length === 0) {
     errorContainer.textContent = "No items found.";
@@ -41,6 +59,9 @@ function displayCards(list) {
   cardsContainer.innerHTML = list.map(createCard).join('');
 }
 
+// =======================
+// Data Fetch and Mapping
+// =======================
 fetch('data/items.json')
   .then(response => {
     if (!response.ok) throw new Error('Network response was not OK');
@@ -60,6 +81,9 @@ fetch('data/items.json')
     errorContainer.textContent = "Failed to load data.";
   });
 
+// =======================
+// Search Input Handling
+// =======================
 searchInput.addEventListener('input', () => {
   const query = searchInput.value.trim().toLowerCase();
   filteredItems = items.filter(item => {
@@ -68,6 +92,9 @@ searchInput.addEventListener('input', () => {
   sortAndDisplay();
 });
 
+// =======================
+// Sorting Function
+// =======================
 function sortAndDisplay() {
   const value = sortSelect.value;
   if (!value) {
@@ -85,6 +112,9 @@ function sortAndDisplay() {
 
 sortSelect.addEventListener('change', sortAndDisplay);
 
+// =======================
+// Theme Handling
+// =======================
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
@@ -99,7 +129,11 @@ themeToggle.addEventListener('click', () => {
   setTheme(currentTheme === 'light' ? 'dark' : 'light');
 });
 
+// =======================
+// Pride Mode Toggle
+// =======================
 const prideBackgroundClass = 'pride-background';
+
 prideToggle.addEventListener('click', () => {
   if (document.body.classList.contains(prideBackgroundClass)) {
     document.body.classList.remove(prideBackgroundClass);
@@ -114,7 +148,11 @@ prideToggle.addEventListener('click', () => {
   }
 });
 
+// =======================
+// Initialize Pride Mode
+// =======================
 const savedPrideMode = localStorage.getItem('prideMode') || 'off';
+
 if (savedPrideMode === 'on') {
   document.body.classList.add(prideBackgroundClass);
   prideToggle.classList.remove('btn-outline-primary');
