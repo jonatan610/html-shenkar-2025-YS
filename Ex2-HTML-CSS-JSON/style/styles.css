@@ -118,6 +118,7 @@ button#prideToggle.btn-primary {
   flex-direction: column;
   height: 100%; 
   transition: transform 0.5s ease, box-shadow 0.15s ease;
+  min-height: 400px;
 }
 
 .card-custom:hover {
@@ -159,22 +160,23 @@ button#prideToggle.btn-primary {
    Card Body (Content Area)
 ========================================================= */
 .card-body {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  background: #fff;
   padding: 1rem;
   width: 100%;
+  min-height: 150px;
 }
-
-
 /* =========================================================
    Card Text Elements
 ========================================================= */
 .card-title {
   color: #3a506b;
+  font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  white-space: nowrap;
+  word-break: break-word;
 }
 
 .card-subtitle {
@@ -194,6 +196,7 @@ button#prideToggle.btn-primary {
 /* =========================================================
    Badge & Metadata
 ========================================================= */
+
 .badge-author {
   background-color: #5bc0be;
   color: #fff;
@@ -201,10 +204,13 @@ button#prideToggle.btn-primary {
   padding: 0.4em 0.75em;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
-  display: inline-block;
   font-weight: 600;
+  min-height: 30px;
+  line-height: 30px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
 }
-
 .card-meta {
   display: block;
   width: 100%;
