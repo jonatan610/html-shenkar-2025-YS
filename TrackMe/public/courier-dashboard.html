@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrackMe</title>
+
+    <link rel="stylesheet" href="styles/mobile-dashboard.css" />
+
+</head>
+
+<body>
+    <div class="page-container">
+
+        <header id="section-header" class="site-header">
+            <section class="header-container">
+                <a href="#" class="logo">
+                    <img src="assets/icons/plane-mobile.svg" alt="TrackMe logo icon" />
+                    <span class="logo-text">TrackMe</span>
+                </a>
+                <section class="user-greeting">
+                    <span>Hello, </span>
+                    <span class="user-name">Chen !</span>
+                </section>
+                <button class="menu-button" aria-label="Open menu">
+          <img src="assets/icons/menu.svg" alt="Menu icon" />
+        </button>
+            </section>
+        </header>
+
+        <main id="section-main" class="main-content">
+            <p class="delivery-status">Approaching delivery location</p>
+
+            <article class="card job-card">
+                <header class="job-header">
+                    <p class="job-id">Job ID # 0001</p>
+                    <section class="job-status-container">
+                        <span class="status-badge">Active</span>
+                        <img src="assets/icons/arrow.svg" alt="Arrow right" class="arrow-icon" />
+                    </section>
+                </header>
+
+                <section class="job-info">
+                    <section class="info-item">
+                        <img src="assets/icons/des.svg" alt="Destination icon" class="info-icon" />
+                        <span class="info-label">Destination</span>
+                        <span class="info-value">USA</span>
+                    </section>
+                    <section class="info-item">
+                        <img src="assets/icons/des1.svg" alt="Delivery date icon" class="info-icon" />
+                        <span class="info-label">Delivery</span>
+                        <span class="info-value">03/04/24</span>
+                    </section>
+                </section>
+
+                <section class="action-buttons">
+                    <button class="action-button">
+            <span class="action-icon-wrapper"><img src="assets/icons/call1.svg" alt="Call Center" /></span>
+            <span>Call Center</span>
+          </button>
+                    <button class="action-button">
+            <span class="action-icon-wrapper"><img src="assets/icons/chat1.svg" alt="Chat" /></span>
+            <span>Chat</span>
+          </button>
+                    <button class="action-button">
+            <span class="action-icon-wrapper"><img src="assets/icons/nav1.svg" alt="Navigate" /></span>
+            <span>Navigate</span>
+          </button>
+                    <button class="action-button">
+            <span class="action-icon-wrapper"><img src="assets/icons/dco1.svg" alt="Documents" /></span>
+            <span>Documents</span>
+          </button>
+                </section>
+            </article>
+
+            <article class="card status-card">
+                <h2 class="card-title">Status</h2>
+                <section class="status-progress-bar">
+                    <section class="progress-step completed">
+                        <span class="progress-icon"><img src="assets/icons/step1.svg" alt="Step 1 completed" /></span>
+                    </section>
+                    <section class="progress-line completed"></section>
+                    <section class="progress-step completed">
+                        <span class="progress-icon"><img src="assets/icons/step2.svg" alt="Step 2 completed" /></span>
+                    </section>
+                    <section class="progress-line completed"></section>
+                    <section class="progress-step completed">
+                        <span class="progress-icon"><img src="assets/icons/location1.svg" alt="Step 3 completed" /></span>
+                    </section>
+                    <section class="progress-line pending"></section>
+                    <section class="progress-step pending">
+                        <span class="progress-icon"><img src="assets/icons/file1.svg" alt="Step 4 pending" /></span>
+                    </section>
+                </section>
+            </article>
+        </main>
+
+        <footer id="section-footer" class="site-footer">
+            <nav class="bottom-nav">
+                <a href="#home" class="nav-item active">
+                    <img src="assets/icons/home1.svg" alt="Home icon" />
+                    <span>Home</span>
+                </a>
+                <a href="#jobs" class="nav-item">
+                    <img src="assets/icons/jobs1.svg" alt="Jobs icon" />
+                    <span>Jobs</span>
+                </a>
+                <a href="#shifts" class="nav-item">
+                    <img src="assets/icons/shifts.svg" alt="Shifts icon" />
+                    <span>Shifts</span>
+                </a>
+            </nav>
+        </footer>
+    </div>
+</body>
+
+</html>

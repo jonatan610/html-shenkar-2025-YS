@@ -1,0 +1,314 @@
+:root {
+    --brand-primary: #1e3a8a;
+    --brand-secondary: #047857;
+    --surface-primary: #ffffff;
+    --surface-secondary: #f9fafb;
+    --surface-tertiary: #f3f4f6;
+    --surface-disabled: #e5e7eb;
+    --surface-success: #d1fae5;
+    --text-primary: #000000;
+    --text-secondary: #4b5563;
+    --text-tertiary: #9ca3af;
+    --text-on-brand: #ffffff;
+    --text-success: #047857;
+    --border-primary: #e5e7eb;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--surface-secondary);
+    color: var(--text-primary);
+}
+
+.page-container {
+    max-width: 375px;
+    margin: 0 auto;
+    background-color: var(--surface-secondary);
+    padding-bottom: 80px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.site-header {
+    background-color: var(--surface-primary);
+    padding: 12px 16px;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 343px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-text {
+    color: var(--brand-primary);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 28px;
+}
+
+.user-greeting {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 13.6px;
+    line-height: 24px;
+    color: var(--text-primary);
+}
+
+.user-greeting .user-name {
+    font-weight: 600;
+}
+
+.menu-button {
+    padding: 4px;
+}
+
+.menu-button img {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.main-content {
+    padding: 16px 0;
+}
+
+.delivery-status {
+    margin: 0 0 16px 0;
+    padding: 0 16px;
+    color: var(--text-secondary);
+    font-size: 13.6px;
+    line-height: 24px;
+}
+
+.card {
+    background-color: var(--surface-primary);
+    border-radius: 8px;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    margin: 0 16px 16px;
+    padding: 16px;
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.job-id {
+    margin: 0;
+    font-weight: 500;
+    font-size: 13.6px;
+    line-height: 24px;
+}
+
+.job-status-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-badge {
+    background-color: var(--surface-success);
+    color: var(--text-success);
+    border-radius: 9999px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: center;
+}
+
+.arrow-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.job-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.info-label {
+    font-weight: 700;
+    font-size: 13.6px;
+    line-height: 24px;
+}
+
+.info-value {
+    margin-left: auto;
+    font-weight: 400;
+    font-size: 13.6px;
+    line-height: 24px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid var(--border-primary);
+    padding-top: 16px;
+}
+
+.action-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 10.2px;
+    line-height: 16px;
+    color: var(--text-primary);
+}
+
+.action-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--surface-tertiary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-icon-wrapper img {
+    width: 20px;
+    height: 20px;
+}
+
+.status-card {
+    padding: 24px 16px;
+}
+
+.card-title {
+    margin: 0 0 24px 0;
+    font-weight: 500;
+    font-size: 13.6px;
+    line-height: 24px;
+}
+
+.status-progress-bar {
+    display: flex;
+    align-items: center;
+}
+
+.progress-step {
+    flex-shrink: 0;
+}
+
+.progress-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.progress-step.completed .progress-icon {
+    background-color: var(--brand-primary);
+}
+
+.progress-step.pending .progress-icon {
+    background-color: var(--surface-disabled);
+}
+
+.progress-line {
+    height: 2px;
+    flex-grow: 1;
+    margin: 0 8px;
+}
+
+.progress-line.completed {
+    background-color: var(--brand-primary);
+}
+
+.progress-line.pending {
+    background-color: var(--surface-disabled);
+}
+
+.site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--surface-primary);
+    border-top: 1px solid var(--border-primary);
+}
+
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 375px;
+    margin: 0 auto;
+    padding: 9px 16px;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-item img {
+    width: 24px;
+    height: 24px;
+}
+
+.nav-item span {
+    font-size: 10.2px;
+    line-height: 16px;
+}
+
+.nav-item.active span {
+    color: var(--brand-primary);
+}
+
+.nav-item:not(.active) span {
+    color: var(--text-tertiary);
+}

@@ -1,127 +1,90 @@
-:root {
-    --color-primary: #1e3a8a;
-    --color-white: #ffffff;
-    --color-background: #f8f9fa;
-    --color-text-dark: #000000;
-    --color-text-primary: #374151;
-    --color-text-secondary: #6b7280;
-    --color-placeholder: #cccccc;
-    --color-border: #e5e7eb;
-    --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
-  }
-  
-  * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: var(--color-background);
-    color: var(--color-text-primary);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 16px;
-  }
-  
-  h1, h2, p, label {
-    margin: 0;
-  }
-  
-  input, button {
-    font-family: inherit;
-  }
-  
-  /* CSS from section:login */
-  .login-container {
+.login-container {
     width: 100%;
     max-width: 375px;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .login-main {
+}
+
+.login-main {
     width: 100%;
-  }
-  
-  .login-header {
+}
+
+.login-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 7.4px; /* Based on x-pos difference: -550.6 - (-590 + 32) */
-    margin-bottom: 72px; /* Based on y-pos difference: -196.5 - (-308.5 + 40) */
-  }
-  
-  .logo-icon {
+    gap: 7.4px;
+    margin-bottom: 72px;
+}
+
+.logo-icon {
     width: 32px;
     height: 32px;
-  }
-  
-  .brand-name {
+}
+
+.brand-name {
     font-size: 30.6px;
     font-weight: 700;
     color: var(--color-primary);
     line-height: 40px;
-  }
-  
-  .login-card {
+}
+
+.login-card {
     background-color: var(--color-white);
     border-radius: 12px;
     box-shadow: var(--shadow-sm);
-    padding: 32px; /* Based on y-pos difference: -164.5 - (-196.5) */
+    padding: 32px;
     width: 100%;
-  }
-  
-  .card-header {
+}
+
+.card-header {
     text-align: center;
-    margin-bottom: 24px; /* Based on y-pos difference: -80.5 - (-104.5) */
-  }
-  
-  .welcome-title {
+    margin-bottom: 24px;
+}
+
+.welcome-title {
     font-size: 20.4px;
     font-weight: 600;
     color: var(--color-text-dark);
     line-height: 32px;
-    margin-bottom: 8px; /* Based on y-pos difference: -124.5 - (-132.5) */
-  }
-  
-  .welcome-subtitle {
+    margin-bottom: 8px;
+}
+
+.welcome-subtitle {
     font-size: 12px;
     font-weight: 400;
     color: var(--color-text-secondary);
     line-height: 20px;
-  }
-  
-  .login-form {
+}
+
+.login-form {
     display: flex;
     flex-direction: column;
-  }
-  
-  .form-group {
-    margin-bottom: 16px; /* Based on y-pos difference: 9.5 - (-6.5) */
-  }
-  
-  .form-group:last-of-type {
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group:last-of-type {
     margin-bottom: 0;
-  }
-  
-  .form-group label {
+}
+
+.form-group label {
     display: block;
     font-size: 12px;
     font-weight: 500;
     color: var(--color-text-primary);
     line-height: 20px;
-    margin-bottom: 8px; /* Based on y-pos difference: -52.5 - (-60.5) */
-  }
-  
-  .input-wrapper {
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
     position: relative;
-  }
-  
-  .form-control {
+}
+
+.form-control {
     width: 100%;
     height: 46px;
     padding: 11px 17px;
@@ -131,18 +94,18 @@
     background-color: var(--color-white);
     border: 1px solid var(--color-border);
     border-radius: 8px;
-  }
-  
-  .form-control::placeholder {
+}
+
+.form-control::placeholder {
     color: var(--color-placeholder);
-  }
-  
-  .form-control:focus {
+}
+
+.form-control:focus {
     outline: 2px solid var(--color-primary);
     outline-offset: -1px;
-  }
-  
-  .toggle-password-btn {
+}
+
+.toggle-password-btn {
     position: absolute;
     top: 50%;
     right: 17px;
@@ -156,10 +119,10 @@
     justify-content: center;
     width: 20px;
     height: 20px;
-  }
-  
-  .submit-btn {
-    margin-top: 40px; /* Approximated from layout, considering the empty frame 50:209 */
+}
+
+.submit-btn {
+    margin-top: 40px;
     height: 44px;
     background-color: var(--color-primary);
     color: var(--color-white);
@@ -170,13 +133,13 @@
     border-radius: 8px;
     cursor: pointer;
     transition: opacity 0.2s;
-  }
-  
-  .submit-btn:hover {
-    opacity: 0.9;
-  }
+}
 
-  .form-message {
+.submit-btn:hover {
+    opacity: 0.9;
+}
+
+.form-message {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -184,20 +147,19 @@
     font-size: 13px;
     border-radius: 8px;
     margin-bottom: 16px;
-  }
-  
-  .form-message.error {
+}
+
+.form-message.error {
     background-color: #fee2e2;
     color: #b91c1c;
-  }
-  
-  .form-message.success {
+}
+
+.form-message.success {
     background-color: #dcfce7;
     color: #15803d;
-  }
-  
-  .form-message .icon {
+}
+
+.form-message .icon {
     width: 18px;
     height: 18px;
-  }
-  
+}
