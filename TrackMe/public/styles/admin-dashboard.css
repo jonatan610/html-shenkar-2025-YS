@@ -1,0 +1,367 @@
+/* Reset & base */
+* {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+    color: #1E3A8A; /* royal blue */
+  }
+  
+  /* Header styling */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  /* Logo styles */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 24px;
+    color: #1E3A8A;
+  }
+  .logo img {
+    height: 28px;
+    width: 28px;
+  }
+  
+  /* Navigation bar */
+  .main-nav {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1E3A8A; /* navy blue for all nav text */
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+  }
+  .nav-item img {
+    filter: none; /* show icons in original color */
+    height: 20px;
+    width: 20px;
+  }
+
+  .nav-item.jobs img {
+    filter: none; /* remove any grayscale */
+    fill: #1E3A8A; /* for SVG icons that support fill */
+    color: #1E3A8A; /* fallback for other types */
+  }
+ 
+  .nav-item:hover {
+    background-color: #e0e7ff;
+  }
+  
+  /* User info in header */
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1E3A8A;
+  }
+  .user-info img {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background-color: transparent;
+    filter: none;
+  }
+  
+  /* Main dashboard content area */
+  .dashboard-main {
+    padding: 24px 16px;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+  
+  /* Controls: Search, Filters, Sort */
+  .controls {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: center;
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    outline-offset: 2px;
+  }
+  .search-input::placeholder {
+    color: #9ca3af;
+  }
+  
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #f3f4f6;
+    color: #374151;
+    transition: background-color 0.2s ease;
+  }
+  .btn img {
+    height: 18px;
+    width: 18px;
+  }
+  .btn:hover {
+    background-color: #e0e7ff;
+    color: #1E3A8A;
+  }
+  
+  /* Jobs list layout with two columns */
+  .jobs-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 24px;
+  }
+  
+  /* Job card styling */
+  .job-card {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* Job header with ID */
+  .job-header {
+    display: flex;
+    gap: 8px;
+    font-weight: 600;
+    color: #334155;
+    font-size: 14px;
+  }
+  .job-header strong {
+    font-weight: 700;
+  }
+  
+  /* Job details section */
+  .job-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #475569;
+    font-size: 16px;
+  }
+  
+  /* Individual job detail row */
+  .job-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .job-detail img {
+    height: 18px;
+    width: 18px;
+  }
+  .job-detail strong {
+    font-weight: 700;
+  }
+  
+  /* Job status badge */
+  .job-status {
+    display: inline-block;
+    font-size: 14px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-align: center;
+    width: fit-content;
+    user-select: none;
+  }
+  .job-status.active {
+    background-color: #d1fae5; /* mint */
+    color: #047857; /* green */
+  }
+  .job-status.on-hold {
+    background-color: #fee2e2; /* misty rose */
+    color: #b91c1c; /* firebrick */
+  }
+  
+  .job-link {
+    display: block;
+    text-decoration: none; /* Remove underline */
+    color: inherit;
+  }
+  
+  .job-link:hover {
+    filter: brightness(0.95);
+  }
+  
+  /* Filter Popup Styles */
+.filter-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  max-width: 90vw;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  padding: 24px 32px;
+  font-family: 'Inter', sans-serif;
+  color: #1e3a8a;
+}
+
+/* Header */
+.filter-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 24px;
+  position: relative;
+}
+.filter-icon {
+  width: 24px;
+  height: 24px;
+}
+.close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 28px;
+  line-height: 1;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+}
+.close-btn:hover {
+  color: #1e3a8a;
+}
+
+/* Filter form */
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  font-size: 16px;
+  color: #334155;
+}
+
+/* Each group of filters */
+.filter-group {
+  flex: 1 1 45%;
+  min-width: 240px;
+}
+
+/* Group header */
+.filter-group header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #1e3a8a;
+}
+.group-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Checkbox label */
+.filter-group label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.filter-group label:hover {
+  background-color: #e0e7ff;
+}
+
+/* Checkbox input */
+.filter-group input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+/* Count badge */
+.count {
+  color: #64748b;
+  font-weight: 500;
+}
+.filter-footer {
+  direction: ltr;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+
+.cancel-btn {
+  background: none;
+  border: none;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color 0.2s ease;
+}
+.cancel-btn:hover {
+  color: #1e3a8a;
+}
+
+.apply-btn {
+  background-color: #1e3a8a;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.apply-btn:hover {
+  background-color: #3b82f6;
+}
