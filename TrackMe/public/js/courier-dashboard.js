@@ -1,3 +1,7 @@
+let mapInitialized = false;
+
+
+
 // ========== Toggle Burger Menu ========== //
 function toggleMenu() {
     const menu = document.getElementById("burger-popup");
@@ -58,11 +62,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ========== Delivery Location Popup ========== //
 function openDeliveryPopup() {
-    document.getElementById("delivery-popup").classList.remove("hidden");
+  document.getElementById("delivery-popup").classList.remove("hidden");
+
+  if (!mapInitialized) {
+    setTimeout(() => {
+      initMap();
+      mapInitialized = true;
+    }, 100);
+  }
 }
+function copyAddress() {
+  const address = "123 Mount Sinai Hospital, Manhattan, New York, NY 10029";
+  navigator.clipboard.writeText(address)
+    .then(() => {
+      alert("Address copied to clipboard!");
+    })
+    .catch(() => {
+      alert("Failed to copy address.");
+    });
+}
+
+
 
 function closeDeliveryPopup() {
     document.getElementById("delivery-popup").classList.add("hidden");
+}
+
+function initMap() {
+  const deliveryLocation = { lat: 40.7903, lng: -73.9536 }; // Mount Sinai Hospital
+
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 15,
+    center: deliveryLocation,
+  });
+
+  new google.maps.Marker({
+    position: deliveryLocation,
+    map: map,
+    title: "Mount Sinai Hospital"
+  });
 }
 
 // ========== Call Popup ========== //
@@ -87,25 +125,45 @@ function openFullChat() {
   window.location.href = 'courier-chat.html';
 }
 
+function openDeliveryPopup() {
+  document.getElementById("delivery-popup").classList.remove("hidden");
+
+  setTimeout(() => {
+    initMap();
+  }, 100);
+}
+
 // ========== Button Actions ========== //
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".action-button").forEach(button => {
-        button.addEventListener("click", () => {
-            const action = button.getAttribute("data-action");
-            switch (action) {
-                case "Call Center":
-                    openCallPopup("Pickup Center", "Medical Center Reception", "+1-555-0123", "Call Pickup Center");
-                    break;
-                case "Chat":
-                    openChatPopup();
-                    break;
-                case "Navigate":
-                    openDeliveryPopup();
-                    break;
-                case "Documents":
-                    openDocumentsPopup();
-                    break;
-            }
-        });
+  // סמן התקדמות של שלבים
+  markProgress(4); 
+
+  // מאזין לכל כפתורי הפעולה
+  document.querySelectorAll(".action-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const action = button.getAttribute("data-action");
+      switch (action) {
+        case "Call Center":
+          openCallPopup("Pickup Center", "Medical Center Reception", "+1-555-0123", "Call Pickup Center");
+          break;
+        case "Chat":
+          openChatPopup();
+          break;
+        case "Navigate":
+          openDeliveryPopup();
+          break;
+        case "Documents":
+          openDocumentsPopup();
+          break;
+      }
     });
+  });
+
+  // מאזין ללחיצה על חץ ה־Job
+  const jobArrow = document.getElementById("job-arrow");
+  if (jobArrow) {
+    jobArrow.addEventListener("click", () => {
+      window.location.href = "courier-activeJob.html";
+    });
+  }
 });

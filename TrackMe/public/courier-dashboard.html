@@ -37,10 +37,10 @@
             <article class="card job-card">
                 <header class="job-header">
                     <p class="job-id">Job ID # 0001</p>
-                    <section class="job-status-container">
-                        <span class="status-badge">Active</span>
-                        <img src="assets/icons/arrow.svg" alt="Arrow right" class="arrow-icon" />
-                    </section>
+               <section class="job-status-container">
+    <span class="status-badge">Active</span>
+    <img src="assets/icons/arrow.svg" alt="Arrow right" class="arrow-icon" id="job-arrow" />
+</section>
                 </header>
 
                 <section class="job-info">
@@ -294,58 +294,55 @@
             </section>
         </section>
 
-
-
-        <!-- Location Popup -->
-        <section id="delivery-popup" class="popup-overlay hidden">
-            <section class="popup-sheet">
-                <section class="popup-content">
-
-                    <section class="popup-header">
-                        <section class="popup-heading">
-                            <section class="popup-icon-bg">
-                                <img src="assets/icons/loc1.svg" alt="Location" class="popup-icon-inline" />
-                            </section>
-                            <h2>Delivery Location</h2>
-                        </section>
-                        <button class="popup-close-button" onclick="closeDeliveryPopup()">
-                            <img src="assets/icons/x.svg" alt="Close" />
-                        </button>
-                    </section>
-
-                    <section class="delivery-info">
-                        <p class="label">Location Name</p>
-                        <p class="value">Mount Sinai Hospital</p>
-                        <p class="label">Address</p>
-                        <p class="value">
-                            123 Mount Sinai Hospital, Manhattan,<br /> New York, NY 10029
-                        </p>
-                    </section>
-
-                    <section class="map-preview">
-                        <p>Map preview will be shown here</p>
-                    </section>
-
-                    <button class="popup-button primary">
-                        <img src="assets/icons/loc2.svg" alt="Navigate" />
-                        <span>Navigate to Delivery</span>
-                        <img src="assets/icons/arrow-top-right.svg" alt="Arrow" class="arrow-icon" />
-                    </button>
-
-                    <button class="popup-button secondary">
-                        <img src="assets/icons/copy.svg" alt="Copy" />
-                        <span>Copy Address</span>
-                    </button>
-                    <button class="popup-button cancel" onclick="closeDeliveryPopup()">
-                        <img src="assets/icons/x.svg" alt="Close" />
-                        <span>Close</span>
-                    </button>
-
-
-                </section>
-            </section>
+<!-- Location Popup -->
+<section id="delivery-popup" class="popup-overlay hidden">
+  <section class="popup-sheet">
+    <section class="popup-content">
+      <section class="popup-header">
+        <section class="popup-heading">
+          <section class="popup-icon-bg">
+            <img src="assets/icons/loc1.svg" alt="Location" class="popup-icon-inline" />
+          </section>
+          <h2>Delivery Location</h2>
         </section>
+        <button class="popup-close-button" onclick="closeDeliveryPopup()">
+          <img src="assets/icons/x.svg" alt="Close" />
+        </button>
+      </section>
 
+      <section class="delivery-info">
+        <p class="label">Location Name</p>
+        <p class="value">Mount Sinai Hospital</p>
+        <p class="label">Address</p>
+        <p class="value">123 Mount Sinai Hospital, Manhattan,<br /> New York, NY 10029</p>
+      </section>
+
+      <section class="map-preview">
+        <section id="map" style="width: 100%; height: 200px;"></section>
+      </section>
+
+      <a
+        href="https://www.google.com/maps/dir/?api=1&destination=40.7903,-73.9536"
+        target="_blank"
+        class="popup-button primary"
+      >
+        <img src="assets/icons/loc2.svg" alt="Navigate" />
+        <span>Navigate to Delivery</span>
+        <img src="assets/icons/arrow-top-right.svg" alt="Arrow" class="arrow-icon" />
+      </a>
+
+   <button class="popup-button secondary" onclick="copyAddress()">
+  <img src="assets/icons/copy.svg" alt="Copy" />
+  <span>Copy Address</span>
+</button>
+
+      <button class="popup-button cancel" onclick="closeDeliveryPopup()">
+        <img src="assets/icons/x.svg" alt="Close" />
+        <span>Close</span>
+      </button>
+    </section>
+  </section>
+</section>
 
         <!-- Call Popup -->
         <section id="call-popup" class="popup-overlay hidden">
@@ -356,7 +353,7 @@
                             <img src="assets/icons/call-mobile.svg" alt="icon" class="popup-icon-inline" />
                             <h2 id="popup-title">Pickup Center</h2>
                         </section>
-                        <p id="popup-subtitle">Medical Center Reception</p>
+    
                     </section>
 
                     <section class="popup-phone" id="popup-phone">+1-555-0123</section>
@@ -376,6 +373,10 @@
 
         <!-- ========== JAVASCRIPT ========== -->
         <script src="js/courier-dashboard.js"></script>
+        <script async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOuXpol_c7Q64l_8k5pPCVVH1R41MDMOk&callback=initMap">
+</script>
+
 
 </body>
 
