@@ -1,0 +1,1047 @@
+                                :root {
+                                   /* Color Variables */
+                                   --brand-primary: #1e3a8a;
+                                   --brand-secondary: #047857;
+                                   --surface-primary: #ffffff;
+                                   --surface-secondary: #f9fafb;
+                                   --surface-tertiary: #f3f4f6;
+                                   --surface-disabled: #e5e7eb;
+                                   --surface-success: #d1fae5;
+                                   --text-primary: #000000;
+                                   --text-secondary: #4b5563;
+                                   --text-tertiary: #9ca3af;
+                                   --text-on-brand: #ffffff;
+                                   --text-success: #047857;
+                                   --border-primary: #e5e7eb;
+                               }
+                               /* Base Reset and Layout */
+                               
+                               html,
+                               body {
+                                   height: 100%;
+                                   margin: 0;
+                                   font-family: 'Inter', sans-serif;
+                                   background-color: var(--surface-secondary);
+                                   color: var(--text-primary);
+                               }
+                               
+                               .page-container {
+                                   display: flex;
+                                   flex-direction: column;
+                                   min-height: 100vh;
+                                   max-width: 375px;
+                                   margin: 0 auto;
+                                   background-color: var(--surface-secondary);
+                               }
+                               /* ===========================
+   Layout: Header
+   =========================== */
+                               
+                               .site-header {
+                                   background-color: var(--surface-primary);
+                                   padding: 12px 16px;
+                                   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+                               }
+                               
+                               .header-container {
+                                   display: flex;
+                                   justify-content: space-between;
+                                   align-items: center;
+                                   max-width: 343px;
+                                   margin: 0 auto;
+                               }
+                               
+                               .logo {
+                                   display: flex;
+                                   align-items: center;
+                                   gap: 8px;
+                               }
+                               
+                               .logo-text {
+                                   color: var(--brand-primary);
+                                   font-weight: 700;
+                                   font-size: 17px;
+                                   line-height: 28px;
+                               }
+                               
+                               .user-greeting {
+                                   font-size: 13.6px;
+                                   color: var(--text-primary);
+                               }
+                               
+                               .user-greeting .user-name {
+                                   font-weight: 600;
+                               }
+                               /* ===========================
+   Buttons and Links
+   =========================== */
+                               
+                               button {
+                                   padding: 0;
+                                   border: none;
+                                   background: none;
+                                   cursor: pointer;
+                                   font-family: inherit;
+                               }
+                               
+                               a {
+                                   text-decoration: none;
+                                   color: inherit;
+                               }
+                               
+                               .menu-button img {
+                                   display: block;
+                                   width: 24px;
+                                   height: 24px;
+                               }
+                               /* ===========================
+   Content Section
+   =========================== */
+                               
+                               .main-content {
+                                   flex-grow: 1;
+                                   display: flex;
+                                   flex-direction: column;
+                                   gap: 16px;
+                                   padding: 16px 0;
+                                   overflow: auto;
+                               }
+                               
+                               .delivery-status {
+                                   margin: 0 0 16px;
+                                   padding: 0 16px;
+                                   color: var(--text-secondary);
+                                   font-size: 13.6px;
+                               }
+                               /* ===========================
+   Job Card Styles
+   =========================== */
+                               
+                               .card {
+                                   background-color: var(--surface-primary);
+                                   border-radius: 8px;
+                                   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+                                   margin: 0 16px;
+                                   padding: 16px;
+                               }
+                               
+                               .job-header {
+                                   display: flex;
+                                   justify-content: space-between;
+                                   align-items: center;
+                                   margin-bottom: 60px;
+                               }
+                               
+                               .job-id {
+                                   font-weight: 500;
+                                   font-size: 13.6px;
+                               }
+                               
+                               .job-status-container {
+                                   display: flex;
+                                   align-items: center;
+                                   gap: 8px;
+                               }
+                               
+                               .status-badge {
+                                   background-color: var(--surface-success);
+                                   color: var(--text-success);
+                                   border-radius: 9999px;
+                                   padding: 8px 16px;
+                                   font-size: 12px;
+                                   font-weight: 500;
+                               }
+                               
+                               .arrow-icon {
+                                   width: 20px;
+                                   height: 20px;
+                               }
+                               
+                               .job-info {
+                                   display: flex;
+                                   flex-direction: column;
+                                   gap: 16px;
+                                   margin-bottom: 24px;
+                               }
+                               
+                               .info-item {
+                                   display: flex;
+                                   align-items: center;
+                                   gap: 8px;
+                               }
+                               
+                               .info-icon {
+                                   width: 20px;
+                                   height: 20px;
+                               }
+                               
+                               .info-label {
+                                   font-weight: 700;
+                                   font-size: 13.6px;
+                               }
+                               
+                               .info-value {
+                                   margin-left: auto;
+                                   font-weight: 400;
+                               }
+                               /* ===========================
+   Action Buttons
+   =========================== */
+                               
+                               .action-buttons {
+                                   display: flex;
+                                   justify-content: space-around;
+                                   border-top: 1px solid var(--border-primary);
+                                   padding-top: 16px;
+                               }
+                               
+                               .action-button {
+                                   display: flex;
+                                   flex-direction: column;
+                                   align-items: center;
+                                   gap: 8px;
+                                   font-size: 10.2px;
+                               }
+                               
+                               .action-icon-wrapper {
+                                   width: 36px;
+                                   height: 36px;
+                                   border-radius: 50%;
+                                   background-color: var(--surface-tertiary);
+                                   display: flex;
+                                   justify-content: center;
+                                   align-items: center;
+                               }
+                               
+                               .action-icon-wrapper img {
+                                   width: 20px;
+                                   height: 20px;
+                               }
+                               /* ===========================
+   Status Card
+   =========================== */
+                               
+                               .status-card {
+                                   padding: 24px 16px;
+                               }
+                               
+                               .card-title {
+                                   font-weight: 500;
+                                   font-size: 13.6px;
+                               }
+                               
+                               .status-progress-bar {
+                                   display: flex;
+                                   align-items: center;
+                               }
+                               
+                               .progress-step {
+                                   flex-shrink: 0;
+                               }
+                               
+                          
+                               .progress-icon img {
+                                   width: 20px;
+                                   height: 20px;
+                               }
+                               
+                           
+                             
+                               .progress-line {
+                                   height: 2px;
+                                   flex-grow: 1;
+                                   margin: 0 8px;
+                               }
+                               
+                             
+                              
+                               /* ===========================
+   Bottom Navigation
+   =========================== */
+                               
+                               .site-footer {
+                                   background-color: var(--surface-primary);
+                                   border-top: 1px solid var(--border-primary);
+                               }
+                               
+                               .bottom-nav {
+                                   display: flex;
+                                   justify-content: space-around;
+                                   padding: 9px 16px;
+                               }
+                               
+                               .nav-item {
+                                   display: flex;
+                                   flex-direction: column;
+                                   align-items: center;
+                                   gap: 5px;
+                               }
+                               
+                               .nav-item img {
+                                   width: 24px;
+                                   height: 24px;
+                               }
+                               
+                               .nav-item span {
+                                   font-size: 10.2px;
+                               }
+                               
+                               .nav-item.active span {
+                                   color: var(--brand-primary);
+                               }
+                               
+                               .nav-item:not(.active) span {
+                                   color: var(--text-tertiary);
+                               }
+                               /* ============ Popups ============ */
+                               /* =======================================================
+   CSS for Call Popup (Mobile Fullscreen Bottom Sheet)
+   Designed to match the Figma UI for TrackMe project
+   ======================================================= */
+                               
+                               .popup-overlay {
+                                   position: fixed;
+                                   top: 0;
+                                   left: 0;
+                                   width: 375px;
+                                   left: 50%;
+                                   transform: translateX(-50%);
+                                   height: 100vh;
+                                   background-color: rgba(0, 0, 0, 0.5);
+                                   z-index: 999;
+                               }
+                               
+                               .popup-sheet {
+                                   position: absolute;
+                                   bottom: 0;
+                                   left: 50%;
+                                   transform: translateX(-50%);
+                                   width: 375px;
+                                   background-color: #fff;
+                                   border-radius: 16px 16px 0 0;
+                                   padding: 24px;
+                                   box-sizing: border-box;
+                               }
+                               
+                               .popup-content {
+                                   max-width: 327px;
+                                   margin: 0 auto;
+                                   text-align: center;
+                                   font-family: Inter, sans-serif;
+                               }
+                               
+                               .popup-icon {
+                                   width: 40px;
+                                   height: 40px;
+                                   margin-bottom: 16px;
+                               }
+                               
+                               #popup-title {
+                                   font-size: 18px;
+                                   font-weight: 600;
+                                   margin-bottom: 4px;
+                                   color: #1e3a8a;
+                               }
+                               
+                               #popup-subtitle {
+                                   font-size: 14px;
+                                   color: #6b7280;
+                                   margin-bottom: 16px;
+                               }
+                               
+                               .popup-phone {
+                                   background-color: #f3f4f6;
+                                   border-radius: 12px;
+                                   padding: 16px;
+                                   font-size: 16px;
+                                   font-weight: 500;
+                                   margin-bottom: 20px;
+                               }
+                               
+                               .popup-button {
+                                   width: 100%;
+                                   background-color: #1e3a8a;
+                                   color: white;
+                                   border-radius: 12px;
+                                   border: none;
+                                   padding: 14px;
+                                   font-weight: 600;
+                                   font-size: 16px;
+                                   display: flex;
+                                   justify-content: center;
+                                   align-items: center;
+                                   gap: 8px;
+                                   margin-bottom: 12px;
+                               }
+                               
+                               .popup-button img {
+                                   width: 20px;
+                                   height: 20px;
+                                   filter: brightness(0) invert(1);
+                               }
+                               
+                               .popup-cancel {
+                                   width: 100%;
+                                   background: none;
+                                   border: none;
+                                   color: #4b5563;
+                                   font-size: 16px;
+                                   font-weight: 500;
+                                   padding: 12px;
+                               }
+                               
+                               .popup-heading {
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                                   gap: 8px;
+                                   margin-bottom: 4px;
+                               }
+                               
+                               .popup-icon-inline {
+                                   width: 24px;
+                                   height: 24px;
+                               }
+                               
+                               .hidden {
+                                   display: none !important;
+                               }
+                               /* === Chat Pop-Up Styles === */
+                               
+                               #chat-popup.popup-overlay {
+                                   position: fixed;
+                                   top: 0;
+                                   left: 50%;
+                                   transform: translateX(-50%);
+                                   width: 375px;
+                                   height: 100vh;
+                                   background-color: rgba(0, 0, 0, 0.5);
+                                   z-index: 999;
+                               }
+                               
+                               #chat-popup .popup-sheet {
+                                   position: absolute;
+                                   bottom: 0;
+                                   background-color: #fff;
+                                   border-radius: 16px 16px 0 0;
+                                   width: 100%;
+                                   height: auto;
+                                   padding: 24px;
+                                   box-sizing: border-box;
+                               }
+                               
+                               #chat-popup .popup-content {
+                                   display: flex;
+                                   flex-direction: column;
+                                   gap: 16px;
+                               }
+                               
+                               #chat-popup .popup-header {
+                                   display: flex;
+                                   justify-content: space-between;
+                                   align-items: flex-start;
+                                   margin-bottom: 8px;
+                               }
+                               
+                               #chat-popup .popup-heading {
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                                   gap: 8px;
+                                   margin-bottom: 4px;
+                               }
+                               /* Top chat icon inside header */
+                               
+                               #chat-popup .popup-icon-inline {
+                                   width: 28px;
+                                   height: 22px;
+                                   background-color: #EFF6FF;
+                                   border-radius: 9999px;
+                                   padding: 6px;
+                                   box-sizing: content-box;
+                               }
+                               /* Avatar icon next to chat bubble */
+                               
+                               #chat-popup .popup-icon-avatar {
+                                   width: 20px;
+                                   /* smaller than top icon */
+                                   height: 20px;
+                                   background-color: #EFF6FF;
+                                   border-radius: 9999px;
+                                   padding: 4px;
+                                   box-sizing: content-box;
+                               }
+                               
+                               #chat-popup .popup-close-button {
+                                   background: none;
+                                   border: none;
+                               }
+                               
+                               #chat-popup .popup-close-button img {
+                                   width: 16px;
+                                   height: 16px;
+                               }
+                               
+                               #chat-popup .chat-message-box {
+                                   display: flex;
+                                   gap: 12px;
+                                   align-items: flex-start;
+                               }
+                               
+                               #chat-popup .popup-icon-avatar {
+                                   width: 20px;
+                                   height: 20px;
+                                   padding: 4px;
+                                   border-radius: 9999px;
+                               }
+                               
+                               #chat-popup .chat-bubble {
+                                   background-color: #f9fafb;
+                                   border-radius: 0px 16px 16px 16px;
+                                   padding: 12px;
+                                   max-width: 240px;
+                               }
+                               
+                               #chat-popup .chat-message {
+                                   margin: 0;
+                                   font-size: 14px;
+                                   color: #000;
+                               }
+                               
+                               #chat-popup .chat-time {
+                                   margin: 4px 0 0;
+                                   font-size: 10px;
+                                   color: #9ca3af;
+                               }
+                               /* Input box with blue circular send button */
+                               
+                               #chat-popup .chat-input-box {
+                                   display: flex;
+                                   align-items: center;
+                                   background-color: #f9fafb;
+                                   border-radius: 12px;
+                                   padding: 12px 16px;
+                                   position: relative;
+                               }
+                               
+                               #chat-popup .chat-input-box input {
+                                   border: none;
+                                   background: transparent;
+                                   flex: 1;
+                                   font-size: 14px;
+                                   outline: none;
+                                   color: #111827;
+                                   padding-right: 40px;
+                                   /* Space for the button */
+                               }
+                               
+                               #chat-popup .chat-input-box input::placeholder {
+                                   color: #9ca3af;
+                               }
+                               
+                               #chat-popup .chat-input-box button {
+                                   position: absolute;
+                                   right: 12px;
+                                   top: 50%;
+                                   transform: translateY(-50%);
+                                   background-color: #1e3a8a;
+                                   border: none;
+                                   border-radius: 9999px;
+                                   width: 32px;
+                                   height: 32px;
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                                   padding: 0;
+                               }
+                               
+                               #chat-popup .chat-input-box button img {
+                                   width: 16px;
+                                   height: 16px;
+                                   filter: brightness(0) invert(1);
+                                   /* White arrow */
+                               }
+                               
+                               #chat-popup .chat-buttons {
+                                   display: flex;
+                                   flex-direction: column;
+                                   gap: 8px;
+                               }
+                               
+                               #chat-popup .chat-full-button {
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                                   background-color: #1e3a8a;
+                                   color: white;
+                                   border-radius: 12px;
+                                   padding: 12px;
+                                   gap: 8px;
+                                   border: none;
+                                   font-weight: 600;
+                                   font-size: 14px;
+                               }
+                               
+                               #chat-popup .chat-full-button img {
+                                   width: 20px;
+                                   height: 20px;
+                                   filter: brightness(0) invert(1);
+                               }
+                               
+                               #chat-popup .popup-cancel {
+                                   background: transparent;
+                                   border: none;
+                                   color: #4b5563;
+                                   font-size: 14px;
+                                   padding: 12px;
+                               }
+                               /* ============ Chat ============ */
+                               
+                               .chat-body {
+                                   padding: 16px;
+                                   max-height: 200px;
+                                   overflow-y: auto;
+                                   background: var(--surface-secondary);
+                               }
+                               
+                               .chat-message {
+                                   display: flex;
+                                   align-items: flex-start;
+                                   margin-bottom: 12px;
+                               }
+                               
+                               .chat-avatar-wrapper img {
+                                   width: 32px;
+                                   height: 32px;
+                                   border-radius: 50%;
+                               }
+                               
+                               .chat-bubble {
+                                   background-color: var(--surface-primary);
+                                   padding: 10px 14px;
+                                   margin-left: 10px;
+                                   border-radius: 12px;
+                                   max-width: 80%;
+                                   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+                               }
+                               
+                               .chat-input-area {
+                                   display: flex;
+                                   align-items: center;
+                                   padding: 8px;
+                                   border-top: 1px solid var(--border-primary);
+                                   background: var(--surface-primary);
+                               }
+                               
+                               .chat-input {
+                                   flex-grow: 1;
+                                   padding: 12px;
+                                   border: none;
+                                   border-radius: 12px;
+                                   background-color: var(--surface-tertiary);
+                               }
+                               
+                               .send-btn {
+                                   background: none;
+                                   border: none;
+                                   margin-left: 8px;
+                                   cursor: pointer;
+                               }
+                               /* ============ loction ============ */
+                               
+                               #delivery-popup.popup-overlay {
+                                   position: fixed;
+                                   top: 0;
+                                   left: 50%;
+                                   transform: translateX(-50%);
+                                   width: 375px;
+                                   height: 100vh;
+                                   background-color: rgba(0, 0, 0, 0.5);
+                                   z-index: 999;
+                               }
+                               
+                               #delivery-popup .popup-sheet {
+                                   position: absolute;
+                                   bottom: 0;
+                                   width: 100%;
+                                   background-color: #fff;
+                                   border-radius: 16px 16px 0 0;
+                                   padding: 24px;
+                                   box-sizing: border-box;
+                                   font-family: Inter, sans-serif;
+                               }
+                               
+                               #delivery-popup .popup-content {
+                                   display: flex;
+                                   flex-direction: column;
+                                   gap: 16px;
+                               }
+                               
+                               #delivery-popup .popup-header {
+                                   display: flex;
+                                   justify-content: space-between;
+                                   align-items: flex-start;
+                               }
+                               
+                               #delivery-popup .popup-heading {
+                                   display: flex;
+                                   align-items: center;
+                                   gap: 12px;
+                               }
+                               
+                               #delivery-popup .popup-icon-bg {
+                                   background-color: #EFF6FF;
+                                   border-radius: 9999px;
+                                   padding: 8px;
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                               }
+                               
+                               #delivery-popup .popup-icon-inline {
+                                   width: 24px;
+                                   height: 24px;
+                               }
+                               
+                               #delivery-popup .popup-close-button {
+                                   background: none;
+                                   border: none;
+                                   padding: 0;
+                               }
+                               
+                               #delivery-popup .popup-close-button img {
+                                   width: 20px;
+                                   height: 20px;
+                               }
+                               
+                               #delivery-popup .delivery-info .label {
+                                   font-size: 13px;
+                                   color: #6b7280;
+                                   margin-bottom: 4px;
+                               }
+                               
+                               #delivery-popup .delivery-info .value {
+                                   font-weight: 500;
+                                   font-size: 15px;
+                                   margin-bottom: 12px;
+                                   color: #000;
+                               }
+                               
+                               #delivery-popup .map-preview {
+                                   height: 160px;
+                                   background-color: #f9fafb;
+                                   border-radius: 12px;
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                                   font-size: 13px;
+                                   color: #9ca3af;
+                               }
+                               
+                               #delivery-popup .popup-button {
+                                   width: 100%;
+                                   border-radius: 12px;
+                                   padding: 14px;
+                                   font-size: 15px;
+                                   font-weight: 500;
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                                   gap: 8px;
+                                   border: none;
+                               }
+                               
+                               #delivery-popup .popup-button.primary {
+                                   background-color: #1e3a8a;
+                                   color: white;
+                               }
+                               
+                               #delivery-popup .popup-button.primary .arrow-icon {
+                                   width: 16px;
+                                   height: 16px;
+                               }
+                               
+                               #delivery-popup .popup-button.secondary {
+                                   background-color: #f3f4f6;
+                                   color: #1f2937;
+                               }
+                               
+                               #delivery-popup .popup-button.secondary img {
+                                   filter: brightness(0) saturate(100%) invert(13%) sepia(8%) saturate(1198%) hue-rotate(182deg) brightness(95%) contrast(91%);
+                               }
+                               
+                               #delivery-popup .popup-button.cancel {
+                                   background-color: transparent;
+                                   border: none;
+                                   color: #1f2937;
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                                   gap: 8px;
+                                   padding: 12px;
+                                   font-size: 14px;
+                                   cursor: pointer;
+                                   outline: none;
+                                   box-shadow: none;
+                               }
+                               
+                               #delivery-popup .popup-button.cancel img {
+                                   filter: brightness(0) saturate(100%) invert(13%) sepia(10%) saturate(748%) hue-rotate(174deg) brightness(96%) contrast(87%);
+                                   width: 20px;
+                                   height: 20px;
+                               }
+                               /* === Documents Pop-Up Styles === */
+                               /* Popup overlay and sheet */
+                               
+                               #documents-popup.popup-overlay {
+                                   position: fixed;
+                                   top: 0;
+                                   left: 50%;
+                                   transform: translateX(-50%);
+                                   width: 375px;
+                                   height: 100vh;
+                                   background-color: rgba(0, 0, 0, 0.5);
+                                   z-index: 999;
+                                   display: flex;
+                                   align-items: flex-end;
+                                   justify-content: center;
+                               }
+                               
+                               #documents-popup .popup-sheet {
+                                   background-color: #fff;
+                                   width: 100%;
+                                   border-radius: 16px 16px 0 0;
+                                   padding: 24px;
+                                   box-sizing: border-box;
+                                   font-family: Inter, sans-serif;
+                                   max-height: 90vh;
+                                   overflow-y: auto;
+                               }
+                               /* Popup content layout */
+                               
+                               #documents-popup .popup-content {
+                                   display: flex;
+                                   flex-direction: column;
+                                   gap: 20px;
+                               }
+                               /* Header layout */
+                               
+                               .popup-header {
+                                   display: flex;
+                                   justify-content: space-between;
+                                   align-items: center;
+                               }
+                               
+                               .popup-heading {
+                                   display: flex;
+                                   align-items: center;
+                                   gap: 12px;
+                               }
+                               
+                               .popup-icon-bg {
+                                   background-color: #f3f4f6;
+                                   border-radius: 8px;
+                                   width: 40px;
+                                   height: 40px;
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                               }
+                               
+                               .popup-close-button img {
+                                   width: 20px;
+                                   height: 20px;
+                                   filter: brightness(0) invert(1);
+                                   /* Make icon white */
+                                   background-color: #000;
+                                   border-radius: 50%;
+                                   padding: 4px;
+                               }
+                               /* Document entry style */
+                               
+                               .document-entry {
+                                   display: flex;
+                                   justify-content: space-between;
+                                   align-items: center;
+                                   background-color: #f9fafb;
+                                   padding: 12px 16px;
+                                   border-radius: 12px;
+                               }
+                               
+                               .document-label {
+                                   font-weight: 500;
+                                   font-size: 15px;
+                                   color: #111827;
+                               }
+                               /* Action icons */
+                               
+                               .document-actions {
+                                   display: flex;
+                                   gap: 16px;
+                               }
+                               
+                               .document-actions img {
+                                   width: 24px;
+                                   height: 24px;
+                                   cursor: pointer;
+                               }
+                               /* Close button at bottom */
+                               
+                               .popup-button.cancel {
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: center;
+                                   gap: 8px;
+                                   /* space between icon and text */
+                                   color: #4b5563;
+                                   background: transparent;
+                                   border: none;
+                                   width: 100%;
+                                   font-weight: 500;
+                                   font-size: 14px;
+                                   cursor: pointer;
+                               }
+                               
+                               .popup-button.cancel .close-icon {
+                                   width: 20px;
+                                   height: 20px;
+                                   filter: brightness(0) saturate(100%) invert(13%) sepia(10%) saturate(748%) hue-rotate(174deg) brightness(96%) contrast(87%);
+                               }
+                               /* ===== Burger Menu Overlay ===== */
+                               
+                               #burger-popup.popup-overlay {
+                                   position: fixed;
+                                   top: 0;
+                                   left: 50%;
+                                   transform: translateX(-50%);
+                                   width: 375px;
+                                   height: 100vh;
+                                   background-color: rgba(0, 0, 0, 0.5);
+                                   z-index: 999;
+                               }
+                               /* ===== White Sheet Popup ===== */
+                               
+                               #burger-popup .popup-sheet {
+                                   position: absolute;
+                                   bottom: 0;
+                                   width: 100%;
+                                   background-color: #fff;
+                                   border-radius: 16px 16px 0 0;
+                                   padding: 24px 16px;
+                                   box-sizing: border-box;
+                                   font-family: Inter, sans-serif;
+                               }
+                               /* ===== Close Button ===== */
+                               
+                               #burger-popup .burger-close-button {
+                                   position: absolute;
+                                   top: 16px;
+                                   right: 16px;
+                                   background: none;
+                                   border: none;
+                                   padding: 0;
+                                   cursor: pointer;
+                               }
+                               
+                               #burger-popup .burger-close-button img {
+                                   width: 20px;
+                                   height: 20px;
+                                   filter: brightness(0) saturate(100%) invert(36%) sepia(8%) saturate(139%) hue-rotate(177deg) brightness(95%) contrast(91%);
+                               }
+                               /* ===== Button Container ===== */
+                               
+                               #burger-popup .popup-content {
+                                   display: flex;
+                                   flex-direction: column;
+                                   gap: 16px;
+                                   margin-top: 56px;
+                               }
+
+
+
+                               /* ===== Each Button Item ===== */
+                               
+                               #burger-popup .popup-button {
+                                   display: flex;
+                                   align-items: center;
+                                   justify-content: flex-start;
+                                   gap: 12px;
+                                   height: 48px;
+                                   padding: 0 12px;
+                                   border: none;
+                                   background: none;
+                                   border-radius: 12px;
+                                   font-family: Inter, sans-serif;
+                                   font-size: 13.6px;
+                                   line-height: 24px;
+                                   font-weight: 400;
+                                   color: #9ca3af;
+                                   text-align: left;
+                                   cursor: pointer;
+                               }
+                               /* ===== Icon Styling ===== */
+                               
+                               #burger-popup .popup-button img {
+                                   width: 20px;
+                                   height: 20px;
+                                   flex-shrink: 0;
+                                   filter: brightness(0) saturate(100%) invert(36%) sepia(8%) saturate(139%) hue-rotate(177deg) brightness(95%) contrast(91%);
+                               }
+                               /* ===== Text Alignment Fix ===== */
+                               
+                               #burger-popup .popup-button span {
+                                   display: inline-block;
+                                   font-family: Inter, sans-serif;
+                                   font-size: 13.6px;
+                                   line-height: 24px;
+                                   color: inherit;
+                                   text-align: left;
+                               }
+                               /* ===== Logout Button ===== */
+                               
+                               #burger-popup .popup-button.logout {
+                                   color: #dc2626;
+                                   font-weight: 500;
+                               }
+                               
+                               #burger-popup .popup-button.logout img {
+                                   filter: none;
+                               }
+                               /* ===== Hover (Optional) ===== */
+                               
+                               #burger-popup .popup-button:hover {
+                                   background-color: #f3f4f6;
+                               }
+
+                               .status-progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 0 8px;
+  margin-top: 16px;
+}
+
+.progress-step .progress-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e5e7eb; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-line {
+  flex-grow: 1;
+  height: 2px;
+  background-color: #e5e7eb;
+}
+
+.progress-step.completed .progress-icon {
+  background-color: #1E3A8A; 
+}
+
+.progress-line.completed {
+  background-color: #1E3A8A;
+}

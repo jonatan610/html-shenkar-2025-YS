@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TrackMe</title>
 
-    <link rel="stylesheet" href="styles/mobile-dashboard.css" />
-
+    <link rel="stylesheet" href="styles/couier-dashboard.css" />
 </head>
 
-<body>
-    <div class="page-container">
 
+<body>
+    <section class="page-container">
+        <!-- ========== HEADER ========== -->
         <header id="section-header" class="site-header">
             <section class="header-container">
                 <a href="#" class="logo">
@@ -21,17 +21,19 @@
                 </a>
                 <section class="user-greeting">
                     <span>Hello, </span>
-                    <span class="user-name">Chen !</span>
+                    <span class="user-name">User!</span>
                 </section>
-                <button class="menu-button" aria-label="Open menu">
-          <img src="assets/icons/menu.svg" alt="Menu icon" />
-        </button>
+                <button class="menu-button" aria-label="Open menu" onclick="toggleMenu()">
+                    <img src="assets/icons/menu.svg" alt="Menu icon" />
+                </button>
             </section>
         </header>
 
+        <!-- ========== MAIN CONTENT ========== -->
         <main id="section-main" class="main-content">
             <p class="delivery-status">Approaching delivery location</p>
 
+            <!-- ========== Job Card ========== -->
             <article class="card job-card">
                 <header class="job-header">
                     <p class="job-id">Job ID # 0001</p>
@@ -54,48 +56,68 @@
                     </section>
                 </section>
 
+                <!-- ========== Action Buttons ========== -->
                 <section class="action-buttons">
-                    <button class="action-button">
-            <span class="action-icon-wrapper"><img src="assets/icons/call1.svg" alt="Call Center" /></span>
-            <span>Call Center</span>
-          </button>
-                    <button class="action-button">
-            <span class="action-icon-wrapper"><img src="assets/icons/chat1.svg" alt="Chat" /></span>
-            <span>Chat</span>
-          </button>
-                    <button class="action-button">
-            <span class="action-icon-wrapper"><img src="assets/icons/nav1.svg" alt="Navigate" /></span>
-            <span>Navigate</span>
-          </button>
-                    <button class="action-button">
-            <span class="action-icon-wrapper"><img src="assets/icons/dco1.svg" alt="Documents" /></span>
-            <span>Documents</span>
-          </button>
+                    <button class="action-button" data-action="Call Center">
+                        <span class="action-icon-wrapper">
+                            <img src="assets/icons/call1.svg" alt="Call Center" />
+                        </span>
+                        <span>Call Center</span>
+                    </button>
+                    <button class="action-button" data-action="Chat">
+                        <span class="action-icon-wrapper">
+                            <img src="assets/icons/chat1.svg" alt="Chat" />
+                        </span>
+                        <span>Chat</span>
+                    </button>
+                    <button class="action-button" data-action="Navigate">
+                        <span class="action-icon-wrapper">
+                            <img src="assets/icons/nav1.svg" alt="Navigate" />
+                        </span>
+                        <span>Navigate</span>
+                    </button>
+                    <button class="action-button" data-action="Documents">
+                        <span class="action-icon-wrapper">
+                            <img src="assets/icons/dco1.svg" alt="Documents" />
+                        </span>
+                        <span>Documents</span>
+                    </button>
                 </section>
             </article>
 
+            <!-- ========== Status Card ========== -->
             <article class="card status-card">
                 <h2 class="card-title">Status</h2>
                 <section class="status-progress-bar">
-                    <section class="progress-step completed">
-                        <span class="progress-icon"><img src="assets/icons/step1.svg" alt="Step 1 completed" /></span>
+                    <section id="step-1" class="progress-step">
+                        <section class="progress-icon">
+                            <img src="assets/icons/step1.svg" alt="Step 1" />
+                        </section>
                     </section>
-                    <section class="progress-line completed"></section>
-                    <section class="progress-step completed">
-                        <span class="progress-icon"><img src="assets/icons/step2.svg" alt="Step 2 completed" /></span>
+                    <section id="line-1" class="progress-line"></section>
+                    <section id="step-2" class="progress-step">
+                        <section class="progress-icon">
+                            <img src="assets/icons/step2.svg" alt="Step 2" />
+                        </section>
                     </section>
-                    <section class="progress-line completed"></section>
-                    <section class="progress-step completed">
-                        <span class="progress-icon"><img src="assets/icons/location1.svg" alt="Step 3 completed" /></span>
+                    <section id="line-2" class="progress-line"></section>
+                    <section id="step-3" class="progress-step">
+                        <section class="progress-icon">
+                            <img src="assets/icons/location1.svg" alt="Step 3" />
+                        </section>
                     </section>
-                    <section class="progress-line pending"></section>
-                    <section class="progress-step pending">
-                        <span class="progress-icon"><img src="assets/icons/file1.svg" alt="Step 4 pending" /></span>
+                    <section id="line-3" class="progress-line"></section>
+                    <section id="step-4" class="progress-step">
+                        <section class="progress-icon">
+                            <img src="assets/icons/file1.svg" alt="Step 4" />
+                        </section>
                     </section>
                 </section>
+
             </article>
         </main>
 
+        <!-- ========== FOOTER NAVIGATION ========== -->
         <footer id="section-footer" class="site-footer">
             <nav class="bottom-nav">
                 <a href="#home" class="nav-item active">
@@ -112,7 +134,249 @@
                 </a>
             </nav>
         </footer>
-    </div>
+
+
+
+        <!-- ========== Burger MENU ========== -->
+        <section id="burger-popup" class="popup-overlay hidden">
+            <section class="popup-sheet">
+                <button class="burger-close-button" onclick="closeBurgerMenu()">
+                    <img src="assets/icons/x.svg" alt="Close menu" />
+                </button>
+
+                <section class="popup-content">
+                    <button class="popup-button">
+                        <img src="assets/icons/b1.svg" alt="My Profile" />
+                        <span>My Profile</span>
+                    </button>
+
+                    <button class="popup-button">
+                        <img src="assets/icons/b2.svg" alt="Settings" />
+                        <span>Settings</span>
+                    </button>
+
+                    <button class="popup-button">
+                        <img src="assets/icons/b3.svg" alt="Terms of Service" />
+                        <span>Terms of Service</span>
+                    </button>
+
+                    <button class="popup-button">
+                        <img src="assets/icons/b4.svg" alt="Help" />
+                        <span>Help</span>
+                    </button>
+
+                    <button class="popup-button logout">
+                        <img src="assets/icons/b5.svg" alt="Log Out" />
+                        <span>Log Out</span>
+                    </button>
+                </section>
+            </section>
+        </section>
+
+        <!-- Documents Popup -->
+        <section id="documents-popup" class="popup-overlay hidden">
+            <section class="popup-sheet">
+                <section class="popup-content">
+
+                    <!-- Header -->
+                    <section class="popup-header">
+                        <section class="popup-heading">
+                            <h2>Documents</h2>
+                        </section>
+                        <button class="popup-close-button" onclick="closeDocumentsPopup()">
+                            <img src="assets/icons/x.svg" alt="Close" />
+                        </button>
+                    </section>
+
+                    <!-- Document Entry 1 -->
+                    <section class="document-entry">
+                        <section class="document-label">Courier Details Letter</section>
+                        <section class="document-actions">
+                            <img src="assets/icons/eye.svg" alt="View" />
+                            <img src="assets/icons/download.svg" alt="Download" />
+                        </section>
+                    </section>
+
+                    <!-- Document Entry 2 -->
+                    <section class="document-entry">
+                        <section class="document-label">Flight Ticket</section>
+                        <section class="document-actions">
+                            <img src="assets/icons/eye.svg" alt="View" />
+                            <img src="assets/icons/download.svg" alt="Download" />
+                        </section>
+                    </section>
+
+                    <!-- Document Entry 3 -->
+                    <section class="document-entry">
+                        <section class="document-label">TSA Clearance</section>
+                        <section class="document-actions">
+                            <img src="assets/icons/eye.svg" alt="View" />
+                            <img src="assets/icons/download.svg" alt="Download" />
+                        </section>
+                    </section>
+
+                    <!-- Document Entry 4 -->
+                    <section class="document-entry">
+                        <section class="document-label">Passport (US)</section>
+                        <section class="document-actions">
+                            <img src="assets/icons/eye.svg" alt="View" />
+                            <img src="assets/icons/download.svg" alt="Download" />
+                        </section>
+                    </section>
+
+                    <!-- Document Entry 5 -->
+                    <section class="document-entry">
+                        <section class="document-label">Hotel Voucher</section>
+                        <section class="document-actions">
+                            <img src="assets/icons/eye.svg" alt="View" />
+                            <img src="assets/icons/download.svg" alt="Download" />
+                        </section>
+                    </section>
+
+                    <!-- Document Entry 6 -->
+                    <section class="document-entry">
+                        <section class="document-label">Customs Clearance</section>
+                        <section class="document-actions">
+                            <img src="assets/icons/eye.svg" alt="View" />
+                            <img src="assets/icons/download.svg" alt="Download" />
+                        </section>
+                    </section>
+                    <button class="popup-button cancel" onclick="closeDocumentsPopup()">
+                        <img src="assets/icons/x.svg" alt="Close" class="close-icon" />
+                        <span>Close</span>
+                    </button>
+
+
+                </section>
+            </section>
+        </section>
+
+
+
+        <!-- Chat Popup -->
+        <section id="chat-popup" class="popup-overlay hidden">
+            <section class="popup-sheet">
+                <section class="popup-content">
+                    <section class="popup-header">
+                        <section class="popup-heading">
+                            <img src="assets/icons/chatp3.svg" alt="Chat Icon" class="popup-icon-inline" />
+                            <h2 id="chat-popup-title">Chat with Support</h2>
+                        </section>
+                        <button class="popup-close-button" onclick="closeChatPopup()">
+                            <img src="assets/icons/chatp2.svg" alt="Close" />
+                        </button>
+                    </section>
+
+                    <section class="chat-message-box">
+                        <img src="assets/icons/chatp1.svg" alt="Avatar" class="popup-icon-avatar" />
+                        <section class="chat-bubble">
+                            <p class="chat-message">Hi, how can we help you?</p>
+                            <p class="chat-time">Just now</p>
+                        </section>
+                    </section>
+
+                    <section class="chat-input-box">
+                        <input type="text" placeholder="Type a message…" id="chat-input" />
+                        <button onclick="sendChatMessage()">
+                            <img src="assets/icons/chatp4.svg" alt="Send" />
+                        </button>
+                    </section>
+
+                   <section class="chat-buttons">
+  <button class="chat-full-button" onclick="openFullChat()">
+    <img src="assets/icons/chatp5.svg" alt="Full Chat" />
+    <span>Open Full Chat</span>
+  </button>
+  <button class="popup-cancel" onclick="closeChatPopup()">Cancel</button>
+    
+                    </section>
+                </section>
+            </section>
+        </section>
+
+
+
+        <!-- Location Popup -->
+        <section id="delivery-popup" class="popup-overlay hidden">
+            <section class="popup-sheet">
+                <section class="popup-content">
+
+                    <section class="popup-header">
+                        <section class="popup-heading">
+                            <section class="popup-icon-bg">
+                                <img src="assets/icons/loc1.svg" alt="Location" class="popup-icon-inline" />
+                            </section>
+                            <h2>Delivery Location</h2>
+                        </section>
+                        <button class="popup-close-button" onclick="closeDeliveryPopup()">
+                            <img src="assets/icons/x.svg" alt="Close" />
+                        </button>
+                    </section>
+
+                    <section class="delivery-info">
+                        <p class="label">Location Name</p>
+                        <p class="value">Mount Sinai Hospital</p>
+                        <p class="label">Address</p>
+                        <p class="value">
+                            123 Mount Sinai Hospital, Manhattan,<br /> New York, NY 10029
+                        </p>
+                    </section>
+
+                    <section class="map-preview">
+                        <p>Map preview will be shown here</p>
+                    </section>
+
+                    <button class="popup-button primary">
+                        <img src="assets/icons/loc2.svg" alt="Navigate" />
+                        <span>Navigate to Delivery</span>
+                        <img src="assets/icons/arrow-top-right.svg" alt="Arrow" class="arrow-icon" />
+                    </button>
+
+                    <button class="popup-button secondary">
+                        <img src="assets/icons/copy.svg" alt="Copy" />
+                        <span>Copy Address</span>
+                    </button>
+                    <button class="popup-button cancel" onclick="closeDeliveryPopup()">
+                        <img src="assets/icons/x.svg" alt="Close" />
+                        <span>Close</span>
+                    </button>
+
+
+                </section>
+            </section>
+        </section>
+
+
+        <!-- Call Popup -->
+        <section id="call-popup" class="popup-overlay hidden">
+            <section class="popup-sheet">
+                <section class="popup-content">
+                    <section class="popup-header">
+                        <section class="popup-heading">
+                            <img src="assets/icons/call-mobile.svg" alt="icon" class="popup-icon-inline" />
+                            <h2 id="popup-title">Pickup Center</h2>
+                        </section>
+                        <p id="popup-subtitle">Medical Center Reception</p>
+                    </section>
+
+                    <section class="popup-phone" id="popup-phone">+1-555-0123</section>
+
+                    <button class="popup-button" onclick="callNumber()">
+                        <img src="assets/icons/call1.svg" alt="Phone" />
+                        <span id="popup-button-text">Call Pickup Center</span>
+                    </button>
+
+                    <button class="popup-cancel" onclick="closeCallPopup()">
+                        Cancel
+                    </button>
+                </section>
+            </section>
+        </section>
+
+
+        <!-- ========== JAVASCRIPT ========== -->
+        <script src="js/courier-dashboard.js"></script>
+
 </body>
 
 </html>

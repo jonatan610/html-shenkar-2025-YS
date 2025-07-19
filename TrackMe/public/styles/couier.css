@@ -1,0 +1,123 @@
+:root {
+    --brand-primary: #1e3a8a;
+    --brand-secondary: #047857;
+    --surface-primary: #ffffff;
+    --surface-secondary: #f9fafb;
+    --surface-tertiary: #f3f4f6;
+    --surface-disabled: #e5e7eb;
+    --surface-success: #dcfce7;
+    --text-primary: #000000;
+    --text-secondary: #4b5563;
+    --text-tertiary: #9ca3af;
+    --text-on-brand: #ffffff;
+    --text-success: #15803d;
+    --border-primary: #e5e7eb;
+    --color-placeholder: #9ca3af;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--surface-secondary);
+    color: var(--text-primary);
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 375px;
+    margin: 0 auto;
+    background-color: rgba(255, 0, 0, 0.05);
+    border: 1px dashed red;
+}
+
+.main-content {
+    flex: 1;
+    padding: 16px 0;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    height: 46px;
+    padding: 11px 17px;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-primary);
+    background-color: var(--surface-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+}
+
+input::placeholder {
+    color: var(--color-placeholder);
+}
+
+input:focus {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: -1px;
+}
+
+.submit-btn {
+    height: 44px;
+    background-color: var(--brand-primary);
+    color: var(--text-on-brand);
+    font-size: 13.6px;
+    font-weight: 500;
+    line-height: 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.submit-btn:hover {
+    opacity: 0.9;
+}
+
+.form-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.form-message.error {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.form-message.success {
+    background-color: var(--surface-success);
+    color: var(--text-success);
+}
+
+.form-message .icon {
+    width: 18px;
+    height: 18px;
+}

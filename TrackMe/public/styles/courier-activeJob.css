@@ -1,0 +1,261 @@
+/* Reset and base */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f3f4f6;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 375px;
+  min-height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Header area */
+.container4 {
+  padding: 16px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.container5 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.button-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.job {
+  font-weight: 600;
+  font-size: 16px;
+  color: #111827;
+}
+
+.div {
+  background-color: #d1fae5;
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+/* Job Summary Section */
+.container6 {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container7,
+.container8 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.span1,
+.span3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.span2,
+.span4 {
+  font-size: 14px;
+  color: #111827;
+  text-align: right; 
+}
+
+/* Status update section */
+.container10 {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.container11 {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.container12 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Improved status buttons with right arrow */
+.container12 button {
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.container12 button:hover {
+  background-color: #f3f4f6;
+}
+
+.container12 button::after {
+  content: '\203A'; /* Unicode right arrow */
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+/* Bottom buttons */
+.section4 {
+  margin-top: auto;
+  padding: 16px;
+  background-color: #ffffff;
+}
+
+.container19 {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.button10,
+.button11,
+.button12,
+.button13 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.button10,
+.button11 {
+  background-color: #1e3a8a;
+  color: white;
+}
+
+.button10:hover,
+.button11:hover {
+  background-color: #1c3480;
+}
+
+.button12,
+.button13 {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.button12:hover,
+.button13:hover {
+  background-color: #e5e7eb;
+}
+
+/* Popup overlay */
+.status-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Popup content box */
+.popup-box {
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px;
+  width: 80%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.popup-box h2 {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.popup-box p {
+  font-size: 14px;
+  color: #374151;
+  margin: 12px 0;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.popup-confirm,
+.popup-cancel {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.popup-confirm {
+  background-color: #1e3a8a;
+  color: white;
+}
+
+.popup-confirm:hover {
+  background-color: #1a347a;
+}
+
+.popup-cancel {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.popup-cancel:hover {
+  background-color: #e5e7eb;
+}
