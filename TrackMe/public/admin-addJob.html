@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Add Job – TrackMe</title>
+    <link rel="stylesheet" href="styles/admin.css" />
+    <link rel="stylesheet" href="styles/admin-addJob.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <section class="page-container">
+        <!-- Header -->
+        <header class="header">
+            <section class="logo">
+                <img src="assets/icons/plane_desktop.svg" alt="TrackMe Logo" />
+                <span class="logo-text">TrackMe</span>
+            </section>
+            <nav class="main-nav">
+                <a href="admin-dashboard.html" class="nav-item">
+                    <img src="assets/icons/home.svg" alt="Home" /> Home
+                </a>
+                <a href="jobs.html" class="nav-item">
+                    <img src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
+                </a>
+                <a href="add-job.html" class="nav-item">
+                    <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
+                </a>
+            </nav>
+            <section class="user-info">
+                <img src="assets/icons/user.svg" alt="User Icon" />
+                <span>Hello, <strong>User!</strong></span>
+            </section>
+        </header>
+
+        <main class="dashboard-main wide">
+            <section class="upload-section">
+                <button class="upload-button" onclick="openDocumentsModal()">
+                    <img src="assets/icons/upload-icon.svg" alt="Upload icon">
+                    Upload Files
+                </button>
+            </section>
+
+            <section class="breadcrumb">
+                <span>Add Job</span> <span class="chevron">›</span> <span class="current">Job #0000</span>
+            </section>
+
+            <form class="add-job-form">
+                <section class="job-id-section">
+                    <label for="job-id">Job ID</label>
+                    <div class="job-id-box" id="job-id">Job 0000</div>
+                </section>
+
+                <!-- Courier -->
+                <section class="courier-section">
+                    <label for="courier">Courier</label>
+                    <select id="courier" name="courier" onclick="toggleCourierModal()">
+                        <option disabled selected>Select a courier…</option>
+                    </select>
+                </section>
+
+                <!-- Courier Modal -->
+                <section id="courierModal" class="courier-modal hidden" dir="ltr">
+                    <section class="courier-list">
+                        <label class="courier-card selected">
+                            <section class="courier-info">
+                                <span class="courier-name">John Smith</span>
+                                <span class="courier-meta">⭐ 4.8 &nbsp;&nbsp; 156 jobs</span>
+                            </section>
+                            <input type="radio" name="courier" value="john-smith" checked />
+                        </label>
+
+                        <label class="courier-card">
+                            <section class="courier-info">
+                                <span class="courier-name">Sarah Johnson</span>
+                                <span class="courier-meta">⭐ 4.9 &nbsp;&nbsp; 243 jobs</span>
+                            </section>
+                            <input type="radio" name="courier" value="sarah-johnson" />
+                        </label>
+
+                        <label class="courier-card">
+                            <section class="courier-info">
+                                <span class="courier-name">Michael Brown</span>
+                                <span class="courier-meta">⭐ 4.7 &nbsp;&nbsp; 189 jobs</span>
+                            </section>
+                            <input type="radio" name="courier" value="michael-brown" />
+                        </label>
+
+                        <button type="button" class="save-courier-button" onclick="closeCourierModal()">Save</button>
+                    </section>
+
+                </section>
+
+                <!-- Flight Numbers -->
+                <section class="form-row">
+                    <section class="form-group">
+                        <label for="flight-number-1">Flight Number</label>
+                        <input type="text" id="flight-number-1" name="flight-number-1"
+                            placeholder="Enter flight number" />
+                    </section>
+                    <section class="form-group">
+                        <label for="flight-number-2">Flight Number</label>
+                        <input type="text" id="flight-number-2" name="flight-number-2"
+                            placeholder="Enter flight number" />
+                    </section>
+                </section>
+
+                <!-- Pickup & Delivery Info -->
+                <section class="form-row">
+                    <!-- Pickup Info -->
+                    <section class="info-card">
+                        <h2>PickUp Info</h2>
+
+                        <section class="form-group">
+                            <label for="pickup-address">Address</label>
+                            <input type="text" id="pickup-address" name="pickup-address" placeholder="Enter address" />
+                        </section>
+
+                        <section class="form-row">
+                            <section class="form-group">
+                                <label for="pickup-date">Date</label>
+                                <input type="date" id="pickup-date" name="pickup-date" />
+                            </section>
+                            <section class="form-group">
+                                <label for="pickup-time">Time</label>
+                                <input type="time" id="pickup-time" name="pickup-time" />
+                            </section>
+                        </section>
+
+                        <section class="form-group">
+                            <label for="pickup-contact">Contact Person</label>
+                            <input type="text" id="pickup-contact" name="pickup-contact" placeholder="Enter name" />
+                        </section>
+
+                        <section class="form-row phone-row">
+                            <input id="pickup-phone" type="tel" />
+                        </section>
+                    </section>
+
+                    <!-- Delivery Info -->
+                    <section class="info-card">
+                        <h2>Delivery Info</h2>
+
+                        <section class="form-group">
+                            <label for="delivery-address">Address</label>
+                            <input type="text" id="delivery-address" name="delivery-address"
+                                placeholder="Enter address" />
+                        </section>
+
+                        <section class="form-row">
+                            <section class="form-group">
+                                <label for="delivery-date">Date</label>
+                                <input type="date" id="delivery-date" name="delivery-date" />
+                            </section>
+                            <section class="form-group">
+                                <label for="delivery-time">Time</label>
+                                <input type="time" id="delivery-time" name="delivery-time" />
+                            </section>
+                        </section>
+
+                        <section class="form-group">
+                            <label for="delivery-contact">Contact Person</label>
+                            <input type="text" id="delivery-contact" name="delivery-contact" placeholder="Enter name" />
+                        </section>
+
+                        <section class="form-row phone-row">
+                            <input id="delivery-phone" type="tel" />
+                        </section>
+                    </section>
+                </section>
+
+                <!-- Save Button -->
+                <section class="form-row center">
+                    <button type="submit" class="save-button">Save</button>
+                </section>
+            </form>
+        </main>
+
+        <section id="successModal" class="success-modal hidden">
+            <section class="success-content">
+                <img src="assets/icons/success-icon.svg" alt="Success Icon" />
+                <span>Action completed successfully</span>
+            </section>
+        </section>
+
+
+    </section>
+    <section id="documentsModal" class="documents-modal hidden">
+        <section class="documents-container">
+            <h2 class="documents-title">Documents</h2>
+
+            <ul class="document-list">
+                <li class="document-item">
+                    <span class="document-name">Courier Details Letter</span>
+                    <label class="upload-icon">
+                        <input type="file" required />
+                        <img src="assets/icons/upload.svg" alt="Upload" />
+                    </label>
+                </li>
+                <li class="document-item">
+                    <span class="document-name">Flight Ticket</span>
+                    <label class="upload-icon">
+                        <input type="file" required />
+                        <img src="assets/icons/upload.svg" alt="Upload" />
+                    </label>
+                </li>
+                <li class="document-item">
+                    <span class="document-name">TSA Clearance</span>
+                    <label class="upload-icon">
+                        <input type="file" required />
+                        <img src="assets/icons/upload.svg" alt="Upload" />
+                    </label>
+                </li>
+                <li class="document-item">
+                    <span class="document-name">Passport (US)</span>
+                    <label class="upload-icon">
+                        <input type="file" required />
+                        <img src="assets/icons/upload.svg" alt="Upload" />
+                    </label>
+                </li>
+                <li class="document-item">
+                    <span class="document-name">Hotel Voucher</span>
+                    <label class="upload-icon">
+                        <input type="file" required />
+                        <img src="assets/icons/upload.svg" alt="Upload" />
+                    </label>
+                </li>
+                <li class="document-item">
+                    <span class="document-name">Customs Clearance</span>
+                    <label class="upload-icon">
+                        <input type="file" required />
+                        <img src="assets/icons/upload.svg" alt="Upload" />
+                    </label>
+                </li>
+            </ul>
+
+            <button class="close-documents" onclick="closeDocumentsModal()">
+                <img src="assets/icons/x.svg" alt="Close" /> Close
+            </button>
+        </section>
+    </section>
+
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"></script>
+    <script>
+        const pickupPhone = document.querySelector("#pickup-phone");
+        const deliveryPhone = document.querySelector("#delivery-phone");
+
+        window.intlTelInput(pickupPhone, {
+            initialCountry: "il",
+            preferredCountries: ["il", "us", "gb"],
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+        });
+
+        window.intlTelInput(deliveryPhone, {
+            initialCountry: "il",
+            preferredCountries: ["il", "us", "gb"],
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
+        });
+
+        function showSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 3000);
+        }
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            showSuccessModal();
+        });
+
+        function toggleCourierModal() {
+            const modal = document.getElementById("courierModal");
+            modal.classList.toggle("hidden");
+        }
+
+        function closeCourierModal() {
+            const selectedRadio = document.querySelector('input[name="courier"]:checked');
+            const selectedLabel = selectedRadio.closest('.courier-card');
+            const courierName = selectedLabel.querySelector('.courier-name').textContent;
+            const courierSelect = document.getElementById("courier");
+            courierSelect.innerHTML = `<option selected>${courierName}</option>`;
+            document.getElementById("courierModal").classList.add("hidden");
+        }
+
+        const uploadButton = document.querySelector(".upload-button");
+        uploadButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            openDocumentsModal();
+        });
+
+        function openDocumentsModal() {
+            document.getElementById("documentsModal").classList.remove("hidden");
+        }
+
+        function closeDocumentsModal() {
+            document.getElementById("documentsModal").classList.add("hidden");
+        }
+        function initAutocomplete() {
+            const pickupInput = document.getElementById('pickup-address');
+            const deliveryInput = document.getElementById('delivery-address');
+
+            if (pickupInput) {
+                new google.maps.places.Autocomplete(pickupInput, {
+                    types: ['address'],
+                    componentRestrictions: { country: ['il', 'us'] }
+                });
+            }
+
+            if (deliveryInput) {
+                new google.maps.places.Autocomplete(deliveryInput, {
+                    types: ['address'],
+                    componentRestrictions: { country: ['il', 'us'] }
+                });
+            }
+        }
+
+    </script>
+
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiJaJgKbMZHlpYJ4gm1irOH53pLTRqS2Q&libraries=places&callback=initAutocomplete">
+        </script>
+
+</body>
+
+</html>

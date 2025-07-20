@@ -1,0 +1,388 @@
+/* Form Styling for Add Job page */
+.add-job-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 0;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #4b5563;
+}
+
+.form-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-weight: 500;
+  color: #374151;
+  font-size: 11.9px;
+  line-height: 20px;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+select {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background-color: #f9fafb;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #000000;
+  background-color: #eef2ff;
+}
+
+.upload-button {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #f3f4f6;
+  color: #000000;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.upload-button:hover {
+  background-color: #e0e7ff;
+}
+
+.upload-button img {
+  height: 20px;
+  width: 20px;
+}
+
+.info-card {
+  flex: 1;
+  padding: 24px;
+  background-color: #f9fafb;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-card h2 {
+  width: 75.9px; 
+  position: relative;
+  font-size: 20px; 
+  color: #000; 
+  display: flex;
+  white-space: nowrap;
+
+}
+
+
+.phone-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.phone-row select,
+.phone-row input {
+  flex: 1;
+}
+
+.save-button {
+  padding: 14px 32px;
+  background-color: #1E3A8A;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.save-button:hover {
+  background-color: #3b82f6;
+}
+
+.job-id-section {
+  margin-top: 16px;
+  width: 288px;
+}
+
+.job-id-section label {
+  font-weight: 500;
+  font-size: 11.9px;
+  color: #374151;
+  line-height: 20px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.job-id-section .job-id-box {
+  width: 100%;
+  height: 46px;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 16px;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.upload-section {
+  position: absolute;
+  top: 90px;
+  right: 24px;
+}
+
+/* Form Layout - Add Job Specific */
+.courier-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  width: 320px;
+}
+
+.courier-section label {
+  font-weight: 600;
+  color: #1E3A8A;
+  font-size: 12px;
+}
+
+.courier-section select {
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background-color: #f9fafb;
+  outline: none;
+  cursor: pointer;
+}
+
+.courier-section select:focus {
+  border-color: #1E3A8A;
+  background-color: #eef2ff;
+}
+
+.hidden {
+  display: none;
+}
+
+.courier-modal {
+  position: absolute;
+  top: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 24px;
+  width: 740px;
+  direction: ltr;
+}
+
+.courier-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.courier-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #fff;
+  position: relative;
+}
+
+.courier-card.selected {
+  border-color: #000000;
+  background-color: #eff6ff;
+}
+
+.courier-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.courier-name {
+  font-weight: 500;
+  color: #111827;
+}
+
+.courier-meta {
+  font-size: 11.9px;
+  color: #6b7280;
+}
+
+.courier-card input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #000000
+}
+
+.save-courier-button {
+  margin-top: 16px;
+  padding: 12px 32px;
+  background-color: #1E3A8A;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.save-courier-button:hover {
+  background-color: #3b82f6;
+}
+
+.form-row.center {
+  justify-content: center;
+  display: flex;
+}
+
+.success-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.success-modal.hidden {
+  display: none;
+}
+
+.success-content {
+  background-color: white;
+  padding: 40px 48px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #1E3A8A;
+}
+
+.success-content img {
+  width: 24px;
+  height: 24px;
+}
+
+.documents-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.documents-container {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.documents-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 24px;
+  font-family: 'Inter', sans-serif;
+}
+
+.document-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.document-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-family: 'Inter', sans-serif;
+}
+
+.upload-icon input[type="file"] {
+  display: none;
+}
+
+.upload-icon img {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.close-documents {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px auto 0;
+  background: transparent;
+  border: none;
+  color: #374151;
+  cursor: pointer;
+  font-size: 16px;
+}
+.close-documents img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  
+}
+
+.hidden {
+  display: none;
+}

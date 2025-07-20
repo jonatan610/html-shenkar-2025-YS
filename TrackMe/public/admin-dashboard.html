@@ -18,20 +18,16 @@
                 <span class="logo-text">TrackMe</span>
             </section>
             <nav class="main-nav">
-                <button class="nav-item active">
-          <img src="assets/icons/home.svg" alt="Home" />
-          Home
-        </button>
-                <button class="nav-item">
-          <img class="icon-blue" src="assets/icons/jobs.svg" alt="Jobs" />
-          Jobs
-        </button>
-                <button class="nav-item">
-          <img src="assets/icons/add_job.svg" alt="Add Job" />
-          Add Job
-        </button>
+                <a href="admin-dashboard.html" class="nav-item active">
+                    <img src="assets/icons/home.svg" alt="Home" /> Home
+                </a>
+                <a href="jobs.html" class="nav-item">
+                    <img class="icon-blue" src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
+                </a>
+                <a href="add-job.html" class="nav-item">
+                    <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
+                </a>
             </nav>
-
             <section class="user-info">
                 <img src="assets/icons/user.svg" alt="User Icon" />
                 <span>Hello, <strong>User!</strong></span>
@@ -42,15 +38,15 @@
             <section class="controls">
                 <input type="search" placeholder="Search" class="search-input" />
                 <button class="btn filter-btn">
-          <img src="assets/icons/filter.svg" alt="Filter" /> Filters
-        </button>
+                    <img src="assets/icons/filter.svg" alt="Filter" /> Filters
+                </button>
                 <button class="btn sort-btn">
-          <img src="assets/icons/sort.svg" alt="Sort" /> Sort by
-        </button>
+                    <img src="assets/icons/sort.svg" alt="Sort" /> Sort by
+                </button>
             </section>
 
             <section class="jobs-list">
-
+                <!-- Repeatable job-card -->
                 <a href="job-details-0001.html" class="job-link">
                     <article class="job-card">
                         <header class="job-header">
@@ -70,7 +66,6 @@
                         </section>
                     </article>
                 </a>
-
                 <a href="job-details-0002.html" class="job-link">
                     <article class="job-card">
                         <header class="job-header">
@@ -170,57 +165,145 @@
                         </section>
                     </article>
                 </a>
-
             </section>
-            <!-- HTML for Filter Jobs Popup -->
 
-            <section class="filter-popup">
+            <!-- Filter Popup -->
+            <section class="filter-popup hidden">
                 <header class="filter-header">
-                    <img src="assets/icons/filter.svg" alt="Filter Icon" class="filter-icon" />
+                    <img src="assets/icons/filter.svg" alt="Filter Icon" class="popup-icon" />
                     <strong>Filter Jobs</strong>
                     <button class="close-btn" aria-label="Close filter popup">&times;</button>
                 </header>
-
                 <form class="filter-form">
                     <section class="filter-group">
-                        <header><img src="assets/icons/status.svg" alt="Status Icon" class="group-icon" /> Status</header>
-                        <label><input type="checkbox" name="status" value="active" /> Active <span class="count">8</span></label>
-                        <label><input type="checkbox" name="status" value="on-hold" /> On Hold <span class="count">3</span></label>
-                        <label><input type="checkbox" name="status" value="completed" /> Completed <span class="count">12</span></label>
+                        <header><img src="assets/icons/status.svg" alt="Status Icon" class="group-icon" /> Status
+                        </header>
+                        <label><input type="checkbox" name="status" value="active" /> Active <span
+                                class="count">8</span></label>
+                        <label><input type="checkbox" name="status" value="on-hold" /> On Hold <span
+                                class="count">3</span></label>
+                        <label><input type="checkbox" name="status" value="completed" /> Completed <span
+                                class="count">12</span></label>
                     </section>
 
                     <section class="filter-group">
-                        <header><img src="assets/icons/priority.svg" alt="Priority Icon" class="group-icon" /> Priority</header>
-                        <label><input type="checkbox" name="priority" value="high" /> High Priority <span class="count">4</span></label>
-                        <label><input type="checkbox" name="priority" value="normal" /> Normal <span class="count">15</span></label>
-                        <label><input type="checkbox" name="priority" value="low" /> Low Priority <span class="count">6</span></label>
+                        <header><img src="assets/icons/priority.svg" alt="Priority Icon" class="group-icon" /> Priority
+                        </header>
+                        <label><input type="checkbox" name="priority" value="high" /> High <span
+                                class="count">4</span></label>
+                        <label><input type="checkbox" name="priority" value="normal" /> Normal <span
+                                class="count">15</span></label>
+                        <label><input type="checkbox" name="priority" value="low" /> Low <span
+                                class="count">6</span></label>
                     </section>
 
                     <section class="filter-group">
-                        <header><img src="assets/icons/destination.svg" alt="Destination Icon" class="group-icon" /> Destination</header>
-                        <label><input type="checkbox" name="destination" value="usa" /> USA <span class="count">12</span></label>
-                        <label><input type="checkbox" name="destination" value="uk" /> UK <span class="count">8</span></label>
-                        <label><input type="checkbox" name="destination" value="europe" /> Europe <span class="count">5</span></label>
+                        <header><img src="assets/icons/destination.svg" alt="Destination Icon" class="group-icon" />
+                            Destination</header>
+                        <label><input type="checkbox" name="destination" value="usa" /> USA <span
+                                class="count">12</span></label>
+                        <label><input type="checkbox" name="destination" value="uk" /> UK <span
+                                class="count">8</span></label>
+                        <label><input type="checkbox" name="destination" value="europe" /> Europe <span
+                                class="count">5</span></label>
                     </section>
 
                     <section class="filter-group">
-                        <header><img src="assets/icons/calendar.svg" alt="Calendar Icon" class="group-icon" /> Delivery Date</header>
-                        <label><input type="checkbox" name="delivery" value="today" /> Today <span class="count">3</span></label>
-                        <label><input type="checkbox" name="delivery" value="this-week" /> This Week <span class="count">12</span></label>
-                        <label><input type="checkbox" name="delivery" value="this-month" /> This Month <span class="count">25</span></label>
+                        <header><img src="assets/icons/calendar.svg" alt="Calendar Icon" class="group-icon" /> Delivery
+                            Date</header>
+                        <label><input type="checkbox" name="delivery" value="today" /> Today <span
+                                class="count">3</span></label>
+                        <label><input type="checkbox" name="delivery" value="this-week" /> This Week <span
+                                class="count">12</span></label>
+                        <label><input type="checkbox" name="delivery" value="this-month" /> This Month <span
+                                class="count">25</span></label>
                         <label><input type="checkbox" name="delivery" value="custom" /> Custom Range</label>
                     </section>
-
 
                     <section class="filter-footer">
                         <button class="cancel-btn">Cancel</button>
                         <button class="apply-btn">Apply Filters</button>
                     </section>
+                </form>
+            </section>
+
+            <!-- Sort Popup -->
+<section class="sort-popup hidden">
+  <section class="sort-header">
+    <strong>Sort Jobs</strong>
+    <button class="close-btn" aria-label="Close sort popup">&times;</button>
+  </section>
+  <form class="sort-form">
+    <label class="sort-option selected">
+      <img src="assets/icons/arrow-up-blue.svg" alt="Most Recent" />
+      <section class="sort-text">
+        <section class="title">Most Recent</section>
+        <section class="subtitle">Show newest jobs first</section>
+      </section>
+      <span class="dot selected"></span>
+      <input type="radio" name="sort" value="recent" checked hidden />
+    </label>
+
+    <label class="sort-option">
+      <img src="assets/icons/arrow-up-gray.svg" alt="Oldest" />
+      <section class="sort-text">
+        <section class="title">Oldest</section>
+        <section class="subtitle">Show oldest jobs first</section>
+      </section>
+      <span class="dot"></span>
+      <input type="radio" name="sort" value="oldest" hidden />
+    </label>
+
+    <label class="sort-option">
+      <img src="assets/icons/arrow-up-gray.svg" alt="A-Z" />
+      <section class="sort-text">
+        <section class="title">Destination A–Z</section>
+        <section class="subtitle">Sort by destination name</section>
+      </section>
+      <span class="dot"></span>
+      <input type="radio" name="sort" value="az" hidden />
+    </label>
+
+    <label class="sort-option">
+      <img src="assets/icons/arrow-down-gray.svg" alt="Z-A" />
+      <section class="sort-text">
+        <section class="title">Destination Z–A</section>
+        <section class="subtitle">Sort by destination in reverse</section>
+      </section>
+      <span class="dot"></span>
+      <input type="radio" name="sort" value="za" hidden />
+    </label>
+
+    <label class="sort-option">
+      <img src="assets/icons/status-gray.svg" alt="Status" />
+      <section class="sort-text">
+        <section class="title">Status</section>
+        <section class="subtitle">Group by active and on-hold</section>
+      </section>
+      <span class="dot"></span>
+      <input type="radio" name="sort" value="status" hidden />
+    </label>
+  </form>
+</section>
+
+            <!-- Search Popup -->
+            <section class="search-popup hidden">
+                <header class="search-header">
+                    <img src="assets/icons/search.svg" alt="Search Icon" class="popup-icon" />
+                    <strong>Search Jobs</strong>
+                    <button class="close-btn" aria-label="Close search popup">&times;</button>
+                </header>
+                <form class="search-form">
+                    <input type="text" placeholder="Enter job ID, destination, or status..."
+                        class="search-input-popup" />
+                    <button class="search-submit-btn">Search</button>
+                </form>
+            </section>
 
         </main>
+    </section>
 
-        <script src="js/a
-dmin-dashboard.js"></script>
+    <script src="js/admin-dashboard.js"></script>
 </body>
 
 </html>
