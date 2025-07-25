@@ -1,0 +1,347 @@
+/* Layout */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-text {
+  font-weight: 600;
+  font-size: 20px;
+  color: #1e3a8a;
+}
+
+.main-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+}
+
+.nav-item img {
+  width: 20px;
+  height: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Chat Layout */
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9fafb;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chat-header img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.support-chat {
+  font-weight: 600;
+  font-size: 16px;
+  color: #111827;
+}
+
+.job {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.chat-area {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chat-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  max-width: 50%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.message.incoming {
+  align-self: flex-start;
+  background-color: #ffffff;
+  border-radius: 16px 16px 16px 4px;
+  color: #111827;
+}
+
+.message.outgoing {
+  align-self: flex-end;
+  background-color: #1e3a8a;
+  color: #ffffff;
+  border-radius: 16px 16px 4px 16px;
+}
+
+.meta {
+  font-size: 11px;
+  margin-top: 4px;
+  text-align: right;
+  color: #6b7280;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+}
+
+.meta img {
+  width: 12px;
+  height: 12px;
+}
+
+/* Input Bar */
+.input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background-color: #fff;
+  border-top: 1px solid #e5e7eb;
+  z-index: 999;
+}
+
+
+.input-bar .icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.input-field {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 24px;
+  border: none;
+  background-color: #f3f4f6;
+  font-size: 14px;
+  outline: none;
+}
+
+.send-btn {
+  background-color: #1e3a8a;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.send-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Upload Modal */
+.upload-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  background: white;
+  transform: translate(-50%, -50%);
+  border-radius: 16px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  padding: 24px;
+}
+
+.upload-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.upload-icon-wrapper {
+  background-color: #eff6ff;
+  border-radius: 9999px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.upload-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.upload-box img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+}
+
+.upload-box p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.upload-box small {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.upload-body textarea {
+  width: 100%;
+  border-radius: 12px;
+  background-color: #f9fafb;
+  padding: 16px;
+  box-sizing: border-box;
+  border: none;
+  margin-bottom: 16px;
+  resize: none;
+  font-size: 14px;
+  color: #374151;
+}
+
+.send-document {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  width: 100%;
+  height: 48px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.cancel-upload {
+  background-color: transparent;
+  border: none;
+  font-weight: 500;
+  font-size: 14px;
+  color: #4b5563;
+  width: 100%;
+  height: 48px;
+  cursor: pointer;
+}
+
+/* Success Popup */
+.success-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 20px;
+  width: 360px;
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.success-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.hidden {
+  display: none !important;
+}

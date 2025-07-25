@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
 // ========== Delivery Location Popup ========== //
 function openDeliveryPopup() {
   document.getElementById("delivery-popup").classList.remove("hidden");

@@ -1,89 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Courier Chat</title>
-    <link rel="stylesheet" href="styles/courier-chat.css" />
-  </head>
-  <body>
-    <section class="container">
-      <section class="header">
-        <img src="assets/icons/back-icon.svg" alt="Back" class="button-icon" />
-        <section>
-          <section class="support-chat">Support Chat</section>
-          <section class="job">Job # 0001</section>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courier Chat</title>
+  <link rel="stylesheet" href="styles/courier-chat.css" />
+</head>
+
+<body>
+  <section class="container">
+    <section class="header">
+      <img src="assets/icons/back-icon.svg" alt="Back" class="button-icon" />
+      <section>
+        <section class="support-chat">Support Chat</section>
+        <section class="job">Job # 0001</section>
+      </section>
+    </section>
+
+    <section class="chat-area">
+      <section class="chat-thread">
+        <!-- הודעה יוצאת -->
+        <section class="message outgoing hidden">
+          <section class="bubble"></section>
+          <section class="meta">
+            <span class="time">00:00</span>
+            <img src="tick.svg" alt="Sent" class="tick" />
+          </section>
+        </section>
+
+        <!-- הודעה נכנסת -->
+        <section class="message incoming hidden">
+          <section class="bubble"></section>
+          <section class="meta">
+            <span class="time">00:00</span>
+          </section>
         </section>
       </section>
 
-      <section class="chat-area">
-       <section class="chat-thread">
-  <!-- הודעה יוצאת -->
-  <section class="message outgoing hidden">
-    <section class="bubble"></section>
-    <section class="meta">
-      <span class="time">00:00</span>
-      <img src="tick.svg" alt="Sent" class="tick" />
     </section>
-  </section>
 
-  <!-- הודעה נכנסת -->
-  <section class="message incoming hidden">
-    <section class="bubble"></section>
-    <section class="meta">
-      <span class="time">00:00</span>
-    </section>
-  </section>
-</section>
-
+    <section class="input-bar">
+      <img src="assets/icons/emoji-icon.svg" alt="Emoji" class="icon" />
+      <input type="text" class="input-field" placeholder="Type a message..." />
+      <img src="assets/icons/attach-icon.svg" alt="Attach" class="icon" />
+      <section class="send-btn">
+        <img src="assets/icons/send-icon.svg" alt="Send" />
       </section>
+    </section>
 
-      <section class="input-bar">
-        <img src="assets/icons/emoji-icon.svg" alt="Emoji" class="icon" />
-        <input type="text" class="input-field" placeholder="Type a message..." />
-        <img src="assets/icons/attach-icon.svg" alt="Attach" class="icon" />
-        <section class="send-btn">
-          <img src="assets/icons/send-icon.svg" alt="Send" />
+    <!-- Upload Modal -->
+    <section class="upload-popup hidden">
+
+      <section class="upload-header">
+        <section class="upload-icon-wrapper">
+          <img src="assets/icons/doc-icon.svg" class="upload-icon" />
         </section>
+        <h3>Send a Document</h3>
+        <button class="close-btn">×</button>
       </section>
 
-      <!-- Upload Modal -->
-<section class="upload-popup hidden">
-
-   <section class="upload-header">
-  <section class="upload-icon-wrapper">
-    <img src="assets/icons/doc-icon.svg" class="upload-icon" />
-  </section>
-  <h3>Send a Document</h3>
-  <button class="close-btn">×</button>
-</section>
-
-        <section class="upload-body">
-          <label class="upload-box">
-            <input type="file" hidden />
-            <img src="assets/icons/upload-arrow.svg" />
-            <p>Choose a file</p>
-            <small>PDF, JPG, PNG, DOCX (max 10MB)</small>
-          </label>
-          <textarea placeholder="Write a message (optional)"></textarea>
-       <button class="send-document">
-  <img src="assets/icons/sendd.svg" alt="Send Icon" />
-  Send Document
-</button>
-          <button class="cancel-upload">Cancel</button>
-        </section>
+      <section class="upload-body">
+        <label class="upload-box">
+          <input type="file" hidden />
+          <img src="assets/icons/upload-arrow.svg" />
+          <p>Choose a file</p>
+          <small>PDF, JPG, PNG, DOCX (max 10MB)</small>
+        </label>
+        <textarea placeholder="Write a message (optional)"></textarea>
+        <button class="send-document">
+          <img src="assets/icons/sendd.svg" alt="Send Icon" />
+          Send Document
+        </button>
+        <button class="cancel-upload">Cancel</button>
       </section>
-
-      <!-- Success Toast -->
-   <section class="success-popup hidden">
-  <section class="overlay"></section>
-  <section class="popup-box">
-    <img src="assets/icons/success-icon.svg" alt="Success Icon" class="success-icon" />
-    <section class="success-text">Action completed successfully</section>
-  </section>
-</section>
-
     </section>
-     <script src="js/courier-chat.js" defer></script>
-  </body>
+
+    <!-- Success Toast -->
+    <section class="success-popup hidden">
+      <section class="overlay"></section>
+      <section class="popup-box">
+        <img src="assets/icons/success-icon.svg" alt="Success Icon" class="success-icon" />
+        <section class="success-text">Action completed successfully</section>
+      </section>
+    </section>
+
+  </section>
+  <script src="js/courier-chat.js" defer></script>
+</body>
+
 </html>

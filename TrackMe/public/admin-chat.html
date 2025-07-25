@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrackMe – admin Chat</title>
+    <link rel="stylesheet" href="styles/admin.css" />
+    <link rel="stylesheet" href="styles/admin-chat.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <section class="page-container">
+
+        <!-- Header -->
+        <header class="header">
+            <section class="logo">
+                <img src="assets/icons/plane_desktop.svg" alt="TrackMe Logo" />
+                <span class="logo-text">TrackMe</span>
+            </section>
+            <nav class="main-nav">
+                <a href="admin-dashboard.html" class="nav-item">
+                    <img src="assets/icons/home.svg" alt="Home" /> Home
+                </a>
+                <a href="jobs.html" class="nav-item">
+                    <img src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
+                </a>
+                <a href="add-job.html" class="nav-item">
+                    <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
+                </a>
+            </nav>
+            <section class="user-info">
+                <img src="assets/icons/user.svg" alt="User Icon" />
+                <span>Hello, <strong>User!</strong></span>
+            </section>
+        </header>
+
+        <!-- Main Layout -->
+        <main class="chat-layout">
+            <section class="container">
+                <section class="header">
+                    <img src="assets/icons/back-icon.svg" alt="Back" class="button-icon" />
+                    <section>
+                        <section class="support-chat">Support Chat</section>
+                        <section class="job">Job # 0001</section>
+                    </section>
+                </section>
+
+                <section class="chat-area">
+                    <section class="chat-thread">
+                        <!-- הודעה יוצאת -->
+                        <section class="message outgoing hidden">
+                            <section class="bubble"></section>
+                            <section class="meta">
+                                <span class="time">00:00</span>
+                                <img src="tick.svg" alt="Sent" class="tick" />
+                            </section>
+                        </section>
+
+                        <!-- הודעה נכנסת -->
+                        <section class="message incoming hidden">
+                            <section class="bubble"></section>
+                            <section class="meta">
+                                <span class="time">00:00</span>
+                            </section>
+                        </section>
+                    </section>
+
+                </section>
+
+                <section class="input-bar">
+                    <img src="assets/icons/emoji-icon.svg" alt="Emoji" class="icon" />
+                    <input type="text" class="input-field" placeholder="Type a message..." />
+                    <img src="assets/icons/attach-icon.svg" alt="Attach" class="icon" />
+                    <section class="send-btn">
+                        <img src="assets/icons/send-icon.svg" alt="Send" />
+                    </section>
+                </section>
+
+                <!-- Upload Modal -->
+                <section class="upload-popup hidden">
+
+                    <section class="upload-header">
+                        <section class="upload-icon-wrapper">
+                            <img src="assets/icons/doc-icon.svg" class="upload-icon" />
+                        </section>
+                        <h3>Send a Document</h3>
+                        <button class="close-btn">×</button>
+                    </section>
+
+                    <section class="upload-body">
+                        <label class="upload-box">
+                            <input type="file" hidden />
+                            <img src="assets/icons/upload-arrow.svg" />
+                            <p>Choose a file</p>
+                            <small>PDF, JPG, PNG, DOCX (max 10MB)</small>
+                        </label>
+                        <textarea placeholder="Write a message (optional)"></textarea>
+                        <button class="send-document">
+                            <img src="assets/icons/sendd.svg" alt="Send Icon" />
+                            Send Document
+                        </button>
+                        <button class="cancel-upload">Cancel</button>
+                    </section>
+                </section>
+
+                <!-- Success Toast -->
+                <section class="success-popup hidden">
+                    <section class="overlay"></section>
+                    <section class="popup-box">
+                        <img src="assets/icons/success-icon.svg" alt="Success Icon" class="success-icon" />
+                        <section class="success-text">Action completed successfully</section>
+                    </section>
+                </section>
+
+            </section>
+            <script src="js/courier-chat.js" defer></script>
+</body>
+
+</html>

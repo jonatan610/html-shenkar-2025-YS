@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TrackMe – Admin Dashboard</title>
+    <link rel="stylesheet" href="styles/admin-dashboard.css" />
+    <link rel="stylesheet" href="styles/admin-jobs.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <section class="page-container">
+        <header class="header">
+            <section class="logo">
+                <img src="assets/icons/plane_desktop.svg" alt="TrackMe Logo" />
+                <span class="logo-text">TrackMe</span>
+            </section>
+            <nav class="main-nav">
+                <a href="admin-dashboard.html" class="nav-item"><img src="assets/icons/home.svg" alt="Home" /> Home</a>
+                <a href="admin-jobs.html" class="nav-item active"><img class="icon-blue" src="assets/icons/jobs.svg"
+                        alt="Jobs" /> Jobs</a>
+                <a href="admin-addJob.html" class="nav-item"><img src="assets/icons/add_job.svg" alt="Add Job" /> Add
+                    Job</a>
+            </nav>
+            <section class="user-info">
+                <img src="assets/icons/user.svg" alt="User Icon" />
+                <span>Hello, <strong>User!</strong></span>
+            </section>
+        </header>
+
+        <main class="dashboard-main">
+            <section class="controls">
+                <input type="search" placeholder="Search" class="search-input" />
+                <button class="btn filter-btn"><img src="assets/icons/filter.svg" alt="Filter" /> Filters</button>
+                <button class="btn sort-btn"><img src="assets/icons/sort.svg" alt="Sort" /> Sort by</button>
+            </section>
+
+            <!-- Jobs list (default view) -->
+            <section class="jobs-list">
+                <a href="job-details-0001.html" class="job-link"><!-- ... --></a>
+                <a href="job-details-0002.html" class="job-link"><!-- ... --></a>
+                <a href="job-details-0003.html" class="job-link"><!-- ... --></a>
+                <a href="job-details-0004.html" class="job-link"><!-- ... --></a>
+                <a href="job-details-0005.html" class="job-link"><!-- ... --></a>
+                <a href="job-details-0006.html" class="job-link"><!-- ... --></a>
+            </section>
+
+            <!-- Hidden Jobs -->
+            <section id="moreJobs" class="jobs-list hidden">
+                <a href="job-details-0010.html" class="job-link">
+                    <article class="job-card">
+                        <header class="job-header"><span>Job ID</span><strong>0010</strong></header>
+                        <section class="job-info">
+                            <section class="job-detail"><img src="assets/icons/destination.svg"
+                                    alt="Destination" /><strong>Destination</strong> <span>Germany</span></section>
+                            <section class="job-detail"><img src="assets/icons/delivery.svg"
+                                    alt="Delivery" /><strong>Delivery</strong> <span>08/04/24</span></section>
+                            <section class="job-status completed">Completed</section>
+                        </section>
+                    </article>
+                </a>
+                <a href="job-details-0011.html" class="job-link">
+                    <article class="job-card">
+                        <header class="job-header"><span>Job ID</span><strong>0011</strong></header>
+                        <section class="job-info">
+                            <section class="job-detail"><img src="assets/icons/destination.svg"
+                                    alt="Destination" /><strong>Destination</strong> <span>Canada</span></section>
+                            <section class="job-detail"><img src="assets/icons/delivery.svg"
+                                    alt="Delivery" /><strong>Delivery</strong> <span>09/04/24</span></section>
+                            <section class="job-status active">Active</section>
+                        </section>
+                    </article>
+                </a>
+                <a href="job-details-0012.html" class="job-link">
+                    <article class="job-card">
+                        <header class="job-header"><span>Job ID</span><strong>0012</strong></header>
+                        <section class="job-info">
+                            <section class="job-detail"><img src="assets/icons/destination.svg"
+                                    alt="Destination" /><strong>Destination</strong> <span>Israel</span></section>
+                            <section class="job-detail"><img src="assets/icons/delivery.svg"
+                                    alt="Delivery" /><strong>Delivery</strong> <span>10/04/24</span></section>
+                            <section class="job-status on-hold">On Hold</section>
+                        </section>
+                    </article>
+                </a>
+                <a href="job-details-0013.html" class="job-link">
+                    <article class="job-card">
+                        <header class="job-header"><span>Job ID</span><strong>0013</strong></header>
+                        <section class="job-info">
+                            <section class="job-detail"><img src="assets/icons/destination.svg"
+                                    alt="Destination" /><strong>Destination</strong> <span>Brazil</span></section>
+                            <section class="job-detail"><img src="assets/icons/delivery.svg"
+                                    alt="Delivery" /><strong>Delivery</strong> <span>12/04/24</span></section>
+                            <section class="job-status completed">Completed</section>
+                        </section>
+                    </article>
+                </a>
+            </section>
+
+            <!-- See All Jobs Button -->
+            <section class="see-all-wrapper">
+                <button id="seeAllJobsBtn" class="button"><span class="see-all-jobs">See All Jobs</span></button>
+            </section>
+        </main>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const btn = document.getElementById("seeAllJobsBtn");
+            const hiddenJobs = document.getElementById("moreJobs");
+
+            btn.addEventListener("click", () => {
+                hiddenJobs.classList.remove("hidden");
+                btn.style.display = "none";
+            });
+        });
+    </script>
+</body>
+
+</html>

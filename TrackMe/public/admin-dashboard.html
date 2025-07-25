@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="styles/global.css" />
     <link rel="stylesheet" href="styles/admin-dashboard.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,9 +35,14 @@
                     <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
                 </a>
             </nav>
-            <section class="user-info">
-                <img src="assets/icons/user.svg" alt="User Icon" />
-                <span>Hello, <strong>User!</strong></span>
+            <section class="user-area">
+                <section class="user-info">
+                    <img src="assets/icons/user.svg" alt="User Icon" />
+                    <span>Hello, <strong>User!</strong></span>
+                </section>
+                <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
+                    <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
+                </button>
             </section>
         </header>
 
@@ -235,7 +247,7 @@
                 </section>
                 <form class="sort-form">
                     <label class="sort-option selected">
-                        <img src="assets/icons/arrow-up-blue.svg" alt="Most Recent" />
+                        <img src="assets/icons/sort1.svg" alt="Most Recent" />
                         <section class="sort-text">
                             <section class="title">Most Recent</section>
                             <section class="subtitle">Show newest jobs first</section>
@@ -245,7 +257,7 @@
                     </label>
 
                     <label class="sort-option">
-                        <img src="assets/icons/arrow-up-gray.svg" alt="Oldest" />
+                        <img src="assets/icons/sort2.svg" alt="Oldest" />
                         <section class="sort-text">
                             <section class="title">Oldest</section>
                             <section class="subtitle">Show oldest jobs first</section>
@@ -255,7 +267,7 @@
                     </label>
 
                     <label class="sort-option">
-                        <img src="assets/icons/arrow-up-gray.svg" alt="A-Z" />
+                        <img src="assets/icons/sort3.svg" alt="A-Z" />
                         <section class="sort-text">
                             <section class="title">Destination A–Z</section>
                             <section class="subtitle">Sort by destination name</section>
@@ -265,7 +277,7 @@
                     </label>
 
                     <label class="sort-option">
-                        <img src="assets/icons/arrow-down-gray.svg" alt="Z-A" />
+                        <img src="assets/icons/sort4.svg" alt="Z-A" />
                         <section class="sort-text">
                             <section class="title">Destination Z–A</section>
                             <section class="subtitle">Sort by destination in reverse</section>
@@ -275,7 +287,7 @@
                     </label>
 
                     <label class="sort-option">
-                        <img src="assets/icons/status-gray.svg" alt="Status" />
+                        <img src="assets/icons/sort5.svg" alt="Status" />
                         <section class="sort-text">
                             <section class="title">Status</section>
                             <section class="subtitle">Group by active and on-hold</section>
@@ -289,7 +301,7 @@
             <!-- Search Popup -->
             <section class="search-popup hidden">
                 <header class="search-header">
-                    <img src="assets/icons/search.svg" alt="Search Icon" class="popup-icon" />
+                    <img src="assets/icons/jobs1.svg" alt="Search Icon" class="popup-icon" />
                     <strong>Search Jobs</strong>
                     <button class="close-btn" aria-label="Close search popup">&times;</button>
                 </header>
@@ -303,6 +315,39 @@
         </main>
     </section>
 
+    <!-- === Burger Menu Popup === -->
+    <section id="burger-popup" class="popup-overlay hidden">
+        <section class="popup-sheet">
+            <button class="burger-close-button" onclick="closeBurgerMenu()">
+                <img src="assets/icons/x.svg" alt="Close menu" />
+            </button>
+
+            <section class="popup-content">
+                <button class="popup-button">
+                    <img src="assets/icons/b1.svg" alt="My Profile" />
+                    <span>My Profile</span>
+                </button>
+                <button class="popup-button">
+                    <img src="assets/icons/b2.svg" alt="Settings" />
+                    <span>Settings</span>
+                </button>
+                <button class="popup-button">
+                    <img src="assets/icons/b3.svg" alt="Terms of Service" />
+                    <span>Terms of Service</span>
+                </button>
+                <button class="popup-button">
+                    <img src="assets/icons/b4.svg" alt="Help" />
+                    <span>Help</span>
+                </button>
+                <button class="popup-button logout" onclick="handleLogout()">
+                    <img src="assets/icons/b5.svg" alt="Log Out" />
+                    <span>Log Out</span>
+                </button>
+            </section>
+        </section>
+    </section>
+
+    <!-- === Scripts === -->
     <script src="js/admin-dashboard.js"></script>
 </body>
 

@@ -3,328 +3,428 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Add Job – TrackMe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Details - TrackMe</title>
+    <link rel="stylesheet" href="styles/admin-viewJob.css" />
     <link rel="stylesheet" href="styles/admin.css" />
     <link rel="stylesheet" href="styles/admin-addJob.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/css/intlTelInput.css" />
+
 </head>
 
 <body>
-    <section class="page-container">
-        <!-- Header -->
-        <header class="header">
-            <section class="logo">
-                <img src="assets/icons/plane_desktop.svg" alt="TrackMe Logo" />
-                <span class="logo-text">TrackMe</span>
+    <!-- Header -->
+    <header class="header">
+        <section class="logo">
+            <img src="assets/icons/plane_desktop.svg" alt="TrackMe Logo" />
+            <span class="logo-text">TrackMe</span>
+        </section>
+        <nav class="main-nav">
+            <a href="admin-dashboard.html" class="nav-item">
+                <img src="assets/icons/home.svg" alt="Home" /> Home
+            </a>
+            <a href="jobs.html" class="nav-item">
+                <img src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
+            </a>
+            <a href="add-job.html" class="nav-item">
+                <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
+            </a>
+        </nav>
+        <section class="user-info">
+            <img src="assets/icons/user.svg" alt="User Icon" />
+            <span>Hello, <strong>User!</strong></span>
+        </section>
+    </header>
+
+    <!-- Main -->
+    <main class="job-view">
+        <!-- Breadcrumb -->
+        <section class="breadcrumb">
+            <section class="breadcrumb__item">Jobs</section>
+            <section class="breadcrumb__separator">›</section>
+            <section class="breadcrumb__item breadcrumb__item--current">New Job</section>
+        </section>
+
+        <!-- Job Header -->
+        <section class="job-header">
+            <section class="job-header__left job-id-inline">
+                <label for="jobIdField" class="job-header__label">Job ID:</label>
+                <input type="text" id="jobIdField" class="job-id-field" value="Auto" readonly />
             </section>
-            <nav class="main-nav">
-                <a href="admin-dashboard.html" class="nav-item">
-                    <img src="assets/icons/home.svg" alt="Home" /> Home
-                </a>
-                <a href="jobs.html" class="nav-item">
-                    <img src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
-                </a>
-                <a href="add-job.html" class="nav-item">
-                    <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
-                </a>
-            </nav>
-            <section class="user-info">
-                <img src="assets/icons/user.svg" alt="User Icon" />
-                <span>Hello, <strong>User!</strong></span>
-            </section>
-        </header>
 
-        <main class="dashboard-main wide">
-            <section class="upload-section">
-                <button class="upload-button" onclick="openDocumentsModal()">
-                    <img src="assets/icons/upload-icon.svg" alt="Upload icon">
-                    Upload Files
-                </button>
-            </section>
-
-            <section class="breadcrumb">
-                <span>Add Job</span> <span class="chevron">›</span> <span class="current">Job #0000</span>
-            </section>
-
-            <form class="add-job-form">
-                <section class="job-id-section">
-                    <label for="job-id">Job ID</label>
-                    <div class="job-id-box" id="job-id">Job 0000</div>
+            <section class="job-header__actions">
+                <section class="action-button" id="uploadButton">
+                    <img src="assets/icons/upload.svg" alt="Upload" />
+                    <span>Upload Files</span>
                 </section>
-
-                <!-- Courier -->
-                <section class="courier-section">
-                    <label for="courier">Courier</label>
-                    <select id="courier" name="courier" onclick="toggleCourierModal()">
-                        <option disabled selected>Select a courier…</option>
-                    </select>
-                </section>
-
-                <!-- Courier Modal -->
-                <section id="courierModal" class="courier-modal hidden" dir="ltr">
-                    <section class="courier-list">
-                        <label class="courier-card selected">
-                            <section class="courier-info">
-                                <span class="courier-name">John Smith</span>
-                                <span class="courier-meta">⭐ 4.8 &nbsp;&nbsp; 156 jobs</span>
-                            </section>
-                            <input type="radio" name="courier" value="john-smith" checked />
-                        </label>
-
-                        <label class="courier-card">
-                            <section class="courier-info">
-                                <span class="courier-name">Sarah Johnson</span>
-                                <span class="courier-meta">⭐ 4.9 &nbsp;&nbsp; 243 jobs</span>
-                            </section>
-                            <input type="radio" name="courier" value="sarah-johnson" />
-                        </label>
-
-                        <label class="courier-card">
-                            <section class="courier-info">
-                                <span class="courier-name">Michael Brown</span>
-                                <span class="courier-meta">⭐ 4.7 &nbsp;&nbsp; 189 jobs</span>
-                            </section>
-                            <input type="radio" name="courier" value="michael-brown" />
-                        </label>
-
-                        <button type="button" class="save-courier-button" onclick="closeCourierModal()">Save</button>
-                    </section>
-
-                </section>
-
-                <!-- Flight Numbers -->
-                <section class="form-row">
-                    <section class="form-group">
-                        <label for="flight-number-1">Flight Number</label>
-                        <input type="text" id="flight-number-1" name="flight-number-1"
-                            placeholder="Enter flight number" />
-                    </section>
-                    <section class="form-group">
-                        <label for="flight-number-2">Flight Number</label>
-                        <input type="text" id="flight-number-2" name="flight-number-2"
-                            placeholder="Enter flight number" />
-                    </section>
-                </section>
-
-                <!-- Pickup & Delivery Info -->
-                <section class="form-row">
-                    <!-- Pickup Info -->
-                    <section class="info-card">
-                        <h2>PickUp Info</h2>
-
-                        <section class="form-group">
-                            <label for="pickup-address">Address</label>
-                            <input type="text" id="pickup-address" name="pickup-address" placeholder="Enter address" />
-                        </section>
-
-                        <section class="form-row">
-                            <section class="form-group">
-                                <label for="pickup-date">Date</label>
-                                <input type="date" id="pickup-date" name="pickup-date" />
-                            </section>
-                            <section class="form-group">
-                                <label for="pickup-time">Time</label>
-                                <input type="time" id="pickup-time" name="pickup-time" />
-                            </section>
-                        </section>
-
-                        <section class="form-group">
-                            <label for="pickup-contact">Contact Person</label>
-                            <input type="text" id="pickup-contact" name="pickup-contact" placeholder="Enter name" />
-                        </section>
-
-                        <section class="form-row phone-row">
-                            <input id="pickup-phone" type="tel" />
-                        </section>
-                    </section>
-
-                    <!-- Delivery Info -->
-                    <section class="info-card">
-                        <h2>Delivery Info</h2>
-
-                        <section class="form-group">
-                            <label for="delivery-address">Address</label>
-                            <input type="text" id="delivery-address" name="delivery-address"
-                                placeholder="Enter address" />
-                        </section>
-
-                        <section class="form-row">
-                            <section class="form-group">
-                                <label for="delivery-date">Date</label>
-                                <input type="date" id="delivery-date" name="delivery-date" />
-                            </section>
-                            <section class="form-group">
-                                <label for="delivery-time">Time</label>
-                                <input type="time" id="delivery-time" name="delivery-time" />
-                            </section>
-                        </section>
-
-                        <section class="form-group">
-                            <label for="delivery-contact">Contact Person</label>
-                            <input type="text" id="delivery-contact" name="delivery-contact" placeholder="Enter name" />
-                        </section>
-
-                        <section class="form-row phone-row">
-                            <input id="delivery-phone" type="tel" />
-                        </section>
-                    </section>
-                </section>
-
-                <!-- Save Button -->
-                <section class="form-row center">
-                    <button type="submit" class="save-button">Save</button>
-                </section>
-            </form>
-        </main>
-
-        <section id="successModal" class="success-modal hidden">
-            <section class="success-content">
-                <img src="assets/icons/success-icon.svg" alt="Success Icon" />
-                <span>Action completed successfully</span>
+                <!-- Save button added via JS -->
             </section>
         </section>
 
 
-    </section>
+        <!-- Courier Selection -->
+        <section class="form-group courier-section">
+            <label for="courierSelect">Courier</label>
+            <select id="courierSelect">
+                <option value="">Select Courier</option>
+            </select>
+        </section>
+
+        <!-- Job Details -->
+        <section class="job-details-card">
+            <!-- Pickup Info -->
+            <section class="job-details job-details--pickup">
+                <section class="job-details__section-title">PickUp Info</section>
+
+                <section class="job-details__field">
+                    <span class="job-details__label">
+                        <img src="assets/icons/home11.svg" alt="Address" class="icon-inline" />
+                        Address
+                    </span>
+                    <span class="job-details__value"></span>
+                </section>
+
+                <section class="job-details__field form-row date-time">
+                    <section class="form-group">
+                        <label for="pickupDate">
+                            <img src="assets/icons/time11.svg" alt="Date Icon" class="icon-inline" />
+                            Date
+                        </label>
+                        <input type="date" id="pickupDate" class="editable-field" />
+                    </section>
+                    <section class="form-group">
+                        <label for="pickupTime">
+                            <img src="assets/icons/time11.svg" alt="Time Icon" class="icon-inline" />
+                            Time
+                        </label>
+                        <input type="time" id="pickupTime" class="editable-field" />
+                    </section>
+                </section>
+
+                <section class="job-details__field">
+                    <span class="job-details__label">
+                        <img src="assets/icons/user1.svg" alt="Contact Icon" class="icon-inline" />
+                        Contact Person
+                    </span>
+                    <span class="job-details__value"></span>
+                </section>
+
+                <section class="job-details__field">
+                    <span class="job-details__label">
+                        <img src="assets/icons/phone11.svg" alt="Phone" class="icon-inline" />
+                        Phone
+                    </span>
+                    <input type="tel" id="pickupPhone" class="editable-field" placeholder="Phone number" />
+                </section>
+            </section>
+
+            <!-- Delivery Info -->
+            <section class="job-details job-details--delivery">
+                <section class="job-details__section-title">Delivery Info</section>
+
+                <section class="job-details__field">
+                    <span class="job-details__label">
+                        <img src="assets/icons/home11.svg" alt="Address" class="icon-inline" />
+                        Address
+                    </span>
+                    <span class="job-details__value"></span>
+                </section>
+
+                <section class="job-details__field form-row date-time">
+                    <section class="form-group">
+                        <label for="deliveryDate">
+                            <img src="assets/icons/time11.svg" alt="Date Icon" class="icon-inline" />
+                            Date
+                        </label>
+                        <input type="date" id="deliveryDate" class="editable-field" />
+                    </section>
+                    <section class="form-group">
+                        <label for="deliveryTime">
+                            <img src="assets/icons/time11.svg" alt="Time Icon" class="icon-inline" />
+                            Time
+                        </label>
+                        <input type="time" id="deliveryTime" class="editable-field" />
+                    </section>
+                </section>
+
+                <section class="job-details__field">
+                    <span class="job-details__label">
+                        <img src="assets/icons/user1.svg" alt="Contact Icon" class="icon-inline" />
+                        Contact Person
+                    </span>
+                    <span class="job-details__value"></span>
+                </section>
+
+                <section class="job-details__field">
+                    <span class="job-details__label">
+                        <img src="assets/icons/phone11.svg" alt="Phone" class="icon-inline" />
+                        Phone
+                    </span>
+                    <input type="tel" id="pickupPhone" class="editable-field" placeholder="Phone number" />
+                </section>
+            </section>
+        </section>
+
+        <!-- Flight Info -->
+        <section class="flight-details">
+            <section class="flight-details__header">
+                <img src="assets/icons/c44.svg" alt="Flight Icon" />
+                <span class="flight-details__title">Flight Details</span>
+            </section>
+
+            <section class="flight-details__content flight-details__two-columns">
+
+                <!-- Flight Outbound -->
+                <section class="flight-details__entry">
+                    <h4 class="flight-direction-title">Flight Outbound</h4>
+
+                    <section class="form-row date-time">
+                        <section class="form-group">
+                            <label for="flightOutDate">Date</label>
+                            <input type="date" id="flightOutDate" class="editable-field" />
+                        </section>
+                        <section class="form-group">
+                            <label for="flightOutTime">Time</label>
+                            <input type="time" id="flightOutTime" class="editable-field" />
+                        </section>
+                    </section>
+
+                    <input type="text" id="flightOutCode" class="editable-field" placeholder="Flight Code" />
+                </section>
+
+                <!-- Flight Return -->
+                <section class="flight-details__entry">
+                    <h4 class="flight-direction-title">Flight Return</h4>
+
+                    <section class="form-row date-time">
+                        <section class="form-group">
+                            <label for="flightReturnDate">Date</label>
+                            <input type="date" id="flightReturnDate" class="editable-field" />
+                        </section>
+                        <section class="form-group">
+                            <label for="flightReturnTime">Time</label>
+                            <input type="time" id="flightReturnTime" class="editable-field" />
+                        </section>
+                    </section>
+
+                    <input type="text" id="flightReturnCode" class="editable-field" placeholder="Flight Code" />
+                </section>
+
+            </section>
+        </section>
+
+    </main>
+
+    <!-- Document Upload Modal -->
     <section id="documentsModal" class="documents-modal hidden">
         <section class="documents-container">
-            <h2 class="documents-title">Documents</h2>
+            <h2 class="documents-title">Upload Documents</h2>
 
-            <ul class="document-list">
-                <li class="document-item">
-                    <span class="document-name">Courier Details Letter</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">Flight Ticket</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">TSA Clearance</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">Passport (US)</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">Hotel Voucher</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">Customs Clearance</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-            </ul>
+            <!-- Document Entry 1 -->
+            <section class="document-entry">
+                <section class="document-label">Courier Details Letter</section>
+                <section class="document-actions">
+                    <img src="assets/icons/eye.svg" alt="View" />
+                    <img src="assets/icons/download.svg" alt="Download" />
+                </section>
+            </section>
 
-            <button class="close-documents" onclick="closeDocumentsModal()">
-                <img src="assets/icons/x.svg" alt="Close" /> Close
+            <!-- Document Entry 2 -->
+            <section class="document-entry">
+                <section class="document-label">Flight Ticket</section>
+                <section class="document-actions">
+                    <img src="assets/icons/eye.svg" alt="View" />
+                    <img src="assets/icons/download.svg" alt="Download" />
+                </section>
+            </section>
+
+            <!-- Document Entry 3 -->
+            <section class="document-entry">
+                <section class="document-label">TSA Clearance</section>
+                <section class="document-actions">
+                    <img src="assets/icons/eye.svg" alt="View" />
+                    <img src="assets/icons/download.svg" alt="Download" />
+                </section>
+            </section>
+
+            <!-- Document Entry 4 -->
+            <section class="document-entry">
+                <section class="document-label">Passport (US)</section>
+                <section class="document-actions">
+                    <img src="assets/icons/eye.svg" alt="View" />
+                    <img src="assets/icons/download.svg" alt="Download" />
+                </section>
+            </section>
+
+            <!-- Document Entry 5 -->
+            <section class="document-entry">
+                <section class="document-label">Hotel Voucher</section>
+                <section class="document-actions">
+                    <img src="assets/icons/eye.svg" alt="View" />
+                    <img src="assets/icons/download.svg" alt="Download" />
+                </section>
+            </section>
+
+            <!-- Document Entry 6 -->
+            <section class="document-entry">
+                <section class="document-label">Customs Clearance</section>
+                <section class="document-actions">
+                    <img src="assets/icons/eye.svg" alt="View" />
+                    <img src="assets/icons/download.svg" alt="Download" />
+                </section>
+            </section>
+
+            <!-- Close Button -->
+            <button class="popup-btn close-documents" onclick="closeDocumentsPopup()">
+                <img src="assets/icons/x.svg" alt="Close" />
+                <span>Close</span>
             </button>
+
         </section>
     </section>
 
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/intlTelInput.min.js"></script>
+    <!-- JS -->
     <script>
-        const pickupPhone = document.querySelector("#pickup-phone");
-        const deliveryPhone = document.querySelector("#delivery-phone");
+        function enableEditing() {
+            document.querySelectorAll(".job-details__value").forEach(el => {
+                if (el.tagName.toLowerCase() === "select") return;
+                const input = document.createElement("input");
+                input.type = "text";
+                input.className = "editable-field";
+                input.value = "";
+                el.replaceWith(input);
+            });
 
-        window.intlTelInput(pickupPhone, {
-            initialCountry: "il",
-            preferredCountries: ["il", "us", "gb"],
-            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
-        });
+            const flightContainer = document.getElementById("flightEntries");
+            if (flightContainer) {
+                flightContainer.innerHTML = "";
+                const wrapper = document.createElement("section");
+                wrapper.className = "flight-details__entry";
 
-        window.intlTelInput(deliveryPhone, {
-            initialCountry: "il",
-            preferredCountries: ["il", "us", "gb"],
-            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
-        });
+                const dateInput = document.createElement("input");
+                dateInput.type = "text";
+                dateInput.className = "editable-field";
+                dateInput.placeholder = "Date";
 
-        function showSuccessModal() {
-            const modal = document.getElementById('successModal');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 3000);
+                const codeInput = document.createElement("input");
+                codeInput.type = "text";
+                codeInput.className = "editable-field";
+                codeInput.placeholder = "Flight Code";
+
+                wrapper.appendChild(dateInput);
+                wrapper.appendChild(codeInput);
+                flightContainer.appendChild(wrapper);
+            }
+
+            if (!document.getElementById("saveChanges")) {
+                const saveBtn = document.createElement("section");
+                saveBtn.className = "action-button";
+                saveBtn.id = "saveChanges";
+                saveBtn.innerHTML = `<img src="assets/icons/save.svg" alt="Save" /><span>Save</span>`;
+                document.querySelector(".job-header__actions").appendChild(saveBtn);
+
+                saveBtn.addEventListener("click", () => {
+                    showConfirmationPopup("Save changes to the job?", () => {
+                        showToast("Changes saved successfully", "blue");
+                    });
+                });
+            }
         }
-        document.querySelector('form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            showSuccessModal();
-        });
 
-        function toggleCourierModal() {
-            const modal = document.getElementById("courierModal");
-            modal.classList.toggle("hidden");
+        function showConfirmationPopup(message, onConfirm, color = "blue") {
+            const overlay = document.createElement("section");
+            overlay.className = "popup-overlay";
+            overlay.innerHTML = `
+        <section class="popup-dialog popup-${color}">
+          <section class="popup-message">${message}</section>
+          <section class="popup-actions">
+            <button class="popup-confirm">Confirm</button>
+            <button class="popup-cancel">Cancel</button>
+          </section>
+        </section>`;
+            document.body.appendChild(overlay);
+
+            overlay.querySelector(".popup-cancel").addEventListener("click", () => overlay.remove());
+            overlay.querySelector(".popup-confirm").addEventListener("click", () => {
+                onConfirm();
+                overlay.remove();
+            });
         }
 
-        function closeCourierModal() {
-            const selectedRadio = document.querySelector('input[name="courier"]:checked');
-            const selectedLabel = selectedRadio.closest('.courier-card');
-            const courierName = selectedLabel.querySelector('.courier-name').textContent;
-            const courierSelect = document.getElementById("courier");
-            courierSelect.innerHTML = `<option selected>${courierName}</option>`;
-            document.getElementById("courierModal").classList.add("hidden");
+        function showToast(text, color = "blue") {
+            const toast = document.createElement("section");
+            toast.className = `popup-toast toast-${color}`;
+            toast.textContent = text;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
         }
 
-        const uploadButton = document.querySelector(".upload-button");
-        uploadButton.addEventListener("click", function (e) {
-            e.preventDefault();
-            openDocumentsModal();
+        function populateCourierDropdown() {
+            const couriers = [
+                { id: '1', name: 'Chen Rozenberg', rating: 4.9 },
+                { id: '2', name: 'Yossi Levi', rating: 4.7 },
+                { id: '3', name: 'Noa Shalev', rating: 4.5 },
+                { id: '4', name: 'Avi Katz', rating: 4.3 },
+                { id: '5', name: 'Lior Mizrahi', rating: 4.2 }
+            ];
+            const select = document.getElementById('courierSelect');
+            if (!select) return;
+            select.querySelectorAll("option:not(:first-child)").forEach(o => o.remove());
+            couriers.forEach(courier => {
+                const option = document.createElement("option");
+                option.value = courier.id;
+                option.textContent = `${courier.name} (⭐ ${courier.rating})`;
+                select.appendChild(option);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            populateCourierDropdown();
+            enableEditing();
         });
 
-        function openDocumentsModal() {
+        document.addEventListener("DOMContentLoaded", function () {
+            const phoneInputs = document.querySelectorAll("input[type='tel']");
+            phoneInputs.forEach(input => {
+                window.intlTelInput(input, {
+                    initialCountry: "il",
+                    preferredCountries: ["il", "us", "gb", "fr", "de"],
+                    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/utils.js",
+                });
+            });
+        });
+        document.getElementById("jobIdField").value = "JOB-2025-00123"; // or dynamically generated ID
+        function openDocumentsPopup() {
             document.getElementById("documentsModal").classList.remove("hidden");
         }
 
-        function closeDocumentsModal() {
+        function closeDocumentsPopup() {
             document.getElementById("documentsModal").classList.add("hidden");
         }
-        function initAutocomplete() {
-            const pickupInput = document.getElementById('pickup-address');
-            const deliveryInput = document.getElementById('delivery-address');
 
-            if (pickupInput) {
-                new google.maps.places.Autocomplete(pickupInput, {
-                    types: ['address'],
-                    componentRestrictions: { country: ['il', 'us'] }
-                });
+        document.addEventListener("DOMContentLoaded", () => {
+            const uploadBtn = document.getElementById("uploadButton");
+            if (uploadBtn) {
+                uploadBtn.addEventListener("click", openDocumentsPopup);
             }
-
-            if (deliveryInput) {
-                new google.maps.places.Autocomplete(deliveryInput, {
-                    types: ['address'],
-                    componentRestrictions: { country: ['il', 'us'] }
-                });
-            }
+        });
+        function openDocumentsPopup() {
+            document.getElementById("documentsModal").classList.remove("hidden");
         }
 
+        function closeDocumentsPopup() {
+            document.getElementById("documentsModal").classList.add("hidden");
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const uploadBtn = document.getElementById("uploadButton");
+            if (uploadBtn) {
+                uploadBtn.addEventListener("click", openDocumentsPopup);
+            }
+        });
+
     </script>
-
-
-
 </body>
 
 </html>

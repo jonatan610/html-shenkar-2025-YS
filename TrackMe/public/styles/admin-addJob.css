@@ -1,4 +1,4 @@
-/* Form Styling for Add Job page */
+/* Layout */
 .add-job-form {
   display: flex;
   flex-direction: column;
@@ -31,28 +31,37 @@ label {
   color: #374151;
   font-size: 11.9px;
   line-height: 20px;
+  margin-bottom: 4px;
 }
 
+/* Inputs and selects */
 input[type="text"],
 input[type="tel"],
 input[type="date"],
 input[type="time"],
 input[type="datetime-local"],
-select {
-  padding: 12px 16px;
-  font-size: 16px;
+select,
+input.editable-field,
+select.editable-field {
+  padding: 10px 14px;
+  font-size: 14px;
   border: 1px solid #d1d5db;
   border-radius: 12px;
   background-color: #f9fafb;
+  width: 100%;
   outline: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 input:focus,
-select:focus {
-  border-color: #000000;
+select:focus,
+input.editable-field:focus,
+select.editable-field:focus {
+  border-color: #1E3A8A;
   background-color: #eef2ff;
 }
 
+/* Upload button */
 .upload-button {
   align-self: flex-end;
   display: flex;
@@ -78,6 +87,7 @@ select:focus {
   width: 20px;
 }
 
+/* Info cards */
 .info-card {
   flex: 1;
   padding: 24px;
@@ -89,16 +99,13 @@ select:focus {
 }
 
 .info-card h2 {
-  width: 75.9px; 
-  position: relative;
-  font-size: 20px; 
-  color: #000; 
+  font-size: 20px;
+  color: #000;
   display: flex;
   white-space: nowrap;
-
 }
 
-
+/* Phone row */
 .phone-row {
   display: flex;
   gap: 12px;
@@ -110,6 +117,7 @@ select:focus {
   flex: 1;
 }
 
+/* Save button */
 .save-button {
   padding: 14px 32px;
   background-color: #1E3A8A;
@@ -126,6 +134,7 @@ select:focus {
   background-color: #3b82f6;
 }
 
+/* Job ID box */
 .job-id-section {
   margin-top: 16px;
   width: 288px;
@@ -154,13 +163,7 @@ select:focus {
   pointer-events: none;
 }
 
-.upload-section {
-  position: absolute;
-  top: 90px;
-  right: 24px;
-}
-
-/* Form Layout - Add Job Specific */
+/* Courier dropdown section */
 .courier-section {
   display: flex;
   flex-direction: column;
@@ -173,25 +176,6 @@ select:focus {
   font-weight: 600;
   color: #1E3A8A;
   font-size: 12px;
-}
-
-.courier-section select {
-  padding: 10px 14px;
-  font-size: 14px;
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
-  background-color: #f9fafb;
-  outline: none;
-  cursor: pointer;
-}
-
-.courier-section select:focus {
-  border-color: #1E3A8A;
-  background-color: #eef2ff;
-}
-
-.hidden {
-  display: none;
 }
 
 .courier-modal {
@@ -221,14 +205,13 @@ select:focus {
   padding: 16px 24px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  cursor: pointer;
   background-color: #fff;
-  position: relative;
+  cursor: pointer;
 }
 
 .courier-card.selected {
-  border-color: #000000;
-  background-color: #eff6ff;
+  border-color: #1E3A8A;
+  background-color: #eef2ff;
 }
 
 .courier-info {
@@ -250,7 +233,7 @@ select:focus {
 .courier-card input[type="radio"] {
   width: 20px;
   height: 20px;
-  accent-color: #000000
+  accent-color: #000000;
 }
 
 .save-courier-button {
@@ -270,46 +253,67 @@ select:focus {
   background-color: #3b82f6;
 }
 
+/* Flight info */
+.flight-details__entry {
+  flex-direction: column;
+}
+
+.job-details input.editable-field,
+.flight-details input.editable-field {
+  margin-top: 6px;
+}
+
+/* Utility */
 .form-row.center {
   justify-content: center;
   display: flex;
 }
 
-.success-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.25);
+.form-row.date-time {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+  gap: 16px;
+  flex-wrap: nowrap;
 }
 
-.success-modal.hidden {
+.hidden {
   display: none;
 }
 
-.success-content {
-  background-color: white;
-  padding: 40px 48px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+.job-header__left input[readonly] {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 16px;
+  cursor: not-allowed;
+}
+.popup-btn.close-documents {
+  margin-top: 24px;
+  align-self: center;
   display: flex;
   align-items: center;
-  gap: 16px;
-  font-size: 18px;
-  font-weight: 500;
-  color: #1E3A8A;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #1E3A8A;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.success-content img {
-  width: 24px;
-  height: 24px;
+.popup-btn.close-documents:hover {
+  background-color: #3b82f6;
 }
 
+.popup-btn.close-documents img {
+  width: 16px;
+  height: 16px;
+}
 .documents-modal {
   position: fixed;
   top: 0;
@@ -327,62 +331,109 @@ select:focus {
   background: white;
   border-radius: 16px;
   padding: 32px;
-  width: 400px;
+  width: 460px;
   max-width: 90vw;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .documents-title {
   font-size: 24px;
   font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 24px;
-  font-family: 'Inter', sans-serif;
+  color: #1E3A8A;
+  margin-bottom: 8px;
 }
 
 .document-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.document-item {
+.document-entry {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
   border-bottom: 1px solid #e5e7eb;
-  font-family: 'Inter', sans-serif;
 }
 
-.upload-icon input[type="file"] {
-  display: none;
+.document-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
 }
 
-.upload-icon img {
-  cursor: pointer;
+.document-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.document-actions img {
   width: 20px;
   height: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.document-actions img:hover {
+  opacity: 1;
 }
 
 .close-documents {
+  align-self: center;
+  background-color: #f3f4f6;
+  border: none;
+  color: #1E3A8A;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 24px auto 0;
-  background: transparent;
-  border: none;
-  color: #374151;
-  cursor: pointer;
-  font-size: 16px;
-}
-.close-documents img {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
-  
+  gap: 8px;
+  font-size: 14px;
 }
 
-.hidden {
-  display: none;
+.close-documents:hover {
+  background-color: #e0e7ff;
+}
+
+.job-header__left input[readonly] {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 16px;
+  cursor: not-allowed;
+}
+.job-id-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.job-id-inline label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.job-id-field {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 16px;
+  width: auto;
+  min-width: 120px;
+  cursor: not-allowed;
 }
