@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // מאזין ללחיצה על חץ ה־Job
+
   const jobArrow = document.getElementById("job-arrow");
   if (jobArrow) {
     jobArrow.addEventListener("click", () => {
@@ -168,3 +168,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Logout function: clear session/local storage and redirect to login page
+function handleLogout() {
+  // Clear localStorage (or any other stored authentication data)
+  localStorage.clear();
+
+  // Redirect to login page after logout
+  window.location.href = 'courier-login.html';
+}
+
+// Add event listener to logout button after DOM content is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  // Select logout button by class name (adjust selector as needed)
+  const logoutButton = document.querySelector(".logout");
+
+  if (logoutButton) {
+    logoutButton.addEventListener("click", handleLogout);
+  }
+});
+

@@ -5,56 +5,6 @@
   height: 100vh;
 }
 
-/* Header */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 32px;
-  background-color: #fff;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-text {
-  font-weight: 600;
-  font-size: 20px;
-  color: #1e3a8a;
-}
-
-.main-nav {
-  display: flex;
-  gap: 32px;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  text-decoration: none;
-}
-
-.nav-item img {
-  width: 20px;
-  height: 20px;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #374151;
-}
-
 /* Chat Layout */
 .chat-container {
   flex: 1;
@@ -157,7 +107,6 @@
   border-top: 1px solid #e5e7eb;
   z-index: 999;
 }
-
 
 .input-bar .icon {
   width: 24px;

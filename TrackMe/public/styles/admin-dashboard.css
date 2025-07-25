@@ -542,12 +542,12 @@ body {
   transition: transform 0.3s ease;
 }
 
-/* When menu is open */
+/* When the burger menu is visible */
 #burger-popup.popup-overlay:not(.hidden) {
   transform: translateX(0);
 }
 
-/* Burger popup content */
+/* Main container inside the burger menu */
 #burger-popup .popup-sheet {
   width: 100%;
   height: 100%;
@@ -558,7 +558,7 @@ body {
   position: relative;
 }
 
-/* Close button */
+/* Close button at the top-right of the burger menu */
 .burger-close-button {
   position: absolute;
   top: 16px;
@@ -573,7 +573,7 @@ body {
   height: 20px;
 }
 
-/* Buttons inside menu */
+/* Content buttons inside the burger menu */
 .popup-content {
   display: flex;
   flex-direction: column;
@@ -581,6 +581,7 @@ body {
   margin-top: 72px;
 }
 
+/* Style for each button inside the burger popup */
 .popup-button {
   display: flex;
   align-items: center;
@@ -605,15 +606,17 @@ body {
   height: 20px;
 }
 
+/* Special styling for the logout button */
 .popup-button.logout {
   color: #dc2626;
 }
 
+/* Hamburger menu button in the header */
 .menu-button {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .search-popup {
@@ -671,4 +674,16 @@ body {
 
 .search-submit-btn:hover {
   background-color: #3b82f6;
+}
+
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#burger-popup.popup-overlay {
+
+  left: auto !important;
+
 }

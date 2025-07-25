@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Details - TrackMe</title>
     <link rel="stylesheet" href="styles/admin-viewJob.css" />
-    <link rel="stylesheet" href="styles/admin.css" />
     <link rel="stylesheet" href="styles/admin-addJob.css" />
+    <link rel="stylesheet" href="styles/admin-dashboard.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/css/intlTelInput.css" />
 
 </head>
@@ -19,22 +19,57 @@
             <img src="assets/icons/plane_desktop.svg" alt="TrackMe Logo" />
             <span class="logo-text">TrackMe</span>
         </section>
+
         <nav class="main-nav">
             <a href="admin-dashboard.html" class="nav-item">
                 <img src="assets/icons/home.svg" alt="Home" /> Home
             </a>
-            <a href="jobs.html" class="nav-item">
-                <img src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
+            <a href="admin-jobs.html" class="nav-item active">
+                <img class="icon-blue" src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
             </a>
-            <a href="add-job.html" class="nav-item">
+            <a href="admin-addJob.html" class="nav-item">
                 <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
             </a>
         </nav>
-        <section class="user-info">
-            <img src="assets/icons/user.svg" alt="User Icon" />
-            <span>Hello, <strong>User!</strong></span>
+
+            <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
+                <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
+            </button>
         </section>
     </header>
+
+    <!-- === Burger Menu Popup === -->
+    <section id="burger-popup" class="popup-overlay hidden">
+        <section class="popup-sheet">
+            <button class="burger-close-button" onclick="closeBurgerMenu()">
+                <img src="assets/icons/x.svg" alt="Close menu" />
+            </button>
+
+            <section class="popup-content">
+                <button class="popup-button">
+                    <img src="assets/icons/b1.svg" alt="My Profile" />
+                    <span>My Profile</span>
+                </button>
+                <button class="popup-button">
+                    <img src="assets/icons/b2.svg" alt="Settings" />
+                    <span>Settings</span>
+                </button>
+                <button class="popup-button">
+                    <img src="assets/icons/b3.svg" alt="Terms of Service" />
+                    <span>Terms of Service</span>
+                </button>
+                <button class="popup-button">
+                    <img src="assets/icons/b4.svg" alt="Help" />
+                    <span>Help</span>
+                </button>
+                <button class="popup-button logout" onclick="handleLogout()">
+                    <img src="assets/icons/b5.svg" alt="Log Out" />
+                    <span>Log Out</span>
+                </button>
+            </section>
+        </section>
+    </section>
+
 
     <!-- Main -->
     <main class="job-view">
@@ -282,149 +317,12 @@
 
         </section>
     </section>
-
+    <script src="js/admin-dashboard.js"></script>
+    <script src="js/admin-addJob.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/intlTelInput.min.js"></script>
-    <!-- JS -->
-    <script>
-        function enableEditing() {
-            document.querySelectorAll(".job-details__value").forEach(el => {
-                if (el.tagName.toLowerCase() === "select") return;
-                const input = document.createElement("input");
-                input.type = "text";
-                input.className = "editable-field";
-                input.value = "";
-                el.replaceWith(input);
-            });
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiJaJgKbMZHlpYJ4gm1irOH53pLTRqS2Q&libraries=places" async defer></script>
 
-            const flightContainer = document.getElementById("flightEntries");
-            if (flightContainer) {
-                flightContainer.innerHTML = "";
-                const wrapper = document.createElement("section");
-                wrapper.className = "flight-details__entry";
 
-                const dateInput = document.createElement("input");
-                dateInput.type = "text";
-                dateInput.className = "editable-field";
-                dateInput.placeholder = "Date";
-
-                const codeInput = document.createElement("input");
-                codeInput.type = "text";
-                codeInput.className = "editable-field";
-                codeInput.placeholder = "Flight Code";
-
-                wrapper.appendChild(dateInput);
-                wrapper.appendChild(codeInput);
-                flightContainer.appendChild(wrapper);
-            }
-
-            if (!document.getElementById("saveChanges")) {
-                const saveBtn = document.createElement("section");
-                saveBtn.className = "action-button";
-                saveBtn.id = "saveChanges";
-                saveBtn.innerHTML = `<img src="assets/icons/save.svg" alt="Save" /><span>Save</span>`;
-                document.querySelector(".job-header__actions").appendChild(saveBtn);
-
-                saveBtn.addEventListener("click", () => {
-                    showConfirmationPopup("Save changes to the job?", () => {
-                        showToast("Changes saved successfully", "blue");
-                    });
-                });
-            }
-        }
-
-        function showConfirmationPopup(message, onConfirm, color = "blue") {
-            const overlay = document.createElement("section");
-            overlay.className = "popup-overlay";
-            overlay.innerHTML = `
-        <section class="popup-dialog popup-${color}">
-          <section class="popup-message">${message}</section>
-          <section class="popup-actions">
-            <button class="popup-confirm">Confirm</button>
-            <button class="popup-cancel">Cancel</button>
-          </section>
-        </section>`;
-            document.body.appendChild(overlay);
-
-            overlay.querySelector(".popup-cancel").addEventListener("click", () => overlay.remove());
-            overlay.querySelector(".popup-confirm").addEventListener("click", () => {
-                onConfirm();
-                overlay.remove();
-            });
-        }
-
-        function showToast(text, color = "blue") {
-            const toast = document.createElement("section");
-            toast.className = `popup-toast toast-${color}`;
-            toast.textContent = text;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        function populateCourierDropdown() {
-            const couriers = [
-                { id: '1', name: 'Chen Rozenberg', rating: 4.9 },
-                { id: '2', name: 'Yossi Levi', rating: 4.7 },
-                { id: '3', name: 'Noa Shalev', rating: 4.5 },
-                { id: '4', name: 'Avi Katz', rating: 4.3 },
-                { id: '5', name: 'Lior Mizrahi', rating: 4.2 }
-            ];
-            const select = document.getElementById('courierSelect');
-            if (!select) return;
-            select.querySelectorAll("option:not(:first-child)").forEach(o => o.remove());
-            couriers.forEach(courier => {
-                const option = document.createElement("option");
-                option.value = courier.id;
-                option.textContent = `${courier.name} (⭐ ${courier.rating})`;
-                select.appendChild(option);
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            populateCourierDropdown();
-            enableEditing();
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const phoneInputs = document.querySelectorAll("input[type='tel']");
-            phoneInputs.forEach(input => {
-                window.intlTelInput(input, {
-                    initialCountry: "il",
-                    preferredCountries: ["il", "us", "gb", "fr", "de"],
-                    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/utils.js",
-                });
-            });
-        });
-        document.getElementById("jobIdField").value = "JOB-2025-00123"; // or dynamically generated ID
-        function openDocumentsPopup() {
-            document.getElementById("documentsModal").classList.remove("hidden");
-        }
-
-        function closeDocumentsPopup() {
-            document.getElementById("documentsModal").classList.add("hidden");
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const uploadBtn = document.getElementById("uploadButton");
-            if (uploadBtn) {
-                uploadBtn.addEventListener("click", openDocumentsPopup);
-            }
-        });
-        function openDocumentsPopup() {
-            document.getElementById("documentsModal").classList.remove("hidden");
-        }
-
-        function closeDocumentsPopup() {
-            document.getElementById("documentsModal").classList.add("hidden");
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const uploadBtn = document.getElementById("uploadButton");
-            if (uploadBtn) {
-                uploadBtn.addEventListener("click", openDocumentsPopup);
-            }
-        });
-
-    </script>
 </body>
 
 </html>

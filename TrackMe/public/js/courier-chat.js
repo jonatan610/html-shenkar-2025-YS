@@ -78,3 +78,23 @@ document.addEventListener("DOMContentLoaded", () => {
     uploadPopup.classList.add("hidden");
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Select the back button element by id
+  const backButton = document.getElementById('back-button');
+  if (backButton) {
+    // Change cursor to pointer to indicate clickable
+    backButton.style.cursor = 'pointer';
+
+    // Add click event listener to navigate back or to home page
+    backButton.addEventListener('click', () => {
+      // Option 1: Navigate back in history
+      // window.history.back();
+
+      // Option 2: Navigate to a specific page (e.g. courier-dashboard.html)
+      window.location.href = 'courier-dashboard.html';
+    });
+  } else {
+    console.error('Back button element not found');
+  }
+});

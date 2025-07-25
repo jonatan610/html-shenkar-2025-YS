@@ -409,7 +409,6 @@
   display: none;
 }
 
-.popup-content,
 .documents-container {
   background: white;
   padding: 24px;
@@ -417,6 +416,16 @@
   width: 100%;
   max-width: 480px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+#burger-popup .popup-content {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  width: auto !important;
+  max-width: none !important;
 }
 
 .popup-actions {
@@ -520,9 +529,6 @@
   100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
 }
 
-
-
-
 .editable-field {
   font-family: 'Inter', sans-serif;
   font-size: 14px;
@@ -541,3 +547,4 @@
   border-color: #2563eb;             /* blue border on focus */
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); /* subtle blue glow */
 }
+

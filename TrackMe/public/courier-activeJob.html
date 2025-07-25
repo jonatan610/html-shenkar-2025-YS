@@ -13,7 +13,7 @@
         <!-- Header -->
         <section class="container4">
             <section class="container5">
-                <img src="assets/icons/back.svg" alt="Back" class="button-icon" />
+                <img src="assets/icons/back.svg" alt="Back" class="button-icon" id="job-arrow" />
                 <section class="heading">
                     <section class="job">Job #0001</section>
                     <section class="div">Active</section>
@@ -89,25 +89,8 @@
             </section>
         </section>
 
-        <script src="courier-activeJob.js"></script>
-        <script>
-            function showPopup(statusText) {
-                const popup = document.getElementById('status-popup');
-                const statusTextElement = document.getElementById('new-status-text');
-                statusTextElement.textContent = statusText;
-                popup.style.display = 'flex';
-            }
+        <script src="js/courier-activeJob.js"></script>
 
-            function closePopup() {
-                document.getElementById('status-popup').style.display = 'none';
-            }
-
-            function confirmStatus() {
-                const newStatus = document.getElementById('new-status-text').textContent;
-                document.getElementById('current-status').textContent = newStatus;
-                closePopup();
-            }
-        </script>
 
 </body>
 

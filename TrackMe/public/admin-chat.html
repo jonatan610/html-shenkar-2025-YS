@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TrackMe – admin Chat</title>
-    <link rel="stylesheet" href="styles/admin.css" />
+    <link rel="stylesheet" href="styles/admin-dashboard.css" />
     <link rel="stylesheet" href="styles/admin-chat.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
 </head>
@@ -20,21 +20,55 @@
                 <span class="logo-text">TrackMe</span>
             </section>
             <nav class="main-nav">
-                <a href="admin-dashboard.html" class="nav-item">
+                <a href="admin-dashboard.html" class="nav-item active">
                     <img src="assets/icons/home.svg" alt="Home" /> Home
                 </a>
-                <a href="jobs.html" class="nav-item">
-                    <img src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
+                <a href="admin-jobs.html" class="nav-item">
+                    <img class="icon-blue" src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
                 </a>
-                <a href="add-job.html" class="nav-item">
+                <a href="admin-addJob.html" class="nav-item">
                     <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
                 </a>
             </nav>
-            <section class="user-info">
-                <img src="assets/icons/user.svg" alt="User Icon" />
-                <span>Hello, <strong>User!</strong></span>
+                <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
+                    <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
+                </button>
             </section>
         </header>
+
+        <!-- === Burger Menu Popup === -->
+        <section id="burger-popup" class="popup-overlay hidden">
+            <section class="popup-sheet">
+                <button class="burger-close-button" onclick="closeBurgerMenu()">
+                    <img src="assets/icons/x.svg" alt="Close menu" />
+                </button>
+
+                <section class="popup-content">
+                    <button class="popup-button">
+                        <img src="assets/icons/b1.svg" alt="My Profile" />
+                        <span>My Profile</span>
+                    </button>
+                    <button class="popup-button">
+                        <img src="assets/icons/b2.svg" alt="Settings" />
+                        <span>Settings</span>
+                    </button>
+                    <button class="popup-button">
+                        <img src="assets/icons/b3.svg" alt="Terms of Service" />
+                        <span>Terms of Service</span>
+                    </button>
+                    <button class="popup-button">
+                        <img src="assets/icons/b4.svg" alt="Help" />
+                        <span>Help</span>
+                    </button>
+                    <button class="popup-button logout" onclick="handleLogout()">
+                        <img src="assets/icons/b5.svg" alt="Log Out" />
+                        <span>Log Out</span>
+                    </button>
+                </section>
+            </section>
+        </section>
+
+
 
         <!-- Main Layout -->
         <main class="chat-layout">
@@ -49,7 +83,7 @@
 
                 <section class="chat-area">
                     <section class="chat-thread">
-                        <!-- הודעה יוצאת -->
+
                         <section class="message outgoing hidden">
                             <section class="bubble"></section>
                             <section class="meta">
@@ -58,7 +92,7 @@
                             </section>
                         </section>
 
-                        <!-- הודעה נכנסת -->
+
                         <section class="message incoming hidden">
                             <section class="bubble"></section>
                             <section class="meta">
@@ -115,7 +149,8 @@
                 </section>
 
             </section>
-            <script src="js/courier-chat.js" defer></script>
+            <script src="js/courier-chat.js"></script>
+            <script src="js/admin-dashboard.js"></script>
 </body>
 
 </html>
