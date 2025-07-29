@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "TrackMe backend server",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "seed": "node seedCouriers.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+"scripts": {
+  "start": "node server/server.js",
+  "seed": "node server/seedCouriers.js",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+
   "keywords": [],
   "author": "Yehonatan Moshe Shapira",
   "license": "ISC",
