@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "description": "TrackMe backend server",
   "main": "server.js",
-"scripts": {
-  "start": "node server/server.js",
-  "seed": "node server/seedCouriers.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
-},
-
+  "scripts": {
+    "start": "node server/server.js",
+    "seed": "node server/seedCouriers.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "keywords": [],
   "author": "Yehonatan Moshe Shapira",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
