@@ -1,5 +1,5 @@
 import API_BASE_URL from './config.js';
-const currentJobId = new URLSearchParams(window.location.search).get("jobId");
+const currentJobId = localStorage.getItem("currentJobId");
 let mapInitialized = false;
 let currentJob = null;  
 
