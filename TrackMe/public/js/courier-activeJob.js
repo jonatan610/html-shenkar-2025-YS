@@ -1,3 +1,4 @@
+import API_BASE_URL from './config.js';
 // Show the status update confirmation popup
 function showPopup(statusText) {
   const popup = document.getElementById('status-popup');

@@ -1,4 +1,5 @@
 // Connect to Socket.IO server
+import API_BASE_URL from './config.js';
 const socket = io('http://localhost:5500');
 
 document.addEventListener("DOMContentLoaded", () => {

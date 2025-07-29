@@ -1,4 +1,6 @@
+import API_BASE_URL from './config.js';
 let currentJobId = "";
+
 
 // Populate the courier dropdown from server
 async function populateCourierDropdown() {

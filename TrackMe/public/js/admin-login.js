@@ -4,6 +4,7 @@
  * Correct password: Admin@2024
  */
 
+import API_BASE_URL from './config.js';
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("admin-login-form");
   const emailInput = document.getElementById("email");

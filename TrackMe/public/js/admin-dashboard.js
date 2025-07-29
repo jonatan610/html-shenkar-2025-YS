@@ -1,3 +1,4 @@
+import API_BASE_URL from './config.js';
 document.addEventListener("DOMContentLoaded", () => {
   const filterBtn = document.querySelector(".filter-btn");
   const sortBtn = document.querySelector(".sort-btn");

@@ -1,3 +1,4 @@
+import API_BASE_URL from './config.js';
 let mapInitialized = false;
 let currentJob = null;  
 
