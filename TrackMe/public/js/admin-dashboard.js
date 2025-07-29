@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // === Load all jobs and render them ===
-  fetch("http://localhost:5500/api/jobs")
+fetch(`${API_BASE_URL}/api/jobs`)
     .then(res => res.json())
     .then(jobs => {
       jobList.innerHTML = "";

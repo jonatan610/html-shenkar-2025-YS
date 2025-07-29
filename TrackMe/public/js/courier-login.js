@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.warn("Missing elements in DOM.");
     return;
   }
+  
 
   // Toggle password visibility
   togglePasswordBtn.addEventListener("click", () => {
@@ -48,11 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5500/api/couriers/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+     const response = await fetch(`${API_BASE_URL}/api/couriers/login`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password }),
+});
 
       const result = await response.json();
 

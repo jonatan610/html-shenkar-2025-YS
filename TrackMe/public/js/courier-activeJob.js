@@ -96,7 +96,8 @@ async function confirmStatus() {
   }
 
   try {
-    const res = await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}`, {
+    const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`, {
+
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ courierStatus: mapStatusToApi(newStatus) })

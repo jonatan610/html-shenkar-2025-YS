@@ -10,7 +10,7 @@ async function populateCourierDropdown() {
     select.querySelectorAll("option:not(:first-child)").forEach(o => o.remove());
 
     try {
-        const res = await fetch("http://localhost:5500/api/couriers");
+        const res = await fetch(`${API_BASE_URL}/api/couriers`);
         const couriers = await res.json();
         couriers.forEach(courier => {
             const option = document.createElement("option");
@@ -234,7 +234,7 @@ async function submitJob() {
     });
 
     try {
-        const res = await fetch('http://localhost:5500/api/jobs', {
+       const res = await fetch(`${API_BASE_URL}/api/jobs`, {
             method: 'POST',
             body: formData
         });

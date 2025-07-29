@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadDynamicJobs() {
     try {
-        const res = await fetch("http://localhost:5500/api/jobs");
+        const res = await fetch(`${API_BASE_URL}/api/jobs`);
         if (!res.ok) throw new Error("Failed to fetch jobs");
 
         const jobs = await res.json();

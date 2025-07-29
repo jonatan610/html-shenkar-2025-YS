@@ -1,6 +1,6 @@
 
 import API_BASE_URL from './config.js';// Connect to Socket.IO server
-const socket = io('http://localhost:5500');
+const socket = io(API_BASE_URL);
 
 document.addEventListener("DOMContentLoaded", () => {
   const inputField = document.querySelector(".input-field");

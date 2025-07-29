@@ -220,7 +220,7 @@ async function saveJobEdits() {
   };
 
   try {
-    const res = await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}`, {
+    const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -255,8 +255,8 @@ async function deleteJob() {
   const jobId = normalizeJobId(getJobIdFromURL());
   if (!jobId) return showToast('Missing job ID', 'red');
   try {
-    const res = await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}`, { method: 'DELETE' });
-    if (!res.ok) throw new Error();
+   const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`, { method: 'DELETE' });
+
     showToast('Job deleted', 'blue');
  setTimeout(() => window.location.href = '/public/admin-jobs.html', 1000);
   } catch {
@@ -270,7 +270,7 @@ function setupStatusToggle(jobId) {
   if (!select) return;
   select.addEventListener("change", async () => {
     try {
-      const res = await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}/status`, {
+      const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: select.value })
@@ -340,7 +340,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const jobId = normalizeJobId(getJobIdFromURL());
   if (!jobId) return showToast('Missing job ID', 'red');
   try {
-    const res = await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}`);
+    const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`);
+
     if (!res.ok) throw new Error();
     const job = await res.json();
     populateJobDetails(job);
@@ -380,7 +381,8 @@ statusOptions?.querySelectorAll("li").forEach(li => {
     statusOptions.style.display = "none";
     // שליחת העדכון לשרת:
     const jobId = document.getElementById('job-id').textContent; // או קח אותו מ-url/searchparams
-    await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}/status`, {
+await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}/status`, {
+
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus }),

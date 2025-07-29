@@ -202,7 +202,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const res = await fetch(`http://localhost:5500/api/jobs/current/${courierId}`);
+    const res = await fetch(`${API_BASE_URL}/api/jobs/current/${courierId}`);
+
     if (!res.ok) throw new Error("No job assigned to this courier");
     const data = await res.json();
 
@@ -280,10 +281,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function loadJob(jobId) {
-    const res = await fetch(`http://localhost:5500/api/jobs/${jobId}`);
-    const job = await res.json();
+  const res = await fetch(`${API_BASE_URL}/api/jobs/${jobId}`);
+  const job = await res.json();
 
-  
     if (job.delivery?.lat && job.delivery?.lng) {
     initMap(job.delivery.lat, job.delivery.lng);
 }
