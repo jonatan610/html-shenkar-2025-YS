@@ -10,26 +10,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.querySelector(".close-btn");
   const cancelUpload = document.querySelector(".cancel-upload");
   const jobTitle = document.querySelector(".job");
+  const backButton = document.getElementById("back-button");
 
-  // Get jobId from URL
+  // Get jobId from URL using 'id' param
   const urlParams = new URLSearchParams(window.location.search);
   const jobId = urlParams.get('id');
 
-  if (jobId) {
-    socket.emit('joinJobRoom', jobId);
-    if (jobTitle) jobTitle.textContent = `Job # ${jobId}`;
-  } else {
+  if (!jobId) {
     alert("Missing job ID in URL");
+    return;
   }
 
-  // Get current time in HH:MM format
+  // Emit room join and set job title
+  socket.emit('joinJobRoom', jobId);
+  if (jobTitle) jobTitle.textContent = `Job # ${jobId}`;
+
+  // Back button returns to job view
+  if (backButton) {
+    backButton.style.cursor = 'pointer';
+    backButton.addEventListener('click', () => {
+      window.location.href = `admin-viewJob.html?id=${encodeURIComponent(jobId)}`;
+    });
+  }
+
+  // Helper to get current time
   const getCurrentTime = () => {
     const now = new Date();
     return now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
-  // Add message to chat area
-  const addMessage = (text, isOutgoing = true, sender = 'courier', time = null) => {
+  // Append a message to the chat
+  const addMessage = (text, isOutgoing = true, sender = 'other', time = null) => {
     const messageSection = document.createElement("section");
     messageSection.className = `message ${isOutgoing ? "outgoing" : "incoming"}`;
 
@@ -42,7 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const timeSpan = document.createElement("span");
     timeSpan.className = "time";
-    timeSpan.textContent = time ? new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : getCurrentTime();
+    timeSpan.textContent = time
+      ? new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      : getCurrentTime();
 
     meta.appendChild(timeSpan);
 
@@ -58,20 +71,20 @@ document.addEventListener("DOMContentLoaded", () => {
     messageSection.appendChild(meta);
     chatArea.appendChild(messageSection);
 
-    // Scroll to bottom
     chatArea.scrollTop = chatArea.scrollHeight;
   };
 
-  // Send message
+  // Send message on button click
   sendButton.addEventListener("click", () => {
     const text = inputField.value.trim();
-    if (!text || !jobId) return;
+    if (!text) return;
 
     addMessage(text, true);
-    socket.emit('sendMessage', { jobId, message: text, sender: 'courier' });
+    socket.emit('sendMessage', { jobId, message: text, sender: 'admin' });
     inputField.value = "";
   });
 
+  // Send message on Enter key
   inputField.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -79,12 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Show upload popup
+  // Upload popup handlers
   attachIcon.addEventListener("click", () => {
     uploadPopup.classList.remove("hidden");
   });
 
-  // Close upload popup
   closeBtn.addEventListener("click", () => {
     uploadPopup.classList.add("hidden");
   });
@@ -93,21 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
     uploadPopup.classList.add("hidden");
   });
 
-socket.on('receiveMessage', ({ message, sender, time, job }) => {
-  if (job === jobId && sender !== 'courier') {
+  socket.on('receiveMessage', ({ message, sender, time, job }) => {
+  if (job === jobId && sender !== 'admin') {
     addMessage(message, false, sender, time);
   }
 });
 
-
-
-
-  // Back button logic
-  const backButton = document.getElementById('back-button');
-  if (backButton) {
-    backButton.style.cursor = 'pointer';
-    backButton.addEventListener('click', () => {
-      window.location.href = 'courier-dashboard.html';
-    });
-  }
 });

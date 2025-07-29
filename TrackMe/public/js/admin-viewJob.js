@@ -1,155 +1,394 @@
+// ========== Helpers ==========
+function normalizeJobId(id) {
+  return id || null;
+}
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const courierStatus = "Package Picked Up";
-            const statusElement = document.getElementById("courierStatusText");
-            if (statusElement) statusElement.innerText = courierStatus;
+function showToast(message, type = 'blue') {
+  const toast = document.createElement('section');
+  toast.className = `popup-toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
 
-            const steps = {
-                "Order Created": 0,
-                "Heading to Pickup": 1,
-                "Package Picked Up": 2,
-                "On the Way": 3,
-                "Delivered": 4
-            };
+function getJobIdFromURL() {
+  return new URLSearchParams(window.location.search).get('id');
+}
 
-            const currentStep = steps[courierStatus] || 0;
-            for (let i = 1; i <= currentStep; i++) {
-                document.getElementById(`step-${i}`)?.classList.add("completed");
-                if (i < currentStep) document.getElementById(`line-${i}`)?.classList.add("completed");
-            }
+// ========== International Phone and Address Autocomplete ==========
+function initIntlTelInputs() {
+  document.querySelectorAll('input[type="tel"]').forEach(input => {
+    window.intlTelInput(input, {
+      initialCountry: "il",
+      preferredCountries: ["il", "us", "gb", "fr", "de"],
+      utilsScript:
+        "https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/utils.js",
+    });
+  });
+}
 
-            // ===== Status Dropdown Toggle =====
-            const toggle = document.getElementById("statusToggle");
-            const options = document.getElementById("statusOptions");
-            const label = document.getElementById("statusLabel");
+// Autocomplete and syncing lat/lng for both addresses
+function initGoogleAddressAutocomplete() {
+  // Pickup
+  const pickupInput = document.getElementById("pickupAddress");
+  const pickupLat = document.getElementById("pickupLat");
+  const pickupLng = document.getElementById("pickupLng");
+  if (pickupInput && pickupLat && pickupLng && window.google) {
+    const auto1 = new google.maps.places.Autocomplete(pickupInput, { types: ["geocode"] });
+    auto1.addListener('place_changed', function () {
+      const place = auto1.getPlace();
+      if (place && place.geometry) {
+        pickupLat.value = place.geometry.location.lat();
+        pickupLng.value = place.geometry.location.lng();
+      } else {
+        pickupLat.value = "";
+        pickupLng.value = "";
+      }
+    });
+  }
+  // Delivery
+  const deliveryInput = document.getElementById("deliveryAddress");
+  const deliveryLat = document.getElementById("deliveryLat");
+  const deliveryLng = document.getElementById("deliveryLng");
+  if (deliveryInput && deliveryLat && deliveryLng && window.google) {
+    const auto2 = new google.maps.places.Autocomplete(deliveryInput, { types: ["geocode"] });
+    auto2.addListener('place_changed', function () {
+      const place = auto2.getPlace();
+      if (place && place.geometry) {
+        deliveryLat.value = place.geometry.location.lat();
+        deliveryLng.value = place.geometry.location.lng();
+      } else {
+        deliveryLat.value = "";
+        deliveryLng.value = "";
+      }
+    });
+  }
+}
 
-            toggle?.addEventListener("click", () => {
-                options.style.display = options.style.display === "block" ? "none" : "block";
-            });
+// Helper for geocoding address -> lat/lng if needed
+async function getLatLngFromAddress(address) {
+  return new Promise((resolve) => {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        const loc = results[0].geometry.location;
+        resolve({ lat: loc.lat(), lng: loc.lng() });
+      } else {
+        resolve({ lat: "", lng: "" });
+      }
+    });
+  });
+}
 
-            options?.querySelectorAll("li").forEach((option) => {
-                option.addEventListener("click", () => {
-                    const value = option.dataset.value;
-                    showConfirmationPopup("Change job status?", () => {
-                        label.textContent = option.textContent;
-                        toggle.classList.remove("active", "on-hold", "delivered");
-                        toggle.classList.add(value);
-                        options.style.display = "none";
-                        showToast(`Status changed to "${option.textContent}"`, "blue");
-                    });
-                });
-            });
+// ========== Job Details Population ==========
+function populateJobDetails(job) {
+  // Job ID & Status
+  document.getElementById('job-id').textContent = job.jobId || job._id;
+  const statusBtn = document.getElementById('statusToggle');
+  document.getElementById('statusLabel').textContent = job.status || '—';
+  statusBtn.className = 'status-select ' + (job.status || '');
 
-            document.addEventListener("click", (e) => {
-                if (!toggle.contains(e.target) && !options.contains(e.target)) {
-                    options.style.display = "none";
-                }
-            });
+  // Set dropdown to current status value
+  if (statusBtn && statusBtn.tagName === 'SELECT') {
+    statusBtn.value = job.status || '';
+  }
 
-            // ===== Edit =====
-            const editButton = document.querySelector(".action-button img[alt='Edit']")?.closest(".action-button");
-            editButton?.addEventListener("click", () => {
-                enableEditing();
-            });
+  // Courier
+  document.getElementById('courier-name').textContent = job.courier?.fullName || '—';
 
-            // ===== Save Button (dynamically generated) =====
-            const saveButton = document.getElementById("saveChanges");
-            if (saveButton) {
-                saveButton.addEventListener("click", () => {
-                    showConfirmationPopup("Save changes to the job?", () => {
-                        showToast("Changes saved successfully", "blue");
-                    });
-                });
-            }
+  // Pickup
+  document.getElementById('pickupAddress').value = job.pickup?.address || '';
+  document.getElementById('pickupDate').value = job.pickup?.date || '';
+  document.getElementById('pickupTime').value = job.pickup?.time || '';
+  document.querySelector('.job-details--pickup .job-details__value').textContent = job.pickup?.contact || '—';
+  document.getElementById('pickupPhone').value = job.pickup?.phone || '';
+  if (document.getElementById('pickupLat')) document.getElementById('pickupLat').value = job.pickup?.lat || "";
+  if (document.getElementById('pickupLng')) document.getElementById('pickupLng').value = job.pickup?.lng || "";
 
-            // ===== Delete =====
-            const deleteButton = document.querySelector(".action-button--danger");
-            deleteButton.addEventListener("click", () => {
-                showConfirmationPopup("Are you sure you want to delete this job?", () => {
-                    showToast("Job deleted successfully", "red");
-                }, "red");
-            });
+  // Delivery
+  document.getElementById('deliveryAddress').value = job.delivery?.address || '';
+  document.getElementById('deliveryDate').value = job.delivery?.date || '';
+  document.getElementById('deliveryTime').value = job.delivery?.time || '';
+  document.querySelector('.job-details--delivery .job-details__value').textContent = job.delivery?.contact || '—';
+  document.getElementById('deliveryPhone').value = job.delivery?.phone || '';
+  if (document.getElementById('deliveryLat')) document.getElementById('deliveryLat').value = job.delivery?.lat || "";
+  if (document.getElementById('deliveryLng')) document.getElementById('deliveryLng').value = job.delivery?.lng || "";
 
-            // ===== Upload Files Button =====
-            const uploadBtn = document.getElementById("uploadButton");
-            const documentsModal = document.getElementById("documentsModal");
-            uploadBtn?.addEventListener("click", () => {
-                documentsModal?.classList.remove("hidden");
-            });
+  // Flight Outbound
+  document.getElementById('flightOutDate').value = job.flight?.outbound?.date || '';
+  document.getElementById('flightOutTime').value = job.flight?.outbound?.time || '';
+  document.getElementById('flightOutCode').value = job.flight?.outbound?.code || '';
 
-            // ===== Close Modals =====
-            document.querySelectorAll(".popup-cancel, .popup-close")?.forEach((el) =>
-                el.addEventListener("click", () => {
-                    document.querySelector(".popup-overlay")?.remove();
-                })
-            );
+  // Flight Return
+  document.getElementById('flightReturnDate').value = job.flight?.return?.date || '';
+  document.getElementById('flightReturnTime').value = job.flight?.return?.time || '';
+  document.getElementById('flightReturnCode').value = job.flight?.return?.code || '';
 
-            // ===== Enable Edit Mode =====
-            function enableEditing() {
-                document.querySelectorAll(".job-details__value").forEach((el) => {
-                    const text = el.textContent.trim();
-                    const input = document.createElement("input");
-                    input.type = "text";
-                    input.value = text;
-                    input.className = "editable-field";
-                    el.replaceWith(input);
-                });
+  // Courier Status
+  document.getElementById('courierStatusText').textContent = job.courierStatus || '—';
+  updateStatusIcons(job.courierStatus);
 
-                document.querySelectorAll(".flight-details__date, .flight-details__code").forEach((el) => {
-                    const text = el.textContent.trim();
-                    const input = document.createElement("input");
-                    input.type = "text";
-                    input.value = text;
-                    input.className = "editable-field";
-                    el.innerHTML = "";
-                    el.appendChild(input);
-                });
+  // Phone input & Address autocomplete
+  initIntlTelInputs();
+  initGoogleAddressAutocomplete();
+}
 
-                if (!document.getElementById("saveChanges")) {
-                    const saveBtn = document.createElement("section");
-                    saveBtn.className = "action-button";
-                    saveBtn.id = "saveChanges";
-                    saveBtn.innerHTML = `<img src="assets/icons/save.svg" alt="Save" /><span>Save</span>`;
-                    document.querySelector(".job-header__actions")?.appendChild(saveBtn);
+// ========== Edit Mode ==========
+function enableEditing() {
+  document.querySelectorAll('.job-details__value').forEach(span => {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'editable-field';
+    input.value = span.textContent.trim();
+    if (span.closest('.job-details--pickup')) input.id = 'pickupContact';
+    if (span.closest('.job-details--delivery')) input.id = 'deliveryContact';
+    span.replaceWith(input);
+  });
 
-                    saveBtn.addEventListener("click", () => {
-                        showConfirmationPopup("Save changes to the job?", () => {
-                            showToast("Changes saved successfully", "blue");
-                        });
-                    });
-                }
-            }
+  document.querySelectorAll('.editable-field').forEach(i => i.readOnly = false);
 
+  // Hide Edit button when editing
+  const editBtn = document.getElementById('editJobBtn');
+  if (editBtn) editBtn.style.display = 'none';
 
-            // ===== Show Popup Confirm =====
-            function showConfirmationPopup(message, onConfirm, color = "blue") {
-                const overlay = document.createElement("section");
-                overlay.className = "popup-overlay";
-                overlay.innerHTML = `
-      <section class="popup-dialog popup-${color}">
-        <section class="popup-message">${message}</section>
-        <section class="popup-actions">
-          <button class="popup-confirm">Confirm</button>
-          <button class="popup-cancel">Cancel</button>
-        </section>
-      </section>
-    `;
-                document.body.appendChild(overlay);
+  // Show Save button if missing
+  if (!document.getElementById('saveJobBtn')) {
+    const btn = document.createElement('section');
+    btn.id = 'saveJobBtn';
+    btn.className = 'action-button';
+    btn.innerHTML = `<img src="assets/icons/save.svg" alt="Save"/><span>Save</span>`;
+    document.querySelector('.job-header__actions').appendChild(btn);
+    btn.addEventListener('click', () => {
+      document.getElementById('popup-confirm-edit-save').classList.remove('hidden');
+    });
+  }
+}
 
-                overlay.querySelector(".popup-cancel")?.addEventListener("click", () => overlay.remove());
-                overlay.querySelector(".popup-confirm")?.addEventListener("click", () => {
-                    onConfirm();
-                    overlay.remove();
-                });
-            }
+// ========== Save Edits (with lat/lng handling) ==========
+async function saveJobEdits() {
+  const jobId = normalizeJobId(getJobIdFromURL());
+  if (!jobId) return showToast('Missing job ID', 'red');
 
-            // ===== Show Toast =====
-            function showToast(text, color = "blue") {
-                const toast = document.createElement("section");
-                toast.className = `popup-toast toast-${color}`;
-                toast.textContent = text;
-                document.body.appendChild(toast);
-                setTimeout(() => toast.remove(), 3000);
-            }
-        });
+  const pickupAddress = document.getElementById('pickupAddress').value;
+  let pickupLat = document.getElementById('pickupLat')?.value || "";
+  let pickupLng = document.getElementById('pickupLng')?.value || "";
+  const deliveryAddress = document.getElementById('deliveryAddress').value;
+  let deliveryLat = document.getElementById('deliveryLat')?.value || "";
+  let deliveryLng = document.getElementById('deliveryLng')?.value || "";
 
+  if ((!pickupLat || !pickupLng) && pickupAddress) {
+    const coords = await getLatLngFromAddress(pickupAddress);
+    pickupLat = coords.lat; pickupLng = coords.lng;
+  }
+  if ((!deliveryLat || !deliveryLng) && deliveryAddress) {
+    const coords = await getLatLngFromAddress(deliveryAddress);
+    deliveryLat = coords.lat; deliveryLng = coords.lng;
+  }
+
+  const data = {
+    pickup: {
+      address: pickupAddress,
+      date: document.getElementById('pickupDate').value,
+      time: document.getElementById('pickupTime').value,
+      contact: document.getElementById('pickupContact')?.value || '',
+      phone: document.getElementById('pickupPhone').value,
+      lat: pickupLat,
+      lng: pickupLng
+    },
+    delivery: {
+      address: deliveryAddress,
+      date: document.getElementById('deliveryDate').value,
+      time: document.getElementById('deliveryTime').value,
+      contact: document.getElementById('deliveryContact')?.value || '',
+      phone: document.getElementById('deliveryPhone').value,
+      lat: deliveryLat,
+      lng: deliveryLng
+    },
+    flight: {
+      outbound: {
+        date: document.getElementById('flightOutDate').value,
+        time: document.getElementById('flightOutTime').value,
+        code: document.getElementById('flightOutCode').value,
+      },
+      return: {
+        date: document.getElementById('flightReturnDate').value,
+        time: document.getElementById('flightReturnTime').value,
+        code: document.getElementById('flightReturnCode').value,
+      },
+    }
+  };
+
+  try {
+    const res = await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error();
+    showToast('Job updated', 'blue');
+    setTimeout(() => location.reload(), 500);
+  } catch {
+    showToast('Failed to save', 'red');
+  }
+}
+
+// ========== Status Icons ==========
+function updateStatusIcons(statusText) {
+  const steps = ['waiting-for-pickup', 'package-picked-up', 'in-transit', 'landed', 'delivered'];
+  const idx = steps.indexOf((statusText || '').toLowerCase());
+  const num = 4;
+  for (let i = 1; i <= num; i++) {
+    document.getElementById(`step-${i}`)?.classList.remove('completed');
+    document.getElementById(`line-${i}`)?.classList.remove('completed');
+  }
+  if (idx > 0) {
+    for (let i = 1; i <= Math.min(idx, num); i++) {
+      document.getElementById(`step-${i}`)?.classList.add('completed');
+      if (i < idx) document.getElementById(`line-${i}`)?.classList.add('completed');
+    }
+  }
+}
+
+// ========== Extra Actions ==========
+async function deleteJob() {
+  const jobId = normalizeJobId(getJobIdFromURL());
+  if (!jobId) return showToast('Missing job ID', 'red');
+  try {
+    const res = await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}`, { method: 'DELETE' });
+    if (!res.ok) throw new Error();
+    showToast('Job deleted', 'blue');
+ setTimeout(() => window.location.href = '/public/admin-jobs.html', 1000);
+  } catch {
+    showToast('Failed to delete job', 'red');
+  }
+}
+
+// ========== Unified Status Change (dropdown) ==========
+function setupStatusToggle(jobId) {
+  const select = document.getElementById("statusToggle");
+  if (!select) return;
+  select.addEventListener("change", async () => {
+    try {
+      const res = await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: select.value })
+      });
+      if (!res.ok) throw new Error("Failed to update status");
+      showToast("Status updated ✅", "blue");
+      document.getElementById("statusLabel").textContent = select.value;
+    } catch (err) {
+      showToast("❌ " + err.message, "red");
+    }
+  });
+}
+
+// ========== Chat ==========
+function setupChatButton(jobId) {
+  const chatBtn = document.getElementById("chatBtn");
+  if (chatBtn) {
+    chatBtn.addEventListener("click", () => {
+      window.location.href = `chat.html?jobId=${jobId}`;
+    });
+  }
+}
+
+// ========== Documents Upload ==========
+function setupDocumentsUpload() {
+  const uploadBtn = document.getElementById("uploadButton");
+  if (uploadBtn) {
+    uploadBtn.addEventListener("click", () => {
+      document.getElementById("documentsModal").classList.remove("hidden");
+    });
+  }
+  const closeBtn = document.getElementById("closeDocumentsModal");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      document.getElementById("documentsModal").classList.add("hidden");
+    });
+  }
+}
+
+// ========== Wire Up Buttons ==========
+function setupEventListeners() {
+  document.getElementById('editJobBtn')?.addEventListener('click', enableEditing);
+
+  document.querySelector('#popup-confirm-edit-save .popup-btn.confirm')
+    ?.addEventListener('click', () => {
+      document.getElementById('popup-confirm-edit-save').classList.add('hidden');
+      saveJobEdits();
+    });
+  document.querySelector('#popup-confirm-edit-save .popup-btn.cancel')
+    ?.addEventListener('click', () => document.getElementById('popup-confirm-edit-save').classList.add('hidden'));
+
+  // Delete job confirm
+  document.getElementById('deleteJobBtn')?.addEventListener('click', () => {
+    document.getElementById('popup-confirm-delete').classList.remove('hidden');
+  });
+  document.querySelector('#popup-confirm-delete .popup-btn.confirm')
+    ?.addEventListener('click', () => {
+      document.getElementById('popup-confirm-delete').classList.add('hidden');
+      deleteJob();
+    });
+  document.querySelector('#popup-confirm-delete .popup-btn.cancel')
+    ?.addEventListener('click', () => document.getElementById('popup-confirm-delete').classList.add('hidden'));
+}
+
+// ========== Boot ==========
+document.addEventListener('DOMContentLoaded', async () => {
+  const jobId = normalizeJobId(getJobIdFromURL());
+  if (!jobId) return showToast('Missing job ID', 'red');
+  try {
+    const res = await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}`);
+    if (!res.ok) throw new Error();
+    const job = await res.json();
+    populateJobDetails(job);
+    setupEventListeners();
+    setupStatusToggle(jobId);
+    setupChatButton(jobId);
+    setupDocumentsUpload();
+  } catch (err) {
+    console.error(err);
+    showToast('Failed to load job', 'red');
+  }
+});
+
+function setupChatButton(jobId) {
+  document.getElementById("chatJobBtn")?.addEventListener("click", () => {
+    window.location.href = `admin-chat.html?id=${jobId}`;
+  });
+}
+
+function openDocumentsPopup() {
+  document.getElementById("documentsModal")?.classList.remove("hidden");
+}
+function closeDocumentsPopup() {
+  document.getElementById("documentsModal")?.classList.add("hidden");
+}
+document.getElementById("uploadButton")?.addEventListener("click", openDocumentsPopup);
+document.getElementById("closeDocumentsModal")?.addEventListener("click", closeDocumentsPopup);
+const statusToggle = document.getElementById("statusToggle");
+const statusOptions = document.getElementById("statusOptions");
+statusToggle?.addEventListener("click", () => {
+  statusOptions.style.display = statusOptions.style.display === "block" ? "none" : "block";
+});
+statusOptions?.querySelectorAll("li").forEach(li => {
+  li.addEventListener("click", async () => {
+    const newStatus = li.dataset.value;
+    document.getElementById("statusLabel").textContent = li.textContent;
+    statusOptions.style.display = "none";
+    // שליחת העדכון לשרת:
+    const jobId = document.getElementById('job-id').textContent; // או קח אותו מ-url/searchparams
+    await fetch(`http://localhost:5500/api/jobs/by-jobid/${jobId}/status`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: newStatus }),
+    });
+    // (אפשר להציג toast להצלחה)
+  });
+});
+document.addEventListener("click", function (e) {
+  if (!statusToggle.contains(e.target) && !statusOptions.contains(e.target)) {
+    statusOptions.style.display = "none";
+  }
+});

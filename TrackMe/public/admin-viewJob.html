@@ -5,8 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Details - TrackMe</title>
-    <link rel="stylesheet" href="styles/admin-dashboard.css" />
     <link rel="stylesheet" href="styles/admin-viewJob.css" />
+    <link rel="stylesheet" href="styles/admin-dashboard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/css/intlTelInput.css" />
 
 </head>
 
@@ -30,10 +31,9 @@
             </a>
         </nav>
 
-      
-            <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
-                <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
-            </button>
+        <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
+            <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
+        </button>
         </section>
     </header>
 
@@ -69,302 +69,345 @@
         </section>
     </section>
 
-    <!-- Main content -->
+
+    <!-- Main -->
     <main class="job-view">
-
-        <!-- Breadcrumb -->
-        <section class="breadcrumb">
-            <section class="breadcrumb__item">Jobs</section>
-            <section class="breadcrumb__separator">›</section>
-            <section class="breadcrumb__item breadcrumb__item--current">Job 0001</section>
-        </section>
-
-        <!-- Job Header -->
-        <section class="job-header">
-            <section class="job-header__left">
+        <main class="job-view">
+            <section class="breadcrumb">
+                <section class="breadcrumb__item">Jobs</section>
+                <section class="breadcrumb__separator">›</section>
                 <span class="job-header__label">Job ID</span>
-                <span class="job-header__value">0001</span>
+                <span class="job-header__value" id="job-id">—</span>
             </section>
 
-            <section class="job-header__actions">
-                <section class="action-group">
-                    <section class="status-dropdown">
-                        <button class="status-select" id="statusToggle">
-                            <span id="statusLabel">Active</span>
-                            <img src="assets/icons/chevron_down.svg" alt="▼" class="chevron-icon" />
-                        </button>
-                        <ul class="status-options" id="statusOptions">
-                            <li data-value="active">Active</li>
-                            <li data-value="on-hold">On Hold</li>
-                            <li data-value="delivered">Delivered</li>
-                        </ul>
+            <section class="job-header">
+                <section class="job-header__left">
+
+                    <section class="courier-info">
+
+
+                        <img src="assets/icons/user1.svg" alt="Courier Icon" />
+                        <span class="courier-info__label">Courier</span>
+                        <span class="courier-info__name" id="courier-name">—</span>
+
                     </section>
 
+                </section>
 
-                    <section class="action-button">
-                        <img src="assets/icons/chat11.svg" alt="Chat" />
-                        <span>Chat</span>
+                <section class="job-header__actions">
+                    <section class="action-group">
+                        <section class="status-dropdown">
+                            <button class="status-select" id="statusToggle">
+                                <span id="statusLabel">—</span>
+                                <img src="assets/icons/chevron_down.svg" alt="▼" class="chevron-icon" />
+                            </button>
+                            <ul class="status-options" id="statusOptions">
+                                <li data-value="active">Active</li>
+                                <li data-value="on-hold">On Hold</li>
+                                <li data-value="delivered">Delivered</li>
+                            </ul>
+                        </section>
+
+                        <section class="action-button" id="chatJobBtn">
+                            <img src="assets/icons/chat11.svg" alt="Chat" />
+                            <span>Chat</span>
+                        </section>
                     </section>
-                </section>
 
-                <section class="action-button" id="uploadButton">
-                    <img src="assets/icons/upload.svg" alt="Upload" />
-                    <span>Upload Files</span>
-                </section>
-
-                <section class="action-button">
-                    <img src="assets/icons/edit.svg" alt="Edit" />
-                    <span>Edit</span>
-                </section>
-                <section class="action-button action-button--danger">
-                    <img src="assets/icons/delete.svg" alt="Delete" />
-                    <span>Delete</span>
-                </section>
-            </section>
-
-        </section>
-
-        <!-- Courier Info -->
-        <section class="courier-info">
-            <img src="assets/icons/user1.svg" alt="Courier Icon" />
-            <span class="courier-info__label">Courier</span>
-            <span class="courier-info__name">Chen Rozenberg</span>
-        </section>
-
-        <!-- Status Progress -->
-        <!-- ========== Status Card ========== -->
-        <article class="card status-card">
-
-            <section class="status-progress-bar">
-                <section id="step-1" class="progress-step">
-                    <section class="progress-icon">
-                        <img src="assets/icons/step1.svg" alt="Step 1" />
+                    <section class="action-button" id="uploadButton">
+                        <img src="assets/icons/upload.svg" alt="Upload" />
+                        <span>Upload Files</span>
                     </section>
-                </section>
-                <section id="line-1" class="progress-line"></section>
-                <section id="step-2" class="progress-step">
-                    <section class="progress-icon">
-                        <img src="assets/icons/step2.svg" alt="Step 2" />
+
+                    <section class="action-button" id="editJobBtn">
+                        <img src="assets/icons/edit.svg" alt="Edit" />
+                        <span>Edit</span>
                     </section>
-                </section>
-                <section id="line-2" class="progress-line"></section>
-                <section id="step-3" class="progress-step">
-                    <section class="progress-icon">
-                        <img src="assets/icons/location1.svg" alt="Step 3" />
-                    </section>
-                </section>
-                <section id="line-3" class="progress-line"></section>
-                <section id="step-4" class="progress-step">
-                    <section class="progress-icon">
-                        <img src="assets/icons/file1.svg" alt="Step 4" />
+                    <section class="action-button action-button--danger" id="deleteJobBtn">
+                        <img src="assets/icons/delete.svg" alt="Delete" />
+                        <span>Delete</span>
                     </section>
                 </section>
             </section>
 
-            <!-- 🔵 Courier Status Display (Dynamic) -->
-            <section class="status-display">
-                <div class="status-label">Courier Status</div>
-                <div class="courier-status" id="courierStatusText">Loading...</div>
+
+            <article class="card status-card">
+                <section class="status-progress-bar">
+                    <section id="step-1" class="progress-step">
+                        <section class="progress-icon"><img src="assets/icons/step1.svg" alt="Step 1" /></section>
+                    </section>
+                    <section id="line-1" class="progress-line"></section>
+                    <section id="step-2" class="progress-step">
+                        <section class="progress-icon"><img src="assets/icons/step2.svg" alt="Step 2" /></section>
+                    </section>
+                    <section id="line-2" class="progress-line"></section>
+                    <section id="step-3" class="progress-step">
+                        <section class="progress-icon"><img src="assets/icons/location1.svg" alt="Step 3" /></section>
+                    </section>
+                    <section id="line-3" class="progress-line"></section>
+                    <section id="step-4" class="progress-step">
+                        <section class="progress-icon"><img src="assets/icons/file1.svg" alt="Step 4" /></section>
+                    </section>
+                </section>
+                <section class="status-display">
+                    <div class="status-label">Courier Status</div>
+                    <div class="courier-status" id="courierStatusText">—</div>
+                </section>
+            </article>
+
+
+
+
+            <!-- Job Details -->
+            <section class="job-details-card">
+
+
+                <!-- Pickup Info -->
+                <section class="job-details job-details--pickup">
+                    <section class="job-details__section-title">PickUp Info</section>
+                    <section class="job-details__field">
+                        <span class="job-details__label">
+                            <img src="assets/icons/home11.svg" alt="Address" class="icon-inline" />
+                            Address
+                        </span>
+                        <input type="text" id="pickupAddress" class="editable-field" readonly value="—" />
+                        <input type="hidden" id="pickupLat" name="pickupLat" />
+                        <input type="hidden" id="pickupLng" name="pickupLng" />
+                    </section>
+
+
+                    <section class="job-details__field form-row date-time">
+                        <section class="form-group">
+                            <label for="pickupDate">
+                                <img src="assets/icons/time11.svg" alt="Date Icon" class="icon-inline" />
+                                Date
+                            </label>
+                            <input type="date" id="pickupDate" class="editable-field" readonly />
+                        </section>
+                        <section class="form-group">
+                            <label for="pickupTime">
+                                <img src="assets/icons/time11.svg" alt="Time Icon" class="icon-inline" />
+                                Time
+                            </label>
+                            <input type="time" id="pickupTime" class="editable-field" readonly />
+                        </section>
+                    </section>
+
+                    <section class="job-details__field">
+                        <span class="job-details__label">
+                            <img src="assets/icons/user1.svg" alt="Contact Icon" class="icon-inline" />
+                            Contact Person
+                        </span>
+                        <span class="job-details__value"></span>
+                    </section>
+
+                    <section class="job-details__field">
+                        <span class="job-details__label">
+                            <img src="assets/icons/phone11.svg" alt="Phone" class="icon-inline" />
+                            Phone
+                        </span>
+                        <input type="tel" id="pickupPhone" class="editable-field" placeholder="Phone number" readonly />
+                    </section>
+                </section>
+
+                <!-- Delivery Info -->
+                <section class="job-details job-details--delivery">
+                    <section class="job-details__section-title">Delivery Info</section>
+
+                    <section class="job-details__field">
+                        <span class="job-details__label">
+                            <img src="assets/icons/home11.svg" alt="Address" class="icon-inline" />
+                            Address
+                        </span>
+                        <input type="text" id="deliveryAddress" class="editable-field" readonly value="—" />
+                        <input type="hidden" id="deliveryLat" name="deliveryLat" />
+                        <input type="hidden" id="deliveryLng" name="deliveryLng" />
+                    </section>
+                    <section class="job-details__field form-row date-time">
+                        <section class="form-group">
+                            <label for="deliveryDate">
+                                <img src="assets/icons/time11.svg" alt="Date Icon" class="icon-inline" />
+                                Date
+                            </label>
+                            <input type="date" id="deliveryDate" class="editable-field" readonly />
+                        </section>
+                        <section class="form-group">
+                            <label for="deliveryTime">
+                                <img src="assets/icons/time11.svg" alt="Time Icon" class="icon-inline" />
+                                Time
+                            </label>
+                            <input type="time" id="deliveryTime" class="editable-field" readonly />
+                        </section>
+                    </section>
+
+                    <section class="job-details__field">
+                        <span class="job-details__label">
+                            <img src="assets/icons/user1.svg" alt="Contact Icon" class="icon-inline" />
+                            Contact Person
+                        </span>
+                        <span class="job-details__value"></span>
+                    </section>
+
+                    <section class="job-details__field">
+                        <span class="job-details__label">
+                            <img src="assets/icons/phone11.svg" alt="Phone" class="icon-inline" />
+                            Phone
+                        </span>
+                        <input type="tel" id="deliveryPhone" class="editable-field" placeholder="Phone number"
+                            readonly />
+
+                    </section>
+                </section>
             </section>
 
-        </article>
-
-        <!-- Job Details Card -->
-        <section class="job-details-card">
-
-            <!-- Pickup Info -->
-            <section class="job-details job-details--pickup">
-                <section class="job-details__section-title">PickUp Info</section>
-
-                <section class="job-details__field">
-                    <span class="job-details__label">
-                        <img src="assets/icons/home11.svg" alt="Address" class="icon-inline" />
-                        Address
-                    </span>
-                    <span class="job-details__value">123 Herzl St, Tel Aviv</span>
+            <!-- Flight Info -->
+            <section class="flight-details">
+                <section class="flight-details__header">
+                    <img src="assets/icons/c44.svg" alt="Flight Icon" />
+                    <span class="flight-details__title">Flight Details</span>
                 </section>
 
-                <section class="job-details__field">
-                    <span class="job-details__label">
-                        <img src="assets/icons/time11.svg" alt="Time" class="icon-inline" />
-                        Time
-                    </span>
-                    <span class="job-details__value">3/4/24 1pm</span>
-                </section>
+                <section class="flight-details__content flight-details__two-columns">
 
-                <section class="job-details__field">
-                    <span class="job-details__label">
-                        <img src="assets/icons/user1.svg" alt="Contact Icon" class="icon-inline" />
-                        Contact Person
-                    </span>
-                    <span class="job-details__value">Aliza Cohen</span>
-                </section>
+                    <!-- Flight Outbound -->
+                    <section class="flight-details__entry">
+                        <h4 class="flight-direction-title">Flight Outbound</h4>
 
-                <section class="job-details__field">
-                    <span class="job-details__label">
-                        <img src="assets/icons/phone11.svg" alt="Phone" class="icon-inline" />
-                        Phone
-                    </span>
-                    <span class="job-details__value">+972-522308787</span>
+                        <section class="form-row date-time">
+                            <section class="form-group">
+                                <label for="flightOutDate">Date</label>
+                                <input type="date" id="flightOutDate" class="editable-field" readonly />
+                            </section>
+                            <section class="form-group">
+                                <label for="flightOutTime">Time</label>
+                                <input type="time" id="flightOutTime" class="editable-field" readonly />
+                            </section>
+                        </section>
+
+                        <input type="text" id="flightOutCode" class="editable-field" placeholder="Flight Code"
+                            readonly />
+                    </section>
+
+                    <!-- Flight Return -->
+                    <section class="flight-details__entry">
+                        <h4 class="flight-direction-title">Flight Return</h4>
+
+                        <section class="form-row date-time">
+                            <section class="form-group">
+                                <label for="flightReturnDate">Date</label>
+                                <input type="date" id="flightReturnDate" class="editable-field" readonly />
+                            </section>
+                            <section class="form-group">
+                                <label for="flightReturnTime">Time</label>
+                                <input type="time" id="flightReturnTime" class="editable-field" readonly />
+                            </section>
+                        </section>
+
+                        <input type="text" id="flightReturnCode" class="editable-field" placeholder="Flight Code"
+                            readonly />
+                    </section>
+
                 </section>
             </section>
 
-            <!-- Delivery Info -->
-            <section class="job-details job-details--delivery">
-                <section class="job-details__section-title">Delivery Info</section>
-
-                <section class="job-details__field">
-                    <span class="job-details__label">
-                        <img src="assets/icons/home11.svg" alt="Address" class="icon-inline" />
-                        Address
-                    </span>
-                    <span class="job-details__value">Mount Sinai Hospital, New York</span>
+        </main>
+        <section id="popup-confirm-delete" class="popup hidden">
+            <section class="popup-content">
+                <p>Are you sure you want to delete this job?</p>
+                <section class="popup-actions">
+                    <button class="popup-btn confirm" data-action="delete">Delete</button>
+                    <button class="popup-btn cancel" data-action="cancel">Cancel</button>
                 </section>
+            </section>
+        </section>
 
-                <section class="job-details__field">
-                    <span class="job-details__label">
-                        <img src="assets/icons/time11.svg" alt="Time" class="icon-inline" />
-                        Time
-                    </span>
-                    <span class="job-details__value">4/4/24 1pm</span>
-                </section>
-
-                <section class="job-details__field">
-                    <span class="job-details__label">
-                        <img src="assets/icons/user1.svg" alt="Contact Icon" class="icon-inline" />
-                        Contact Person
-                    </span>
-                    <span class="job-details__value">Aliza Cohen</span>
-                </section>
-                <section class="job-details__field">
-                    <span class="job-details__label">
-                        <img src="assets/icons/phone11.svg" alt="Phone" class="icon-inline" />
-                        Phone
-                    </span>
-                    <span class="job-details__value">+1-956-667-8241</span>
+        <section id="popup-confirm-edit-save" class="popup hidden">
+            <section class="popup-content">
+                <p>Save changes to this job?</p>
+                <section class="popup-actions">
+                    <button class="popup-btn confirm" data-action="save">Save</button>
+                    <button class="popup-btn cancel" data-action="cancel">Cancel</button>
                 </section>
             </section>
         </section>
 
-        <!-- Flight Info -->
-        <section class="flight-details">
-            <section class="flight-details__header">
-                <img src="assets/icons/c44.svg" alt="Flight Icon" />
-                <span class="flight-details__title">Fly Details</span>
-            </section>
-
-            <section class="flight-details__content">
-                <section class="flight-details__entry">
-                    <span class="flight-details__date">3/4/24</span>
-                    <span class="flight-details__code">
-                        <img src="assets/icons/c46.svg" alt="Plane" class="icon-inline" />
-                        LY 0025
-                    </span>
-                </section>
-                <section class="flight-details__entry">
-                    <span class="flight-details__date">6/4/24</span>
-                    <span class="flight-details__code">
-                        <img src="assets/icons/c46.svg" alt="Plane" class="icon-inline" />
-                        LY 0005
-                    </span>
+        <section id="popup-confirm-status-change" class="popup hidden">
+            <section class="popup-content">
+                <p>Change job status?</p>
+                <section class="popup-actions">
+                    <button class="popup-btn confirm" data-action="confirm-status">Confirm</button>
+                    <button class="popup-btn cancel" data-action="cancel">Cancel</button>
                 </section>
             </section>
         </section>
 
-    </main>
-    <!-- Popup: Confirm Delete -->
-    <section id="popup-confirm-delete" class="popup hidden">
-        <section class="popup-content">
-            <p>Are you sure you want to delete this job?</p>
-            <section class="popup-actions">
-                <button class="popup-btn confirm" data-action="delete">Delete</button>
-                <button class="popup-btn cancel" data-action="cancel">Cancel</button>
+        </form>
+        <!-- Document Upload Modal -->
+        <section id="documentsModal" class="documents-modal hidden">
+            <section class="documents-container">
+                <h2 class="documents-title">Upload Documents</h2>
+
+                <!-- Document Entry 1 -->
+                <section class="document-entry">
+                    <section class="document-label">Courier Details Letter</section>
+                    <section class="document-actions">
+                        <input type="file" id="input-courier_letter" />
+                    </section>
+                </section>
+
+                <!-- Document Entry 2 -->
+                <section class="document-entry">
+                    <section class="document-label">Flight Ticket</section>
+                    <section class="document-actions">
+                        <input type="file" id="input-flight_ticket" />
+                    </section>
+                </section>
+
+                <!-- Document Entry 3 -->
+                <section class="document-entry">
+                    <section class="document-label">TSA Clearance</section>
+                    <section class="document-actions">
+                        <input type="file" id="input-tsa_clearance" />
+                    </section>
+                </section>
+
+                <!-- Document Entry 4 -->
+                <section class="document-entry">
+                    <section class="document-label">Passport (US)</section>
+                    <section class="document-actions">
+                        <input type="file" id="input-passport_us" />
+                    </section>
+                </section>
+
+                <!-- Document Entry 5 -->
+                <section class="document-entry">
+                    <section class="document-label">Hotel Voucher</section>
+                    <section class="document-actions">
+                        <input type="file" id="input-hotel_voucher" />
+                    </section>
+                </section>
+
+                <!-- Document Entry 6 -->
+                <section class="document-entry">
+                    <section class="document-label">Customs Clearance</section>
+                    <section class="document-actions">
+                        <input type="file" id="input-customs_clearance" />
+                    </section>
+                </section>
+
+                <!-- Close Button -->
+                <button class="popup-btn close-documents" onclick="closeDocumentsPopup()">
+                    <img src="assets/icons/x.svg" alt="Close" />
+                    <span>Close</span>
+                </button>
             </section>
+
         </section>
-    </section>
+        <script src="js/admin-dashboard.js"></script>
+        <script src="js/admin-viewJob.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/intlTelInput.min.js"></script>
+  
 
-    <!-- Popup: Confirm Edit Save -->
-    <!-- Popup: Confirm Edit Save -->
-    <section id="popup-confirm-edit-save" class="popup hidden">
-        <section class="popup-content">
-            <p>Save changes to this job?</p>
-            <section class="popup-actions">
-                <button class="popup-btn confirm" data-action="save">Save</button>
-                <button class="popup-btn cancel" data-action="cancel">Cancel</button>
-            </section>
-        </section>
-    </section>
-
-
-    <!-- Popup: Confirm Status Change -->
-    <section id="popup-confirm-status-change" class="popup hidden">
-        <section class="popup-content">
-            <p>Change job status?</p>
-            <section class="popup-actions">
-                <button class="popup-btn confirm" data-action="confirm-status">Confirm</button>
-                <button class="popup-btn cancel" data-action="cancel">Cancel</button>
-            </section>
-        </section>
-    </section>
-
-    <!-- Popup: Upload Documents -->
-    <section id="documentsModal" class="documents-modal hidden">
-        <section class="documents-container">
-            <h2 class="documents-title">Documents</h2>
-
-            <ul class="document-list">
-                <li class="document-item">
-                    <span class="document-name">Courier Details Letter</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">Flight Ticket</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">TSA Clearance</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">Passport (US)</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">Hotel Voucher</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-                <li class="document-item">
-                    <span class="document-name">Customs Clearance</span>
-                    <label class="upload-icon">
-                        <input type="file" required />
-                        <img src="assets/icons/upload.svg" alt="Upload" />
-                    </label>
-                </li>
-            </ul>
-
-            <section class="popup-actions">
-                <button class="popup-btn confirm" data-action="upload">Upload</button>
-                <button class="popup-btn cancel" data-action="cancel">Cancel</button>
-            </section>
-        </section>
-    </section>
-    <script src="js/admin-dashboard.js"></script>
-    <script src="js/admin-viewJob.js"></script>
 
 </body>
 

@@ -1,8 +1,3 @@
-/**
- * Example valid email: courier@trackme.com
- * Correct password: 123456
- */
-
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector(".login-form");
   const emailInput = document.getElementById("email");
@@ -34,7 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  form.addEventListener("submit", (e) => {
+  // Handle login form submission
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     // Hide previous messages
@@ -44,29 +40,46 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = emailInput.value.trim();
     const password = passwordInput.value;
 
-    // Validate empty fields
     if (!email || !password) {
       errorText.textContent = "Please fill in all fields.";
       errorMessage.style.display = "flex";
       return;
     }
 
-    // Validate email domain @trackme.com
-    const emailDomain = email.split("@")[1];
-    if (!emailDomain || emailDomain.toLowerCase() !== "trackme.com") {
-      errorText.textContent = "Email must have '@trackme.com' domain.";
-      errorMessage.style.display = "flex";
-      return;
-    }
+    try {
+      const response = await fetch("http://localhost:5500/api/couriers/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    // Check credentials (example validation)
-    if (email.toLowerCase() === "courier@trackme.com" && password === "123456") {
-      successMessage.style.display = "flex";
-      setTimeout(() => {
-        window.location.href = "courier-dashboard.html";
-      }, 1500);
-    } else {
-      errorText.textContent = "Incorrect username or password.";
+      const result = await response.json();
+
+     if (response.ok) {
+  successMessage.style.display = "flex";
+
+  // Store courier ID for session
+  localStorage.setItem("courierId", result.courier.id);
+
+  // Store current job ID (אם השרת מחזיר את זה)
+  if (result.job && result.job.jobId) {
+    localStorage.setItem("currentJobId", result.job.jobId);
+  } else {
+    // אם לא מחזיר, אפשר להשאיר ריק או להשיג בשרת בנפרד
+    localStorage.removeItem("currentJobId");
+  }
+
+  setTimeout(() => {
+    window.location.href = "courier-dashboard.html";
+  }, 1500);
+      
+      } else {
+        errorText.textContent = result.message || "Login failed. Try again.";
+        errorMessage.style.display = "flex";
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      errorText.textContent = "An error occurred. Please try again.";
       errorMessage.style.display = "flex";
     }
   });

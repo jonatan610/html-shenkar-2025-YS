@@ -16,10 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const sortForm = document.querySelector(".sort-form");
   const jobList = document.querySelector(".jobs-list");
 
+  // Open popups
   filterBtn?.addEventListener("click", () => filterPopup?.classList.remove("hidden"));
   sortBtn?.addEventListener("click", () => sortPopup?.classList.remove("hidden"));
   searchInput?.addEventListener("focus", () => searchPopup?.classList.remove("hidden"));
 
+  // Close popups
   closeButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       const popup = btn.closest(".filter-popup, .sort-popup, .search-popup");
@@ -27,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Search functionality
   searchSubmitBtn?.addEventListener("click", (e) => {
     e.preventDefault();
     const query = searchInputPopup.value.trim().toLowerCase();
@@ -43,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchPopup.classList.add("hidden");
   });
 
+  // Filter functionality
   applyFilterBtn?.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -69,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     filterPopup.classList.add("hidden");
   });
 
+  // Sort functionality
   sortForm?.addEventListener("change", () => {
     const selected = sortForm.querySelector("input[name='sort']:checked")?.value;
     const jobLinks = Array.from(jobList.querySelectorAll(".job-link"));
@@ -106,23 +111,74 @@ document.addEventListener("DOMContentLoaded", () => {
     sorted.forEach(link => jobList.appendChild(link));
     sortPopup?.classList.add("hidden");
   });
+
+  // === Load all jobs and render them ===
+  fetch("http://localhost:5500/api/jobs")
+    .then(res => res.json())
+    .then(jobs => {
+      jobList.innerHTML = "";
+
+      jobs.forEach(job => {
+        const country = extractCountry(job.delivery?.address || "");
+        const deliveryDate = formatDate(job.delivery?.date);
+        const status = job.status || "active";
+        const jobId = job.jobId || job._id?.slice(-5).toUpperCase();
+
+        const card = document.createElement("a");
+  card.href = `admin-viewJob.html?id=${job.jobId || job._id}`;
+        card.className = "job-link";
+        card.innerHTML = `
+          <article class="job-card">
+            <header class="job-header">
+              <span>Job ID</span>
+              <strong>${jobId}</strong>
+            </header>
+            <section class="job-info">
+              <section class="job-detail">
+                <img src="assets/icons/destination.svg" alt="Destination" />
+                <strong>Destination</strong> <span>${country}</span>
+              </section>
+              <section class="job-detail">
+                <img src="assets/icons/delivery.svg" alt="Delivery" />
+                <strong>Delivery</strong> <span>${deliveryDate}</span>
+              </section>
+              <section class="job-status ${status.toLowerCase()}">${capitalize(status)}</section>
+            </section>
+          </article>
+        `;
+        jobList.appendChild(card);
+      });
+    })
+    .catch(err => {
+      console.error("❌ Failed to load jobs:", err);
+    });
+
+  // === Utility functions ===
+  function extractCountry(address = "") {
+    const parts = address.split(",").map(p => p.trim());
+    return parts[parts.length - 1] || "Unknown";
+  }
+
+  function formatDate(dateString) {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB");
+  }
+
+  function capitalize(str = "") {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 });
 
-    function toggleMenu() {
-            document.getElementById("burger-popup").classList.remove("hidden");
-        }
-
-        function closeBurgerMenu() {
-            document.getElementById("burger-popup").classList.add("hidden");
-        }
-
-        function handleLogout() {
-  // Optional: clear user data/session if stored
-  // localStorage.clear(); or sessionStorage.clear();
-
-  // Redirect to login page
-  window.location.href = 'admin-login.html';
+// === Burger menu handlers ===
+function toggleMenu() {
+  document.getElementById("burger-popup").classList.remove("hidden");
 }
+
+function closeBurgerMenu() {
+  document.getElementById("burger-popup").classList.add("hidden");
+}
+
 function handleLogout() {
   localStorage.clear();
   sessionStorage.clear();

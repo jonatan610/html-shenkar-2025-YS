@@ -299,7 +299,7 @@
                             <section class="popup-icon-bg">
                                 <img src="assets/icons/loc1.svg" alt="Location" class="popup-icon-inline" />
                             </section>
-                            <h2>Delivery Location</h2>
+                            <h2 id="delivery-popup-title">Pickup Location</h2>
                         </section>
                         <button class="popup-close-button" onclick="closeDeliveryPopup()">
                             <img src="assets/icons/x.svg" alt="Close" />
@@ -307,24 +307,21 @@
                     </section>
 
                     <section class="delivery-info">
-                        <p class="label">Location Name</p>
-                        <p class="value">Mount Sinai Hospital</p>
                         <p class="label">Address</p>
-                        <p class="value">123 Mount Sinai Hospital, Manhattan,<br /> New York, NY 10029</p>
+                        <p class="value" id="delivery-address">—</p>
                     </section>
 
                     <section class="map-preview">
                         <section id="map" style="width: 100%; height: 200px;"></section>
                     </section>
 
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=40.7903,-73.9536" target="_blank"
-                        class="popup-button primary">
+                    <a id="navigate-link" href="#" target="_blank" class="popup-button primary">
                         <img src="assets/icons/loc2.svg" alt="Navigate" />
-                        <span>Navigate to Delivery</span>
+                        <span id="navigate-text">Navigate to Pickup</span>
                         <img src="assets/icons/arrow-top-right.svg" alt="Arrow" class="arrow-icon" />
                     </a>
 
-                    <button class="popup-button secondary" onclick="copyAddress()">
+                    <button id="copy-address-btn" class="popup-button secondary" onclick="copyAddress()">
                         <img src="assets/icons/copy.svg" alt="Copy" />
                         <span>Copy Address</span>
                     </button>
@@ -344,12 +341,12 @@
                     <section class="popup-header">
                         <section class="popup-heading">
                             <img src="assets/icons/call-mobile.svg" alt="icon" class="popup-icon-inline" />
-                            <h2 id="popup-title">Pickup Center</h2>
+                            <h2 id="popup-title"></h2>
                         </section>
 
                     </section>
 
-                    <section class="popup-phone" id="popup-phone">+1-555-0123</section>
+                    <section class="popup-phone" id="popup-phone"></section>
 
                     <button class="popup-button" onclick="callNumber()">
                         <img src="assets/icons/call1.svg" alt="Phone" />
@@ -368,8 +365,7 @@
 
         <!-- ========== JAVASCRIPT ========== -->
         <script src="js/courier-dashboard.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiJaJgKbMZHlpYJ4gm1irOH53pLTRqS2Q" async
-            defer></script>
+           
 
 
 

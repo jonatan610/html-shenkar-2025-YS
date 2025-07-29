@@ -2,285 +2,101 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TrackMe – Admin Dashboard</title>
-    <link rel="stylesheet" href="styles/admin-dashboard.css" />
-    <link rel="stylesheet" href="styles/admin-jobs.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TrackMe – Admin Dashboard</title>
+  <link rel="stylesheet" href="styles/admin-dashboard.css" />
+  <link rel="stylesheet" href="styles/admin-jobs.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
 </head>
 
 <body>
-    <section class="page-container">
-        <header class="header">
-            <section class="logo">
-                <img src="assets/icons/plane_desktop.svg" alt="TrackMe Logo" />
-                <span class="logo-text">TrackMe</span>
-            </section>
+  <section class="page-container">
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+      <section class="logo">
+        <img src="assets/icons/plane_desktop.svg" alt="TrackMe Logo" />
+        <span class="logo-text">TrackMe</span>
+      </section>
 
-            <nav class="main-nav">
-                <a href="admin-dashboard.html" class="nav-item">
-                    <img src="assets/icons/home.svg" alt="Home" /> Home
-                </a>
-                <a href="admin-jobs.html" class="nav-item active">
-                    <img class="icon-blue" src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
-                </a>
-                <a href="admin-addJob.html" class="nav-item">
-                    <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
-                </a>
-            </nav>
+      <nav class="main-nav">
+        <a href="admin-dashboard.html" class="nav-item">
+          <img src="assets/icons/home.svg" alt="Home" /> Home
+        </a>
+        <a href="admin-jobs.html" class="nav-item active">
+          <img class="icon-blue" src="assets/icons/jobs.svg" alt="Jobs" /> Jobs
+        </a>
+        <a href="admin-addJob.html" class="nav-item">
+          <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
+        </a>
+      </nav>
 
-                <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
-                    <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
-                </button>
-            </section>
-        </header>
+      <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
+        <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
+      </button>
+    </header>
 
-        <!-- === Burger Menu Popup === -->
-        <section id="burger-popup" class="popup-overlay hidden">
-            <section class="popup-sheet">
-                <button class="burger-close-button" onclick="closeBurgerMenu()">
-                    <img src="assets/icons/x.svg" alt="Close menu" />
-                </button>
+    <!-- ========== BURGER MENU ========== -->
+    <section id="burger-popup" class="popup-overlay hidden">
+      <section class="popup-sheet">
+        <button class="burger-close-button" onclick="closeBurgerMenu()">
+          <img src="assets/icons/x.svg" alt="Close menu" />
+        </button>
 
-                <section class="popup-content">
-                    <button class="popup-button">
-                        <img src="assets/icons/b1.svg" alt="My Profile" />
-                        <span>My Profile</span>
-                    </button>
-                    <button class="popup-button">
-                        <img src="assets/icons/b2.svg" alt="Settings" />
-                        <span>Settings</span>
-                    </button>
-                    <button class="popup-button">
-                        <img src="assets/icons/b3.svg" alt="Terms of Service" />
-                        <span>Terms of Service</span>
-                    </button>
-                    <button class="popup-button">
-                        <img src="assets/icons/b4.svg" alt="Help" />
-                        <span>Help</span>
-                    </button>
-                    <button class="popup-button logout" onclick="handleLogout()">
-                        <img src="assets/icons/b5.svg" alt="Log Out" />
-                        <span>Log Out</span>
-                    </button>
-                </section>
-            </section>
+        <section class="popup-content">
+          <button class="popup-button">
+            <img src="assets/icons/b1.svg" alt="My Profile" />
+            <span>My Profile</span>
+          </button>
+          <button class="popup-button">
+            <img src="assets/icons/b2.svg" alt="Settings" />
+            <span>Settings</span>
+          </button>
+          <button class="popup-button">
+            <img src="assets/icons/b3.svg" alt="Terms of Service" />
+            <span>Terms of Service</span>
+          </button>
+          <button class="popup-button">
+            <img src="assets/icons/b4.svg" alt="Help" />
+            <span>Help</span>
+          </button>
+          <button class="popup-button logout" onclick="handleLogout()">
+            <img src="assets/icons/b5.svg" alt="Log Out" />
+            <span>Log Out</span>
+          </button>
         </section>
-
-
-        <main class="dashboard-main">
-            <section class="controls">
-                <input type="search" placeholder="Search" class="search-input" />
-                <button class="btn filter-btn"><img src="assets/icons/filter.svg" alt="Filter" /> Filters</button>
-                <button class="btn sort-btn"><img src="assets/icons/sort.svg" alt="Sort" /> Sort by</button>
-            </section>
-            <!-- Filter Popup -->
-            <section class="filter-popup hidden">
-                <header class="filter-header">
-                    <img src="assets/icons/filter.svg" alt="Filter Icon" class="popup-icon" />
-                    <strong>Filter Jobs</strong>
-                    <button class="close-btn" aria-label="Close filter popup">&times;</button>
-                </header>
-                <form class="filter-form">
-                    <section class="filter-group">
-                        <header><img src="assets/icons/status.svg" alt="Status Icon" class="group-icon" /> Status
-                        </header>
-                        <label><input type="checkbox" name="status" value="active" /> Active <span
-                                class="count">8</span></label>
-                        <label><input type="checkbox" name="status" value="on-hold" /> On Hold <span
-                                class="count">3</span></label>
-                        <label><input type="checkbox" name="status" value="completed" /> Completed <span
-                                class="count">12</span></label>
-                    </section>
-
-                    <section class="filter-group">
-                        <header><img src="assets/icons/priority.svg" alt="Priority Icon" class="group-icon" /> Priority
-                        </header>
-                        <label><input type="checkbox" name="priority" value="high" /> High <span
-                                class="count">4</span></label>
-                        <label><input type="checkbox" name="priority" value="normal" /> Normal <span
-                                class="count">15</span></label>
-                        <label><input type="checkbox" name="priority" value="low" /> Low <span
-                                class="count">6</span></label>
-                    </section>
-
-                    <section class="filter-group">
-                        <header><img src="assets/icons/destination.svg" alt="Destination Icon" class="group-icon" />
-                            Destination</header>
-                        <label><input type="checkbox" name="destination" value="usa" /> USA <span
-                                class="count">12</span></label>
-                        <label><input type="checkbox" name="destination" value="uk" /> UK <span
-                                class="count">8</span></label>
-                        <label><input type="checkbox" name="destination" value="europe" /> Europe <span
-                                class="count">5</span></label>
-                    </section>
-
-                    <section class="filter-group">
-                        <header><img src="assets/icons/calendar.svg" alt="Calendar Icon" class="group-icon" /> Delivery
-                            Date</header>
-                        <label><input type="checkbox" name="delivery" value="today" /> Today <span
-                                class="count">3</span></label>
-                        <label><input type="checkbox" name="delivery" value="this-week" /> This Week <span
-                                class="count">12</span></label>
-                        <label><input type="checkbox" name="delivery" value="this-month" /> This Month <span
-                                class="count">25</span></label>
-                        <label><input type="checkbox" name="delivery" value="custom" /> Custom Range</label>
-                    </section>
-
-                    <section class="filter-footer">
-                        <button class="cancel-btn">Cancel</button>
-                        <button class="apply-btn">Apply Filters</button>
-                    </section>
-                </form>
-            </section>
-
-            <!-- Sort Popup -->
-            <section class="sort-popup hidden">
-                <section class="sort-header">
-                    <strong>Sort Jobs</strong>
-                    <button class="close-btn" aria-label="Close sort popup">&times;</button>
-                </section>
-                <form class="sort-form">
-                    <label class="sort-option selected">
-                        <img src="assets/icons/sort1.svg" alt="Most Recent" />
-                        <section class="sort-text">
-                            <section class="title">Most Recent</section>
-                            <section class="subtitle">Show newest jobs first</section>
-                        </section>
-                        <span class="dot selected"></span>
-                        <input type="radio" name="sort" value="recent" checked hidden />
-                    </label>
-
-                    <label class="sort-option">
-                        <img src="assets/icons/sort2.svg" alt="Oldest" />
-                        <section class="sort-text">
-                            <section class="title">Oldest</section>
-                            <section class="subtitle">Show oldest jobs first</section>
-                        </section>
-                        <span class="dot"></span>
-                        <input type="radio" name="sort" value="oldest" hidden />
-                    </label>
-
-                    <label class="sort-option">
-                        <img src="assets/icons/sort3.svg" alt="A-Z" />
-                        <section class="sort-text">
-                            <section class="title">Destination A–Z</section>
-                            <section class="subtitle">Sort by destination name</section>
-                        </section>
-                        <span class="dot"></span>
-                        <input type="radio" name="sort" value="az" hidden />
-                    </label>
-
-                    <label class="sort-option">
-                        <img src="assets/icons/sort4.svg" alt="Z-A" />
-                        <section class="sort-text">
-                            <section class="title">Destination Z–A</section>
-                            <section class="subtitle">Sort by destination in reverse</section>
-                        </section>
-                        <span class="dot"></span>
-                        <input type="radio" name="sort" value="za" hidden />
-                    </label>
-
-                    <label class="sort-option">
-                        <img src="assets/icons/sort5.svg" alt="Status" />
-                        <section class="sort-text">
-                            <section class="title">Status</section>
-                            <section class="subtitle">Group by active and on-hold</section>
-                        </section>
-                        <span class="dot"></span>
-                        <input type="radio" name="sort" value="status" hidden />
-                    </label>
-                </form>
-            </section>
-
-            <!-- Search Popup -->
-            <section class="search-popup hidden">
-                <header class="search-header">
-                    <img src="assets/icons/jobs1.svg" alt="Search Icon" class="popup-icon" />
-                    <strong>Search Jobs</strong>
-                    <button class="close-btn" aria-label="Close search popup">&times;</button>
-                </header>
-                <form class="search-form">
-                    <input type="text" placeholder="Enter job ID, destination, or status..."
-                        class="search-input-popup" />
-                    <button class="search-submit-btn">Search</button>
-                </form>
-            </section>
-
-        </main>
-    </section>
-    <!-- Jobs list (default view) -->
-    <section class="jobs-list">
-        <a href="job-details-0001.html" class="job-link"><!-- ... --></a>
-        <a href="job-details-0002.html" class="job-link"><!-- ... --></a>
-        <a href="job-details-0003.html" class="job-link"><!-- ... --></a>
-        <a href="job-details-0004.html" class="job-link"><!-- ... --></a>
-        <a href="job-details-0005.html" class="job-link"><!-- ... --></a>
-        <a href="job-details-0006.html" class="job-link"><!-- ... --></a>
+      </section>
     </section>
 
-    <!-- Hidden Jobs -->
-    <section id="moreJobs" class="jobs-list hidden">
-        <a href="job-details-0010.html" class="job-link">
-            <article class="job-card">
-                <header class="job-header"><span>Job ID</span><strong>0010</strong></header>
-                <section class="job-info">
-                    <section class="job-detail"><img src="assets/icons/destination.svg"
-                            alt="Destination" /><strong>Destination</strong> <span>Germany</span></section>
-                    <section class="job-detail"><img src="assets/icons/delivery.svg"
-                            alt="Delivery" /><strong>Delivery</strong> <span>08/04/24</span></section>
-                    <section class="job-status completed">Completed</section>
-                </section>
-            </article>
-        </a>
-        <a href="job-details-0011.html" class="job-link">
-            <article class="job-card">
-                <header class="job-header"><span>Job ID</span><strong>0011</strong></header>
-                <section class="job-info">
-                    <section class="job-detail"><img src="assets/icons/destination.svg"
-                            alt="Destination" /><strong>Destination</strong> <span>Canada</span></section>
-                    <section class="job-detail"><img src="assets/icons/delivery.svg"
-                            alt="Delivery" /><strong>Delivery</strong> <span>09/04/24</span></section>
-                    <section class="job-status active">Active</section>
-                </section>
-            </article>
-        </a>
-        <a href="job-details-0012.html" class="job-link">
-            <article class="job-card">
-                <header class="job-header"><span>Job ID</span><strong>0012</strong></header>
-                <section class="job-info">
-                    <section class="job-detail"><img src="assets/icons/destination.svg"
-                            alt="Destination" /><strong>Destination</strong> <span>Israel</span></section>
-                    <section class="job-detail"><img src="assets/icons/delivery.svg"
-                            alt="Delivery" /><strong>Delivery</strong> <span>10/04/24</span></section>
-                    <section class="job-status on-hold">On Hold</section>
-                </section>
-            </article>
-        </a>
-        <a href="job-details-0013.html" class="job-link">
-            <article class="job-card">
-                <header class="job-header"><span>Job ID</span><strong>0013</strong></header>
-                <section class="job-info">
-                    <section class="job-detail"><img src="assets/icons/destination.svg"
-                            alt="Destination" /><strong>Destination</strong> <span>Brazil</span></section>
-                    <section class="job-detail"><img src="assets/icons/delivery.svg"
-                            alt="Delivery" /><strong>Delivery</strong> <span>12/04/24</span></section>
-                    <section class="job-status completed">Completed</section>
-                </section>
-            </article>
-        </a>
-    </section>
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="dashboard-main">
+      <!-- Controls -->
+      <section class="controls">
+        <input type="search" placeholder="Search" class="search-input" />
+        <button class="btn filter-btn"><img src="assets/icons/filter.svg" alt="Filter" /> Filters</button>
+        <button class="btn sort-btn"><img src="assets/icons/sort.svg" alt="Sort" /> Sort by</button>
+      </section>
 
-    <!-- See All Jobs Button -->
-    <section class="see-all-wrapper">
-        <button id="seeAllJobsBtn" class="button"><span class="see-all-jobs">See All Jobs</span></button>
-    </section>
+      <!-- Popups -->
+      <section class="filter-popup hidden">...</section>
+      <section class="sort-popup hidden">...</section>
+      <section class="search-popup hidden">...</section>
+
+      <!-- Jobs List Container -->
+      <section id="dynamicJobsList" class="jobs-list"></section>
+
+      <!-- See All Button -->
+      <section class="see-all-wrapper">
+ <button id="seeAllJobsBtn" class="button">See All Jobs</button>
+
+        </button>
+      </section>
     </main>
-    </section>
-    <script src="js/admin-dashboard.js"></script>
-    <script src="js/admin-jobs.js"></script>
+  </section>
+
+  <!-- Scripts -->
+  <script src="js/admin-dashboard.js"></script>
+  <script src="js/admin-jobs.js"></script>
 </body>
 
 </html>

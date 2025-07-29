@@ -30,10 +30,10 @@
                     <img src="assets/icons/add_job.svg" alt="Add Job" /> Add Job
                 </a>
             </nav>
-                <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
-                    <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
-                </button>
-            </section>
+            <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
+                <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
+            </button>
+
         </header>
 
         <!-- === Burger Menu Popup === -->
@@ -74,7 +74,8 @@
         <main class="chat-layout">
             <section class="container">
                 <section class="header">
-                    <img src="assets/icons/back-icon.svg" alt="Back" class="button-icon" />
+                    <img src="assets/icons/back-icon.svg" alt="Back" class="button-icon" id="back-button" />
+
                     <section>
                         <section class="support-chat">Support Chat</section>
                         <section class="job">Job # 0001</section>
@@ -149,7 +150,10 @@
                 </section>
 
             </section>
-            <script src="js/courier-chat.js"></script>
+            <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+
+            <script src="js/admin-chat.js"></script>
+
             <script src="js/admin-dashboard.js"></script>
 </body>
 

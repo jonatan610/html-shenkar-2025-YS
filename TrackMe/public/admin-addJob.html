@@ -32,9 +32,9 @@
             </a>
         </nav>
 
-            <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
-                <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
-            </button>
+        <button class="menu-button desktop-menu-button" aria-label="Open menu" onclick="toggleMenu()">
+            <img src="assets/icons/menu-desktop.svg" alt="Menu icon" />
+        </button>
         </section>
     </header>
 
@@ -110,14 +110,16 @@
             <!-- Pickup Info -->
             <section class="job-details job-details--pickup">
                 <section class="job-details__section-title">PickUp Info</section>
-
                 <section class="job-details__field">
                     <span class="job-details__label">
                         <img src="assets/icons/home11.svg" alt="Address" class="icon-inline" />
                         Address
                     </span>
-                    <span class="job-details__value"></span>
+                    <input type="text" id="pickupAddress" class="editable-field" placeholder="Pickup Address" />
+                    <input type="hidden" id="pickupLat" name="pickupLat" />
+                    <input type="hidden" id="pickupLng" name="pickupLng" />
                 </section>
+
 
                 <section class="job-details__field form-row date-time">
                     <section class="form-group">
@@ -162,7 +164,9 @@
                         <img src="assets/icons/home11.svg" alt="Address" class="icon-inline" />
                         Address
                     </span>
-                    <span class="job-details__value"></span>
+                    <input type="text" id="deliveryAddress" class="editable-field" placeholder="Delivery Address" />
+                    <input type="hidden" id="deliveryLat" name="deliveryLat" />
+                    <input type="hidden" id="deliveryLng" name="deliveryLng" />
                 </section>
 
                 <section class="job-details__field form-row date-time">
@@ -195,7 +199,8 @@
                         <img src="assets/icons/phone11.svg" alt="Phone" class="icon-inline" />
                         Phone
                     </span>
-                    <input type="tel" id="pickupPhone" class="editable-field" placeholder="Phone number" />
+                    <input type="tel" id="deliveryPhone" class="editable-field" placeholder="Phone number" />
+
                 </section>
             </section>
         </section>
@@ -259,8 +264,7 @@
             <section class="document-entry">
                 <section class="document-label">Courier Details Letter</section>
                 <section class="document-actions">
-                    <img src="assets/icons/eye.svg" alt="View" />
-                    <img src="assets/icons/download.svg" alt="Download" />
+                    <input type="file" id="input-courier_letter" />
                 </section>
             </section>
 
@@ -268,8 +272,7 @@
             <section class="document-entry">
                 <section class="document-label">Flight Ticket</section>
                 <section class="document-actions">
-                    <img src="assets/icons/eye.svg" alt="View" />
-                    <img src="assets/icons/download.svg" alt="Download" />
+                    <input type="file" id="input-flight_ticket" />
                 </section>
             </section>
 
@@ -277,8 +280,7 @@
             <section class="document-entry">
                 <section class="document-label">TSA Clearance</section>
                 <section class="document-actions">
-                    <img src="assets/icons/eye.svg" alt="View" />
-                    <img src="assets/icons/download.svg" alt="Download" />
+                    <input type="file" id="input-tsa_clearance" />
                 </section>
             </section>
 
@@ -286,8 +288,7 @@
             <section class="document-entry">
                 <section class="document-label">Passport (US)</section>
                 <section class="document-actions">
-                    <img src="assets/icons/eye.svg" alt="View" />
-                    <img src="assets/icons/download.svg" alt="Download" />
+                    <input type="file" id="input-passport_us" />
                 </section>
             </section>
 
@@ -295,8 +296,7 @@
             <section class="document-entry">
                 <section class="document-label">Hotel Voucher</section>
                 <section class="document-actions">
-                    <img src="assets/icons/eye.svg" alt="View" />
-                    <img src="assets/icons/download.svg" alt="Download" />
+                    <input type="file" id="input-hotel_voucher" />
                 </section>
             </section>
 
@@ -304,8 +304,7 @@
             <section class="document-entry">
                 <section class="document-label">Customs Clearance</section>
                 <section class="document-actions">
-                    <img src="assets/icons/eye.svg" alt="View" />
-                    <img src="assets/icons/download.svg" alt="Download" />
+                    <input type="file" id="input-customs_clearance" />
                 </section>
             </section>
 
@@ -314,14 +313,13 @@
                 <img src="assets/icons/x.svg" alt="Close" />
                 <span>Close</span>
             </button>
-
         </section>
+
     </section>
     <script src="js/admin-dashboard.js"></script>
     <script src="js/admin-addJob.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/intlTelInput.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiJaJgKbMZHlpYJ4gm1irOH53pLTRqS2Q&libraries=places" async defer></script>
-
+    
 
 </body>
 

@@ -1,158 +1,263 @@
 let mapInitialized = false;
+let currentJob = null;  
 
-
-
-// ========== Toggle Burger Menu ========== //
 function toggleMenu() {
-    const menu = document.getElementById("burger-popup");
-    menu.classList.toggle("hidden");
+  const menu = document.getElementById("burger-popup");
+  menu.classList.toggle("hidden");
 }
 
 function closeBurgerMenu() {
-    const menu = document.getElementById("burger-popup");
-    menu.classList.add("hidden");
+  const menu = document.getElementById("burger-popup");
+  menu.classList.add("hidden");
 }
 
-// ========== Documents Popup ========== //
 function openDocumentsPopup() {
-    document.getElementById("documents-popup").classList.remove("hidden");
+  document.getElementById("documents-popup").classList.remove("hidden");
 }
 
 function closeDocumentsPopup() {
-    document.getElementById("documents-popup").classList.add("hidden");
+  document.getElementById("documents-popup").classList.add("hidden");
 }
 
-// ========== Chat Popup ========== //
 function openChatPopup() {
-    document.getElementById("chat-popup").classList.remove("hidden");
+  document.getElementById("chat-popup").classList.remove("hidden");
 }
 
 function closeChatPopup() {
-    document.getElementById("chat-popup").classList.add("hidden");
+  document.getElementById("chat-popup").classList.add("hidden");
 }
 
 function sendChatMessage() {
-    const input = document.getElementById("chat-input");
-    const message = input.value.trim();
-    if (message) {
-        // In real app: send to backend / append to chat
-        alert("Message sent: " + message);
-        input.value = "";
-    }
-}
-
-function markProgress(currentStep) {
-  for (let i = 1; i <= 4; i++) {
-    const step = document.getElementById(`step-${i}`);
-    const line = document.getElementById(`line-${i}`);
-    
-    if (step) {
-      step.classList.toggle("completed", i <= currentStep);
-    }
-    if (line) {
-      line.classList.toggle("completed", i < currentStep);
-    }
+  const input = document.getElementById("chat-input");
+  const message = input.value.trim();
+  if (message) {
+    alert("Message sent: " + message);
+    input.value = "";
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  markProgress(4); 
-});
-
-
-
-// ========== Delivery Location Popup ========== //
 function openDeliveryPopup() {
-  document.getElementById("delivery-popup").classList.remove("hidden");
+  const popup = document.getElementById("delivery-popup");
+  if (!popup || !currentJob) return;
 
-  if (!mapInitialized) {
+  popup.classList.remove("hidden");
+
+  const isBeforePickup = currentJob.courierStatus === "waiting-for-pickup";
+  const locationData = isBeforePickup ? currentJob.pickup : currentJob.delivery;
+
+  const titleEl = document.getElementById("delivery-popup-title");
+  const addressEl = document.getElementById("delivery-address");
+  const navigateLink = document.getElementById("navigate-link");
+  const navigateText = document.getElementById("navigate-text");
+
+  const locationType = isBeforePickup ? "Pickup" : "Delivery";
+  titleEl.textContent = `${locationType} Location`;
+  addressEl.textContent = locationData?.address || "—";
+  document.getElementById("copy-address-btn")?.setAttribute("data-address", locationData?.address || "");
+
+  if (locationData?.lat && locationData?.lng) {
+    navigateLink.href = `https://www.google.com/maps/dir/?api=1&destination=${locationData.lat},${locationData.lng}`;
+  } else {
+    navigateLink.href = "#";
+  }
+  navigateText.textContent = `Navigate to ${locationType}`;
+
+  console.log("openDeliveryPopup locationData:", locationData);
+
+
+  if (locationData?.lat && locationData?.lng) {
     setTimeout(() => {
-      initMap();
-      mapInitialized = true;
-    }, 100);
+      initMap(locationData.lat, locationData.lng);
+    }, 250);
   }
 }
-function copyAddress() {
-  const address = "123 Mount Sinai Hospital, Manhattan, New York, NY 10029";
-  navigator.clipboard.writeText(address)
-    .then(() => {
-      alert("Address copied to clipboard!");
-    })
-    .catch(() => {
-      alert("Failed to copy address.");
-    });
-}
 
-
-
-function closeDeliveryPopup() {
-    document.getElementById("delivery-popup").classList.add("hidden");
-}
-
-function initMap() {
-  const deliveryLocation = { lat: 40.7903, lng: -73.9536 }; // Mount Sinai Hospital
+function initMap(lat, lng) {
+  if (!window.google || !google.maps) {
+    console.error("Google Maps library not loaded yet!");
+    return;
+  }
 
   const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 15,
-    center: deliveryLocation,
+    center: { lat: parseFloat(lat), lng: parseFloat(lng) },
+    zoom: 14
   });
 
   new google.maps.Marker({
-    position: deliveryLocation,
-    map: map,
-    title: "Mount Sinai Hospital"
+    position: { lat: parseFloat(lat), lng: parseFloat(lng) },
+    map,
+    title: "Job Location"
   });
 }
 
-// ========== Call Popup ========== //
-function openCallPopup(title, subtitle, phone, buttonText) {
-    document.getElementById("call-popup").classList.remove("hidden");
-    document.getElementById("popup-title").textContent = title;
-    document.getElementById("popup-subtitle").textContent = subtitle;
-    document.getElementById("popup-phone").textContent = phone;
-    document.getElementById("popup-button-text").textContent = buttonText;
+
+function closeDeliveryPopup() {
+  document.getElementById("delivery-popup").classList.add("hidden");
+}
+
+function copyAddress() {
+  const address = document.getElementById("copy-address-btn")?.getAttribute("data-address") || "";
+  if (!address) return alert("No address to copy");
+
+  navigator.clipboard.writeText(address)
+    .then(() => alert("Address copied to clipboard!"))
+    .catch(() => alert("Failed to copy address."));
 }
 
 function closeCallPopup() {
-    document.getElementById("call-popup").classList.add("hidden");
+  document.getElementById("call-popup").classList.add("hidden");
 }
 
 function callNumber() {
-    const number = document.getElementById("popup-phone").textContent;
-    window.location.href = `tel:${number}`;
+  const number = document.getElementById("popup-phone").textContent;
+  window.location.href = `tel:${number}`;
 }
 
 function openFullChat() {
-  window.location.href = 'courier-chat.html';
+  const jobId = localStorage.getItem("currentJobId");
+  if (!jobId) {
+    alert("No job selected for chat.");
+    return;
+  }
+  window.location.href = `courier-chat.html?id=${jobId}`;
 }
 
-function openDeliveryPopup() {
-  document.getElementById("delivery-popup").classList.remove("hidden");
-
-  setTimeout(() => {
-    initMap();
-  }, 100);
+function mapCourierStatusToUi(status) {
+  switch (status) {
+    case 'waiting-for-pickup': return 'Waiting for Pickup';
+    case 'package-picked-up': return 'Package Picked Up';
+    case 'in-transit': return 'In Transit';
+    case 'landed': return 'Landed / On the way to delivery';
+    case 'delivered': return 'Delivered';
+    default: return '';
+  }
 }
 
-// ========== Button Actions ========== //
-document.addEventListener("DOMContentLoaded", () => {
-  // סמן התקדמות של שלבים
-  markProgress(4); 
+function updateStatusIcons(statusText) {
+  const steps = [
+    'waiting for pickup',
+    'package picked up',
+    'in transit',
+    'landed / on the way to delivery',
+    'delivered'
+  ];
 
-  // מאזין לכל כפתורי הפעולה
+  const numLights = 4;
+  const idx = steps.indexOf(statusText.toLowerCase());
+
+  for (let i = 1; i <= numLights; i++) {
+    const stepEl = document.getElementById(`step-${i}`);
+    const lineEl = document.getElementById(`line-${i}`);
+    if (stepEl) stepEl.classList.remove('completed');
+    if (lineEl) lineEl.classList.remove('completed');
+  }
+
+  if (idx === -1 || statusText.trim() === '') return;
+
+  let lightsToTurnOn = idx > 0 ? Math.min(idx, numLights) : 0;
+
+  for (let i = 1; i <= lightsToTurnOn; i++) {
+    document.getElementById(`step-${i}`)?.classList.add('completed');
+    if (i < lightsToTurnOn) {
+      document.getElementById(`line-${i}`)?.classList.add('completed');
+    }
+  }
+}
+
+function renderJobToDashboard(job) {
+  document.querySelector(".job-id").textContent = `Job ID # ${job.jobId}`;
+  document.querySelector(".status-badge").textContent = job.status || "Unknown";
+
+  const infoItems = document.querySelectorAll(".info-item");
+  if (infoItems.length >= 2) {
+    infoItems[0].querySelector(".info-value").textContent = job.delivery?.address || "—";
+    infoItems[1].querySelector(".info-value").textContent = job.delivery?.date || "—";
+  }
+
+  const uiStatus = mapCourierStatusToUi(job.courierStatus);
+  updateStatusIcons(uiStatus);
+
+  localStorage.setItem("currentJobId", job.jobId);
+}
+
+function handleLogout() {
+  localStorage.clear();
+  window.location.href = "courier-login.html";
+}
+
+function openCallPopup(title, phone) {
+  document.getElementById("call-popup").classList.remove("hidden");
+  document.getElementById("popup-title").textContent = title || "";
+  document.getElementById("popup-phone").textContent = phone || "";
+  document.getElementById("popup-button-text").textContent = phone ? `Call ${title}` : "No number available";
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const courierId = localStorage.getItem("courierId");
+  if (!courierId) {
+    alert("Missing courier ID. Please login again.");
+    window.location.href = "courier-login.html";
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:5500/api/jobs/current/${courierId}`);
+    if (!res.ok) throw new Error("No job assigned to this courier");
+    const data = await res.json();
+
+    if (!data || !data.jobId) {
+      document.querySelector(".main-content").innerHTML = "<p>No active job assigned.</p>";
+      updateStatusIcons('');
+      return;
+    }
+
+    currentJob = data;
+    renderJobToDashboard(data);
+  } catch (err) {
+    console.error("Error loading courier job:", err);
+    document.querySelector(".main-content").innerHTML = "<p>No active job assigned.</p>";
+    updateStatusIcons('');
+  }
+
   document.querySelectorAll(".action-button").forEach(button => {
     button.addEventListener("click", () => {
       const action = button.getAttribute("data-action");
+      const jobId = localStorage.getItem("currentJobId");
+
       switch (action) {
         case "Call Center":
-          openCallPopup("Pickup Center", "Medical Center Reception", "+1-555-0123", "Call Pickup Center");
+          if (!currentJob) {
+            alert("Job data not loaded yet.");
+            return;
+          }
+
+          let title = "";
+          let phone = "";
+
+          if (currentJob.courierStatus === "waiting-for-pickup") {
+            title = "Pickup Center";
+            phone = currentJob.pickup?.phone?.trim() || "";
+          } else if (["package-picked-up", "in-transit", "landed", "delivered"].includes(currentJob.courierStatus)) {
+            title = "Delivery Center";
+            phone = currentJob.delivery?.phone?.trim() || "";
+          }
+
+          if (!phone) {
+            alert(`No phone number available for ${title}.`);
+            return;
+          }
+
+          openCallPopup(title, phone);
           break;
-        case "Chat":
-          openChatPopup();
-          break;
+
         case "Navigate":
           openDeliveryPopup();
           break;
+
+        case "Chat":
+          openChatPopup();
+          break;
+
         case "Documents":
           openDocumentsPopup();
           break;
@@ -160,31 +265,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-
   const jobArrow = document.getElementById("job-arrow");
   if (jobArrow) {
     jobArrow.addEventListener("click", () => {
       window.location.href = "courier-activeJob.html";
     });
   }
-});
 
-// Logout function: clear session/local storage and redirect to login page
-function handleLogout() {
-  // Clear localStorage (or any other stored authentication data)
-  localStorage.clear();
-
-  // Redirect to login page after logout
-  window.location.href = 'courier-login.html';
-}
-
-// Add event listener to logout button after DOM content is loaded
-document.addEventListener("DOMContentLoaded", () => {
-  // Select logout button by class name (adjust selector as needed)
   const logoutButton = document.querySelector(".logout");
-
   if (logoutButton) {
     logoutButton.addEventListener("click", handleLogout);
   }
 });
+
+async function loadJob(jobId) {
+    const res = await fetch(`http://localhost:5500/api/jobs/${jobId}`);
+    const job = await res.json();
+
+  
+    if (job.delivery?.lat && job.delivery?.lng) {
+    initMap(job.delivery.lat, job.delivery.lng);
+}
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadJob(currentJobId);
+});
+
 
