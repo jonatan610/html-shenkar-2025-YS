@@ -346,11 +346,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+
+// ========== Chat ==========
 function setupChatButton(jobId) {
-  document.getElementById("chatJobBtn")?.addEventListener("click", () => {
-    window.location.href = `admin-chat.html?id=${jobId}`;
-  });
+  const chatBtn = document.getElementById("chatBtn");
+  if (chatBtn) {
+    chatBtn.addEventListener("click", () => {
+      window.location.href = `chat.html?jobId=${jobId}`;
+    });
+  }
 }
+
 
 function openDocumentsPopup() {
   document.getElementById("documentsModal")?.classList.remove("hidden");
