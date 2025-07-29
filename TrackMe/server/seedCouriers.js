@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGO_URI)
     await Courier.deleteMany(); // Optional: clear existing couriers
 
     const couriers = [
-   { fullName: "Courier 1",  email: "courier1@trackme.com",  password: "Pass123!" },
+{ fullName: "Courier 1",  email: "courier1@trackme.com",  password: "Pass123!" },
 { fullName: "Courier 2",  email: "courier2@trackme.com",  password: "Pass234!" },
 { fullName: "Courier 3",  email: "courier3@trackme.com",  password: "Pass345!" },
 { fullName: "Courier 4",  email: "courier4@trackme.com",  password: "Pass456!" },

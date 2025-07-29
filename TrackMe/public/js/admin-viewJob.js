@@ -258,7 +258,7 @@ async function deleteJob() {
    const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`, { method: 'DELETE' });
 
     showToast('Job deleted', 'blue');
- setTimeout(() => window.location.href = '/public/admin-jobs.html', 1000);
+ setTimeout(() => window.location.href = 'html-shenkar-2025-ys.onrender.com/admin-jobs.html', 1000);
   } catch {
     showToast('Failed to delete job', 'red');
   }

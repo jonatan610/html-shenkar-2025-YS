@@ -1,4 +1,5 @@
 import API_BASE_URL from './config.js';
+const currentJobId = new URLSearchParams(window.location.search).get("jobId");
 let mapInitialized = false;
 let currentJob = null;  
 
