@@ -284,15 +284,6 @@ function setupStatusToggle(jobId) {
   });
 }
 
-// ========== Chat ==========
-function setupChatButton(jobId) {
-  const chatBtn = document.getElementById("chatBtn");
-  if (chatBtn) {
-    chatBtn.addEventListener("click", () => {
-      window.location.href = `chat.html?jobId=${jobId}`;
-    });
-  }
-}
 
 // ========== Documents Upload ==========
 function setupDocumentsUpload() {
