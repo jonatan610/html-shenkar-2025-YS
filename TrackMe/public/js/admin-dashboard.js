@@ -185,3 +185,7 @@ function handleLogout() {
   sessionStorage.clear();
   window.location.href = 'admin-login.html';
 }
+
+window.toggleMenu = toggleMenu;
+window.closeBurgerMenu = closeBurgerMenu;
+window.handleLogout = handleLogout;
