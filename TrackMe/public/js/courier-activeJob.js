@@ -167,3 +167,33 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('job-arrow')
     .addEventListener('click', () => window.location.href = 'courier-dashboard.html');
 });
+
+function getDeliveryIso(job) {
+  // פורמט כפול—תאריך ושעה נפרדים
+  if (job.delivery?.date && job.delivery?.time) {
+    return `${job.delivery.date}T${job.delivery.time}`;
+  }
+  // שדות מאוחדים נפוצים
+  return (
+    job.delivery?.deliveryDateTime ||
+    job.delivery?.deliveryAt       ||
+    job.delivery?.dateTime         ||
+    ''
+  );
+}
+
+function formatIso(isoStr) {
+  const dt = new Date(isoStr);
+  if (isNaN(dt)) return '—';
+  return dt.toLocaleString('en-US', {
+    month : 'short',
+    day   : 'numeric',
+    year  : 'numeric',
+    hour  : 'numeric',
+    minute: '2-digit'
+  });
+}
+
+// ב-initJobDetails
+const iso = getDeliveryIso(job);
+document.getElementById('active-delivery').textContent = iso ? formatIso(iso) : '—';

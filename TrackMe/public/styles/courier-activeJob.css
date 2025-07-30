@@ -259,3 +259,13 @@ body {
 .popup-cancel:hover {
   background-color: #e5e7eb;
 }
+
+.div,
+.status-label {
+  background-color: #d1fae5;
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
