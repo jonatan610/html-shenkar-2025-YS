@@ -269,3 +269,9 @@ body {
   padding: 4px 8px;
   border-radius: 999px;
 }
+
+#active-delivery {
+  font-size: 14px;
+  color: #111827;
+  text-align: right;
+}

@@ -194,6 +194,21 @@ function formatIso(isoStr) {
   });
 }
 
-// ב-initJobDetails
-const iso = getDeliveryIso(job);
-document.getElementById('active-delivery').textContent = iso ? formatIso(iso) : '—';
+const deliveryEl = document.getElementById('active-delivery');
+
+if (job.delivery?.date && job.delivery?.time) {
+
+  deliveryEl.textContent = formatDateTime(job.delivery.date, job.delivery.time);
+} else if (job.delivery?.date) {
+
+  deliveryEl.textContent = job.delivery.date;
+} else if (job.delivery?.deliveryDateTime) {
+
+  const dt = new Date(job.delivery.deliveryDateTime);
+  deliveryEl.textContent = dt.toLocaleString('en-GB', {
+    day: '2-digit', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  });
+} else {
+  deliveryEl.textContent = '—';
+}
