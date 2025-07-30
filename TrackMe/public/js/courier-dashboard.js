@@ -1,5 +1,5 @@
 import API_BASE_URL from './config.js';
-const currentJobId = localStorage.getItem("currentJobId");
+
 let mapInitialized = false;
 let currentJob = null;  
 
@@ -281,18 +281,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-async function loadJob(jobId) {
-  const res = await fetch(`${API_BASE_URL}/api/jobs/${jobId}`);
-  const job = await res.json();
 
-    if (job.delivery?.lat && job.delivery?.lng) {
-    initMap(job.delivery.lat, job.delivery.lng);
-}
+async function loadJob(jobId) { const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`);
+   if (!res.ok) throw new Error('Failed to load job');
+   const job = await res.json();
 
+   if (job.delivery?.lat && job.delivery?.lng) {
+     initMap(job.delivery.lat, job.delivery.lng);
+   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (currentJobId) {
     loadJob(currentJobId);
+  }
 });
-
 
