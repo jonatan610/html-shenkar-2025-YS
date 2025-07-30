@@ -10,7 +10,7 @@ const Job     = require('../models/Job');
 const Courier = require('../models/Courier');
 const Counter = require('../models/Counter');
 
-// פונקציה להבאת קואורדינטות מ-Google Geocoding API
+// === Geocoding function using Google Maps API ===
 async function geocodeAddress(address) {
   if (!address) return { lat: undefined, lng: undefined };
   try {
@@ -30,7 +30,7 @@ async function geocodeAddress(address) {
   return { lat: undefined, lng: undefined };
 }
 
-// Atomic function to increment sequence and get next value
+// === Atomic counter for unique jobId ===
 async function getNextSequence(name) {
   const counter = await Counter.findOneAndUpdate(
     { _id: name },
@@ -40,18 +40,17 @@ async function getNextSequence(name) {
   return counter.seq;
 }
 
-// Generates a unique business jobId (e.g. JOB-2025-0001)
+// === Generate unique jobId (e.g. JOB-2025-0001) ===
 async function generateJobId() {
   const seq = await getNextSequence('jobId');
   return `JOB-2025-${String(seq).padStart(4, '0')}`;
 }
 
-// Multer storage config for file uploads per job
+// === Multer storage configuration ===
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const jobId   = req.body.jobId || 'unknown';
-    const docType = file.fieldname;
-    const dir     = path.join(__dirname, `../uploads/${jobId}/${docType}`);
+    const jobId = req.body.jobId || 'unknown';
+    const dir   = path.join(__dirname, `../uploads/${jobId}`);
     fs.mkdirSync(dir, { recursive: true });
     cb(null, dir);
   },
@@ -61,7 +60,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Get all jobs
+// === Get all jobs ===
 router.get('/jobs', async (req, res) => {
   try {
     const jobs = await Job.find().populate('courier').sort({ createdAt: -1 });
@@ -71,7 +70,7 @@ router.get('/jobs', async (req, res) => {
   }
 });
 
-// Get jobs count
+// === Get jobs count ===
 router.get('/jobs/count', async (req, res) => {
   try {
     const count = await Job.countDocuments();
@@ -81,7 +80,7 @@ router.get('/jobs/count', async (req, res) => {
   }
 });
 
-// Get job by MongoDB _id
+// === Get job by MongoDB _id ===
 router.get('/jobs/:id', async (req, res) => {
   try {
     const job = await Job.findById(req.params.id).populate('courier');
@@ -92,20 +91,20 @@ router.get('/jobs/:id', async (req, res) => {
   }
 });
 
-// Create new job (with file uploads if needed)
+// === Create new job (with optional file upload) ===
 router.post('/jobs', upload.any(), async (req, res) => {
   try {
     const {
       jobId,
       courier,
-      pickupDate,    pickupTime,    pickupPhone,    pickupAddress,    pickupContact, pickupLat, pickupLng,
-      deliveryDate,  deliveryTime,  deliveryPhone,  deliveryAddress,  deliveryContact, deliveryLat, deliveryLng,
+      pickupDate, pickupTime, pickupPhone, pickupAddress, pickupContact, pickupLat, pickupLng,
+      deliveryDate, deliveryTime, deliveryPhone, deliveryAddress, deliveryContact, deliveryLat, deliveryLng,
       flightOutDate, flightOutTime, flightOutCode,
       flightReturnDate, flightReturnTime, flightReturnCode,
       status, courierStatus
     } = req.body;
 
-    // Prevent assigning same courier to two active jobs at the same time
+    // Prevent assigning the same courier to two active jobs
     const existing = await Job.findOne({
       courier,
       status: { $in: ['Active', 'on-hold'] }
@@ -114,48 +113,50 @@ router.post('/jobs', upload.any(), async (req, res) => {
       return res.status(400).json({ message: "Courier already assigned to an active job." });
     }
 
-    // Generate a unique jobId using atomic counter
+    // Generate unique jobId if not provided
     const finalJobId = jobId || await generateJobId();
 
-    // fallback ל-Geocoding אם אין lat/lng
+    // Handle pickup coordinates (fallback to geocoding)
     let pickupCoords = {
-      lat: (pickupLat !== undefined && pickupLat !== '') ? Number(pickupLat) : undefined,
-      lng: (pickupLng !== undefined && pickupLng !== '') ? Number(pickupLng) : undefined
+      lat: pickupLat ? Number(pickupLat) : undefined,
+      lng: pickupLng ? Number(pickupLng) : undefined
     };
     if (!pickupCoords.lat || !pickupCoords.lng) {
       pickupCoords = await geocodeAddress(pickupAddress);
     }
 
+    // Handle delivery coordinates (fallback to geocoding)
     let deliveryCoords = {
-      lat: (deliveryLat !== undefined && deliveryLat !== '') ? Number(deliveryLat) : undefined,
-      lng: (deliveryLng !== undefined && deliveryLng !== '') ? Number(deliveryLng) : undefined
+      lat: deliveryLat ? Number(deliveryLat) : undefined,
+      lng: deliveryLng ? Number(deliveryLng) : undefined
     };
     if (!deliveryCoords.lat || !deliveryCoords.lng) {
       deliveryCoords = await geocodeAddress(deliveryAddress);
     }
 
+    // Save job
     const newJob = new Job({
-      jobId:           finalJobId,
-      title:           'New Job',
+      jobId: finalJobId,
+      title: 'New Job',
       courier,
-      courierStatus:   courierStatus || 'waiting-for-pickup',
+      courierStatus: courierStatus || 'waiting-for-pickup',
       pickup: {
-        date:    pickupDate,
-        time:    pickupTime,
-        phone:   pickupPhone,
+        date: pickupDate,
+        time: pickupTime,
+        phone: pickupPhone,
         address: pickupAddress,
         contact: pickupContact || '',
-        lat:     pickupCoords.lat,
-        lng:     pickupCoords.lng
+        lat: pickupCoords.lat,
+        lng: pickupCoords.lng
       },
       delivery: {
-        date:    deliveryDate,
-        time:    deliveryTime,
-        phone:   deliveryPhone,
+        date: deliveryDate,
+        time: deliveryTime,
+        phone: deliveryPhone,
         address: deliveryAddress,
         contact: deliveryContact || '',
-        lat:     deliveryCoords.lat,
-        lng:     deliveryCoords.lng
+        lat: deliveryCoords.lat,
+        lng: deliveryCoords.lng
       },
       flight: {
         outbound: {
@@ -172,6 +173,16 @@ router.post('/jobs', upload.any(), async (req, res) => {
       status: status || 'Active'
     });
 
+    // Attach uploaded files info
+    if (req.files && req.files.length > 0) {
+      newJob.files = req.files.map(f => ({
+        filename: f.originalname,
+        path: f.path,
+        size: f.size,
+        mimetype: f.mimetype
+      }));
+    }
+
     const saved = await newJob.save();
     res.status(201).json(saved);
   } catch (err) {
@@ -180,7 +191,7 @@ router.post('/jobs', upload.any(), async (req, res) => {
   }
 });
 
-// Update job by MongoDB _id
+// === Update job by MongoDB _id ===
 router.put('/jobs/:id', async (req, res) => {
   try {
     const updated = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -192,7 +203,7 @@ router.put('/jobs/:id', async (req, res) => {
   }
 });
 
-// Delete job by MongoDB _id
+// === Delete job by MongoDB _id ===
 router.delete('/jobs/:id', async (req, res) => {
   try {
     const deleted = await Job.findByIdAndDelete(req.params.id);
@@ -203,7 +214,7 @@ router.delete('/jobs/:id', async (req, res) => {
   }
 });
 
-// Delete all jobs
+// === Delete all jobs ===
 router.delete('/jobs', async (req, res) => {
   try {
     await Job.deleteMany({});
@@ -213,7 +224,7 @@ router.delete('/jobs', async (req, res) => {
   }
 });
 
-// Get job by business jobId
+// === Get job by business jobId ===
 router.get('/jobs/by-jobid/:jobId', async (req, res) => {
   try {
     const job = await Job.findOne({ jobId: req.params.jobId }).populate('courier');
@@ -224,7 +235,7 @@ router.get('/jobs/by-jobid/:jobId', async (req, res) => {
   }
 });
 
-// Update job by business jobId
+// === Update job by business jobId ===
 router.put('/jobs/by-jobid/:jobId', async (req, res) => {
   try {
     const job = await Job.findOneAndUpdate(
@@ -239,7 +250,7 @@ router.put('/jobs/by-jobid/:jobId', async (req, res) => {
   }
 });
 
-// Delete job by business jobId
+// === Delete job by business jobId ===
 router.delete('/jobs/by-jobid/:jobId', async (req, res) => {
   try {
     const job = await Job.findOneAndDelete({ jobId: req.params.jobId });
@@ -250,7 +261,7 @@ router.delete('/jobs/by-jobid/:jobId', async (req, res) => {
   }
 });
 
-// Get all couriers
+// === Get all couriers ===
 router.get('/couriers', async (_, res) => {
   try {
     const couriers = await Courier.find().sort({ fullName: 1 });
@@ -260,7 +271,7 @@ router.get('/couriers', async (_, res) => {
   }
 });
 
-// Get current active job for a courier
+// === Get current active job for a courier ===
 router.get('/jobs/current/:courierId', async (req, res) => {
   try {
     const courierObjectId = new mongoose.Types.ObjectId(req.params.courierId);

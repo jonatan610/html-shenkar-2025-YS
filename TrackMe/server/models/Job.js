@@ -29,16 +29,16 @@ const jobSchema = new mongoose.Schema({
     time: String,
     phone: String,
     address: String,
-    lat: Number,   // <--- add this
-    lng: Number    // <--- add this
+    lat: Number,
+    lng: Number
   },
   delivery: {
     date: String,
     time: String,
     phone: String,
     address: String,
-    lat: Number,   // <--- add this
-    lng: Number    // <--- add this
+    lat: Number,
+    lng: Number
   },
   flight: {
     outbound: {
@@ -52,6 +52,14 @@ const jobSchema = new mongoose.Schema({
       code: String
     }
   },
+  files: [
+    {
+      filename: String,   // original file name
+      path: String,       // local path where file is stored
+      size: Number,       // file size in bytes
+      mimetype: String    // MIME type (e.g., "application/pdf")
+    }
+  ],
   createdAt: {
     type: Date,
     default: Date.now

@@ -255,72 +255,39 @@
 
     </main>
 
-    <!-- Document Upload Modal -->
-    <section id="documentsModal" class="documents-modal hidden">
-        <section class="documents-container">
-            <h2 class="documents-title">Upload Documents</h2>
-
-            <!-- Document Entry 1 -->
-            <section class="document-entry">
-                <section class="document-label">Courier Details Letter</section>
-                <section class="document-actions">
-                    <input type="file" id="input-courier_letter" />
-                </section>
+    <!-- Upload Modal -->
+    <section class="upload-popup job-upload-modal hidden">
+        <section class="job-upload-header">
+            <section class="job-upload-icon-wrapper">
+                <img src="assets/icons/doc-icon.svg" class="job-upload-icon" />
             </section>
-
-            <!-- Document Entry 2 -->
-            <section class="document-entry">
-                <section class="document-label">Flight Ticket</section>
-                <section class="document-actions">
-                    <input type="file" id="input-flight_ticket" />
-                </section>
-            </section>
-
-            <!-- Document Entry 3 -->
-            <section class="document-entry">
-                <section class="document-label">TSA Clearance</section>
-                <section class="document-actions">
-                    <input type="file" id="input-tsa_clearance" />
-                </section>
-            </section>
-
-            <!-- Document Entry 4 -->
-            <section class="document-entry">
-                <section class="document-label">Passport (US)</section>
-                <section class="document-actions">
-                    <input type="file" id="input-passport_us" />
-                </section>
-            </section>
-
-            <!-- Document Entry 5 -->
-            <section class="document-entry">
-                <section class="document-label">Hotel Voucher</section>
-                <section class="document-actions">
-                    <input type="file" id="input-hotel_voucher" />
-                </section>
-            </section>
-
-            <!-- Document Entry 6 -->
-            <section class="document-entry">
-                <section class="document-label">Customs Clearance</section>
-                <section class="document-actions">
-                    <input type="file" id="input-customs_clearance" />
-                </section>
-            </section>
-
-            <!-- Close Button -->
-            <button class="popup-btn close-documents" onclick="closeDocumentsPopup()">
-                <img src="assets/icons/x.svg" alt="Close" />
-                <span>Close</span>
-            </button>
+            <h3>Send a Document</h3>
+            <button class="job-close-btn close-btn">×</button>
         </section>
 
+        <section class="job-upload-body">
+            <label class="job-upload-box upload-box">
+                <input type="file" hidden />
+                <img src="assets/icons/upload-arrow.svg" />
+                <p>Choose a file</p>
+                <small>PDF, JPG, PNG, DOCX (max 10MB)</small>
+            </label>
+
+            <textarea placeholder="Write a message (optional)"></textarea>
+
+            <button class="job-send-btn send-document">
+                <img src="assets/icons/sendd.svg" alt="Send Icon" />
+                Send Document
+            </button>
+            <button class="job-cancel-btn cancel-upload">Cancel</button>
+        </section>
     </section>
     <script type="module" src="js/admin-dashboard.js"></script>
     <script type="module" src="js/admin-addJob.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/intlTelInput.min.js"></script>
     <script type="module" src="js/config.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiJaJgKbMZHlpYJ4gm1irOH53pLTRqS2Q&libraries=places"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiJaJgKbMZHlpYJ4gm1irOH53pLTRqS2Q&libraries=places"></script>
 
 
 </body>

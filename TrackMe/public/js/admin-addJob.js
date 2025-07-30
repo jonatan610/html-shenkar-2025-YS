@@ -126,22 +126,6 @@ function initGoogleAddressAutocomplete() {
     }
 }
 
-// Open the file upload modal
-function openDocumentsPopup() {
-    const modal = document.getElementById("documentsModal");
-    if (modal) {
-        modal.classList.remove("hidden");
-    }
-}
-
-// Close the file upload modal
-function closeDocumentsPopup() {
-    const modal = document.getElementById("documentsModal");
-    if (modal) {
-        modal.classList.add("hidden");
-    }
-}
-
 
 async function getLatLngFromAddress(address) {
     return new Promise((resolve, reject) => {
@@ -180,7 +164,7 @@ async function submitJob() {
 
     formData.append("pickupDate", document.getElementById('pickupDate').value);
     formData.append("pickupTime", document.getElementById('pickupTime').value);
-formData.append("pickupPhone", itiInstances['pickupPhone']?.getNumber() || "");
+    formData.append("pickupPhone", itiInstances['pickupPhone']?.getNumber() || "");
     formData.append("pickupAddress", pickupAddress);
     formData.append("pickupContact", document.getElementById('pickupContact')?.value || "");
     formData.append("pickupLat", pickupLat);
@@ -199,7 +183,7 @@ formData.append("pickupPhone", itiInstances['pickupPhone']?.getNumber() || "");
 
     formData.append("deliveryDate", document.getElementById('deliveryDate').value);
     formData.append("deliveryTime", document.getElementById('deliveryTime').value);
-formData.append("deliveryPhone", itiInstances['deliveryPhone']?.getNumber() || "");
+    formData.append("deliveryPhone", document.getElementById('deliveryPhone').value);
     formData.append("deliveryAddress", deliveryAddress);
     formData.append("deliveryContact", document.getElementById('deliveryContact')?.value || "");
     formData.append("deliveryLat", deliveryLat);
@@ -217,25 +201,8 @@ formData.append("deliveryPhone", itiInstances['deliveryPhone']?.getNumber() || "
     formData.append("courierStatus", "waiting-for-pickup");
     formData.append("status", "Active");
 
-    // --- Files ---
-    const fileInputs = [
-        'courier_letter',
-        'flight_ticket',
-        'tsa_clearance',
-        'passport_us',
-        'hotel_voucher',
-        'customs_clearance'
-    ];
-
-    fileInputs.forEach(id => {
-        const input = document.getElementById(`input-${id}`);
-        if (input && input.files.length > 0) {
-            formData.append(id, input.files[0]);
-        }
-    });
-
     try {
-       const res = await fetch(`${API_BASE_URL}/api/jobs`, {
+        const res = await fetch(`${API_BASE_URL}/api/jobs`, {
             method: 'POST',
             body: formData
         });
@@ -256,23 +223,89 @@ formData.append("deliveryPhone", itiInstances['deliveryPhone']?.getNumber() || "
 }
 
 
+// === INIT ===
 document.addEventListener("DOMContentLoaded", () => {
     populateCourierDropdown();
     enableEditing();
     initGoogleAddressAutocomplete();
 
-const phoneInputs = document.querySelectorAll("input[type='tel']");
-phoneInputs.forEach(input => {
-    const iti = window.intlTelInput(input, {
-        initialCountry: "il",
-        preferredCountries: ["il", "us", "gb", "fr", "de"],
-        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/utils.js",
+    // === Phone inputs init ===
+    const phoneInputs = document.querySelectorAll("input[type='tel']");
+    phoneInputs.forEach(input => {
+        const iti = window.intlTelInput(input, {
+            initialCountry: "il",
+            preferredCountries: ["il", "us", "gb", "fr", "de"],
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/utils.js",
+        });
+        itiInstances[input.id] = iti; 
     });
-    itiInstances[input.id] = iti; 
-});
 
-    const uploadBtn = document.getElementById("uploadButton");
-    if (uploadBtn) {
-        uploadBtn.addEventListener("click", openDocumentsPopup);
-    }
+    // === Upload Popup logic ===
+    const uploadPopup = document.querySelector(".upload-popup");
+    const uploadButton = document.querySelector("#uploadButton");
+    const closeBtn = document.querySelector(".upload-popup .close-btn");
+    const cancelBtn = document.querySelector(".upload-popup .cancel-upload");
+    const fileInput = document.querySelector(".upload-popup input[type='file']");
+    const sendBtn = document.querySelector(".upload-popup .send-document");
+    const uploadBox = document.querySelector(".upload-popup .upload-box");
+    const messageInput = document.querySelector(".upload-popup textarea");
+
+    // פתיחת הפופאפ
+    uploadButton?.addEventListener("click", () => {
+        uploadPopup.classList.remove("hidden");
+    });
+
+    // סגירה (X או Cancel)
+    [closeBtn, cancelBtn].forEach(btn => {
+        btn?.addEventListener("click", () => {
+            uploadPopup.classList.add("hidden");
+            fileInput.value = "";
+            messageInput.value = "";
+            uploadBox.querySelector("p").textContent = "Choose a file";
+        });
+    });
+
+    // פתיחת file picker
+    uploadBox?.addEventListener("click", () => fileInput.click());
+
+    // הצגת שם הקובץ
+    fileInput?.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        uploadBox.querySelector("p").textContent = file ? file.name : "Choose a file";
+    });
+
+    // שליחת הקובץ
+    sendBtn?.addEventListener("click", async () => {
+        const file = fileInput.files[0];
+        if (!file) {
+            alert("Please select a file first.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("document", file);
+        formData.append("message", messageInput.value);
+
+        try {
+            const res = await fetch(`${API_BASE_URL}/api/uploads`, {
+                method: "POST",
+                body: formData
+            });
+
+            if (!res.ok) throw new Error("Upload failed");
+            const data = await res.json();
+
+            showToast("✅ File uploaded successfully", "blue");
+            console.log("Server response:", data);
+
+            uploadPopup.classList.add("hidden");
+            fileInput.value = "";
+            messageInput.value = "";
+            uploadBox.querySelector("p").textContent = "Choose a file";
+
+        } catch (err) {
+            showToast("❌ Upload error: " + err.message, "red");
+            console.error(err);
+        }
+    });
 });

@@ -412,3 +412,72 @@ function setupChatButton(jobId) {
     window.location.href = `admin-chat.html?id=${jobId}`;
   });
 }
+
+    // === Upload Popup logic ===
+    const uploadPopup = document.querySelector(".upload-popup");
+    const uploadButton = document.querySelector("#uploadButton");
+    const closeBtn = document.querySelector(".upload-popup .close-btn");
+    const cancelBtn = document.querySelector(".upload-popup .cancel-upload");
+    const fileInput = document.querySelector(".upload-popup input[type='file']");
+    const sendBtn = document.querySelector(".upload-popup .send-document");
+    const uploadBox = document.querySelector(".upload-popup .upload-box");
+    const messageInput = document.querySelector(".upload-popup textarea");
+
+    // פתיחת הפופאפ
+    uploadButton?.addEventListener("click", () => {
+        uploadPopup.classList.remove("hidden");
+    });
+
+    // סגירה (X או Cancel)
+    [closeBtn, cancelBtn].forEach(btn => {
+        btn?.addEventListener("click", () => {
+            uploadPopup.classList.add("hidden");
+            fileInput.value = "";
+            messageInput.value = "";
+            uploadBox.querySelector("p").textContent = "Choose a file";
+        });
+    });
+
+    // פתיחת file picker
+    uploadBox?.addEventListener("click", () => fileInput.click());
+
+    // הצגת שם הקובץ
+    fileInput?.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        uploadBox.querySelector("p").textContent = file ? file.name : "Choose a file";
+    });
+
+    // שליחת הקובץ
+    sendBtn?.addEventListener("click", async () => {
+        const file = fileInput.files[0];
+        if (!file) {
+            alert("Please select a file first.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("document", file);
+        formData.append("message", messageInput.value);
+
+        try {
+            const res = await fetch(`${API_BASE_URL}/api/uploads`, {
+                method: "POST",
+                body: formData
+            });
+
+            if (!res.ok) throw new Error("Upload failed");
+            const data = await res.json();
+
+            showToast("✅ File uploaded successfully", "blue");
+            console.log("Server response:", data);
+
+            uploadPopup.classList.add("hidden");
+            fileInput.value = "";
+            messageInput.value = "";
+            uploadBox.querySelector("p").textContent = "Choose a file";
+
+        } catch (err) {
+            showToast("❌ Upload error: " + err.message, "red");
+            console.error(err);
+        }
+    });
