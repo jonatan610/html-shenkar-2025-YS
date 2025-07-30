@@ -1,6 +1,4 @@
 import API_BASE_URL from './config.js';
-import { renderJobs } from './jobs-utils.js';
-
 document.addEventListener("DOMContentLoaded", () => {
   const filterBtn = document.querySelector(".filter-btn");
   const sortBtn = document.querySelector(".sort-btn");
@@ -18,13 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const sortForm = document.querySelector(".sort-form");
   const jobList = document.querySelector(".jobs-list");
-
-  const loadMoreBtn = document.querySelector(".load-more-btn");
-  const showLessBtn = document.querySelector(".show-less-btn");
-
-  let allJobs = [];
-  let visibleCount = 6;
-  const PAGE_SIZE = 6;
 
   // Open popups
   filterBtn?.addEventListener("click", () => filterPopup?.classList.remove("hidden"));
@@ -69,8 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let visible = true;
 
-      if (selectedStatuses.length && !selectedStatuses.includes(status)) visible = false;
-      if (selectedDestinations.length && !selectedDestinations.includes(destination)) visible = false;
+      if (selectedStatuses.length && !selectedStatuses.includes(status)) {
+        visible = false;
+      }
+
+      if (selectedDestinations.length && !selectedDestinations.includes(destination)) {
+        visible = false;
+      }
 
       card.closest(".job-link").style.display = visible ? "block" : "none";
     });
@@ -97,12 +93,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const bStatus = bCard.querySelector(".job-status").textContent.trim().toLowerCase();
 
       switch (selected) {
-        case "recent": return bDate - aDate;
-        case "oldest": return aDate - bDate;
-        case "az": return aDest.localeCompare(bDest);
-        case "za": return bDest.localeCompare(aDest);
-        case "status": return aStatus.localeCompare(bStatus);
-        default: return 0;
+        case "recent":
+          return bDate - aDate;
+        case "oldest":
+          return aDate - bDate;
+        case "az":
+          return aDest.localeCompare(bDest);
+        case "za":
+          return bDest.localeCompare(aDest);
+        case "status":
+          return aStatus.localeCompare(bStatus);
+        default:
+          return 0;
       }
     });
 
@@ -111,51 +113,34 @@ document.addEventListener("DOMContentLoaded", () => {
     sortPopup?.classList.add("hidden");
   });
 
-  // Load jobs
-  fetch(`${API_BASE_URL}/api/jobs`)
-    .then(res => res.json())
-    .then(jobs => {
-      allJobs = jobs.sort((a, b) => new Date(b.delivery?.date || 0) - new Date(a.delivery?.date || 0));
-      renderJobs(allJobs.slice(0, visibleCount), jobList);
+  
 
-      if (allJobs.length > visibleCount) {
-        loadMoreBtn.classList.remove("hidden");
-      }
-    })
-    .catch(err => {
-      console.error("❌ Failed to load jobs:", err);
-    });
+  // === Utility functions ===
+  function extractCountry(address = "") {
+    const parts = address.split(",").map(p => p.trim());
+    return parts[parts.length - 1] || "Unknown";
+  }
 
-  // Load more button
-  loadMoreBtn?.addEventListener("click", () => {
-    visibleCount += PAGE_SIZE;
-    renderJobs(allJobs.slice(0, visibleCount), jobList);
+  function formatDate(dateString) {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB");
+  }
 
-    if (visibleCount >= allJobs.length) {
-      loadMoreBtn.classList.add("hidden");
-    }
-    showLessBtn.classList.remove("hidden");
-  });
-
-  // Show less button
-  showLessBtn?.addEventListener("click", () => {
-    visibleCount = 6;
-    renderJobs(allJobs.slice(0, visibleCount), jobList);
-
-    showLessBtn.classList.add("hidden");
-    if (allJobs.length > visibleCount) {
-      loadMoreBtn.classList.remove("hidden");
-    }
-  });
+  function capitalize(str = "") {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 });
 
-// Burger menu
+// === Burger menu handlers ===
 function toggleMenu() {
   document.getElementById("burger-popup").classList.remove("hidden");
 }
+
 function closeBurgerMenu() {
   document.getElementById("burger-popup").classList.add("hidden");
 }
+
 function handleLogout() {
   localStorage.clear();
   sessionStorage.clear();

@@ -1,42 +1,29 @@
-/* ——— Button style (unchanged) ——— */
-.button {
-  width: 100%;
-  height: 48px;
+.jobs-action-btn {
+  position: fixed;
+  bottom: 20px;      
+  left: 50%;
+  transform: translateX(-50%);
+  
+  padding: 12px 24px;
+  background-color: #183280; 
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
   border: none;
   border-radius: 8px;
-  background-color: #1e3a8a;
-  color: #fff;
-  font-family: Inter, sans-serif;
-  font-size: 13.6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
-}
-.button:hover {
-  background-color: #3b82f6;
 }
 
-/* Keep the “See All Jobs” bar near the bottom,
-   but leave a clean margin so it doesn’t stick to the very edge */
-
-.see-all-wrapper {
-  position: fixed;        /* floats over the page */
-  left: 16px;             /* side margin */
-  right: 16px;            /* side margin */
-  bottom: 24px;           /* nice visual gap from the viewport edge */
-  z-index: 40;            /* above the cards */
+.jobs-action-btn:hover {
+  background-color: #0f245d; 
 }
 
-/* Give the main area extra room so content never hides under the bar */
-.dashboard-main {
-  padding-bottom: 88px;   /* 48 px button + 24 px gap + small buffer */
+.hidden {
+  display: none !important;
 }
-/* optional: grey-out the button after reveal */
-.is-disabled {
-  opacity: 0.55;
-  pointer-events: none;
-}
-
