@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,7 @@
             <section class="container5">
                 <img src="assets/icons/back.svg" alt="Back" class="button-icon" id="job-arrow" />
                 <section class="heading">
-                    <section class="job">Job #0001</section>
+                    <section id="job-id">Job #0001</section>
                     <section class="div">Active</section>
                 </section>
             </section>
@@ -28,7 +29,7 @@
                     <img src="assets/icons/plane.svg" alt="Destination" class="frame-icon" />
                     <section class="destination">Destination</section>
                 </section>
-                <section class="span2">New York, USA</section>
+                <section id="destination-value">New York, USA</section>
             </section>
 
             <section class="container8">
@@ -36,19 +37,17 @@
                     <img src="assets/icons/clock.svg" alt="Delivery" class="frame-icon" />
                     <section class="delivery">Delivery</section>
                 </section>
-                <section class="span4">Mar 4, 2024 at 2:30 PM</section>
+                <section id="delivery-date-value">Mar 4, 2024 at 2:30 PM</section>
             </section>
 
             <!-- Status Update -->
             <section class="container10">Update Status</section>
             <section class="container11">Current Status: <span id="current-status">None</span></section>
             <section class="container12">
-
                 <button onclick="showPopup('Package Picked Up')">Package Picked Up</button>
                 <button onclick="showPopup('In Transit')">In Transit</button>
                 <button onclick="showPopup('Landed / On the way to delivery')">Landed / On the way to delivery</button>
                 <button onclick="showPopup('Delivered')">Delivered</button>
-
             </section>
         </section>
 
@@ -88,10 +87,10 @@
                 </section>
             </section>
         </section>
-
-      <script type="module" src="js/courier-activeJob.js"></script>
+    </section> <!-- /.container -->
 
     <script type="module" src="js/config.js"></script>
+    <script type="module" src="js/courier-activeJob.js"></script>
 </body>
 
 </html>
