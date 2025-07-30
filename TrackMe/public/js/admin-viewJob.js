@@ -392,18 +392,14 @@ document.addEventListener("click", function (e) {
     statusOptions.style.display = "none";
   }
 });
-function openChatPopup() {
-  document.getElementById('chat-popup')?.classList.remove('hidden');
-}
-function closeChatPopup() {
-  document.getElementById('chat-popup')?.classList.add('hidden');
-}
 
-function setupChatButton() {
-  document.getElementById('chatBtn')
-          ?.addEventListener('click', openChatPopup);
-}
+function setupChatButton(jobId) {
+  // תואם ל‑HTML
+  const chatBtn = document.getElementById('chatJobBtn');
+  if (!chatBtn) return;            // הגנה
 
-// בסוף הקובץ, אם יש inline‑onclick:
-window.openChatPopup  = openChatPopup;
-window.closeChatPopup = closeChatPopup;
+  chatBtn.addEventListener('click', () => {
+    // ניווט לדף הצ׳אט של האדמין
+    window.location.href = `admin-chat.html?id=${jobId}`;
+  });
+}
