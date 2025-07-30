@@ -1,5 +1,5 @@
 import API_BASE_URL from './config.js';
-
+const currentJobId = localStorage.getItem("currentJobId") || null;
 let mapInitialized = false;
 let currentJob = null;  
 
