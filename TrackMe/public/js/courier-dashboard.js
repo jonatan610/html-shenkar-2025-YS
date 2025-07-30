@@ -297,3 +297,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+window.closeCallPopup = closeCallPopup;
