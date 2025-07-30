@@ -392,3 +392,18 @@ document.addEventListener("click", function (e) {
     statusOptions.style.display = "none";
   }
 });
+function openChatPopup() {
+  document.getElementById('chat-popup')?.classList.remove('hidden');
+}
+function closeChatPopup() {
+  document.getElementById('chat-popup')?.classList.add('hidden');
+}
+
+function setupChatButton() {
+  document.getElementById('chatBtn')
+          ?.addEventListener('click', openChatPopup);
+}
+
+// בסוף הקובץ, אם יש inline‑onclick:
+window.openChatPopup  = openChatPopup;
+window.closeChatPopup = closeChatPopup;

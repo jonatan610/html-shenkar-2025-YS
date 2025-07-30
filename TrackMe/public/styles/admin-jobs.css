@@ -1,3 +1,4 @@
+/* ——— Button style (unchanged) ——— */
 .button {
   width: 100%;
   height: 48px;
@@ -5,17 +6,37 @@
   border-radius: 8px;
   background-color: #1e3a8a;
   color: #fff;
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-size: 13.6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
-
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
 }
-
 .button:hover {
   background-color: #3b82f6;
 }
+
+/* Keep the “See All Jobs” bar near the bottom,
+   but leave a clean margin so it doesn’t stick to the very edge */
+
+.see-all-wrapper {
+  position: fixed;        /* floats over the page */
+  left: 16px;             /* side margin */
+  right: 16px;            /* side margin */
+  bottom: 24px;           /* nice visual gap from the viewport edge */
+  z-index: 40;            /* above the cards */
+}
+
+/* Give the main area extra room so content never hides under the bar */
+.dashboard-main {
+  padding-bottom: 88px;   /* 48 px button + 24 px gap + small buffer */
+}
+/* optional: grey-out the button after reveal */
+.is-disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
