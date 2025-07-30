@@ -1,4 +1,6 @@
 import API_BASE_URL from './config.js';
+let itiInstances = {};
+
 // ========== Helpers ==========
 function normalizeJobId(id) {
   return id || null;
@@ -19,14 +21,16 @@ function getJobIdFromURL() {
 // ========== International Phone and Address Autocomplete ==========
 function initIntlTelInputs() {
   document.querySelectorAll('input[type="tel"]').forEach(input => {
-    window.intlTelInput(input, {
+    const iti = window.intlTelInput(input, {
       initialCountry: "il",
       preferredCountries: ["il", "us", "gb", "fr", "de"],
       utilsScript:
         "https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/utils.js",
     });
+    itiInstances[input.id] = iti; 
   });
 }
+
 
 // Autocomplete and syncing lat/lng for both addresses
 function initGoogleAddressAutocomplete() {
@@ -97,23 +101,34 @@ function populateJobDetails(job) {
   // Courier
   document.getElementById('courier-name').textContent = job.courier?.fullName || '—';
 
-  // Pickup
-  document.getElementById('pickupAddress').value = job.pickup?.address || '';
-  document.getElementById('pickupDate').value = job.pickup?.date || '';
-  document.getElementById('pickupTime').value = job.pickup?.time || '';
-  document.querySelector('.job-details--pickup .job-details__value').textContent = job.pickup?.contact || '—';
-  document.getElementById('pickupPhone').value = job.pickup?.phone || '';
-  if (document.getElementById('pickupLat')) document.getElementById('pickupLat').value = job.pickup?.lat || "";
-  if (document.getElementById('pickupLng')) document.getElementById('pickupLng').value = job.pickup?.lng || "";
+// Pickup
+document.getElementById('pickupAddress').value = job.pickup?.address || '';
+document.getElementById('pickupDate').value = job.pickup?.date || '';
+document.getElementById('pickupTime').value = job.pickup?.time || '';
+document.querySelector('.job-details--pickup .job-details__value').textContent = job.pickup?.contact || '—';
+
+
+itiInstances['pickupPhone']?.setNumber(job.pickup?.phone || '');
+
+if (document.getElementById('pickupLat')) 
+  document.getElementById('pickupLat').value = job.pickup?.lat || "";
+if (document.getElementById('pickupLng')) 
+  document.getElementById('pickupLng').value = job.pickup?.lng || "";
 
   // Delivery
-  document.getElementById('deliveryAddress').value = job.delivery?.address || '';
-  document.getElementById('deliveryDate').value = job.delivery?.date || '';
-  document.getElementById('deliveryTime').value = job.delivery?.time || '';
-  document.querySelector('.job-details--delivery .job-details__value').textContent = job.delivery?.contact || '—';
-  document.getElementById('deliveryPhone').value = job.delivery?.phone || '';
-  if (document.getElementById('deliveryLat')) document.getElementById('deliveryLat').value = job.delivery?.lat || "";
-  if (document.getElementById('deliveryLng')) document.getElementById('deliveryLng').value = job.delivery?.lng || "";
+// Delivery
+document.getElementById('deliveryAddress').value = job.delivery?.address || '';
+document.getElementById('deliveryDate').value = job.delivery?.date || '';
+document.getElementById('deliveryTime').value = job.delivery?.time || '';
+document.querySelector('.job-details--delivery .job-details__value').textContent = job.delivery?.contact || '—';
+
+
+itiInstances['deliveryPhone']?.setNumber(job.delivery?.phone || '');
+
+if (document.getElementById('deliveryLat')) 
+  document.getElementById('deliveryLat').value = job.delivery?.lat || "";
+if (document.getElementById('deliveryLng')) 
+  document.getElementById('deliveryLng').value = job.delivery?.lng || "";
 
   // Flight Outbound
   document.getElementById('flightOutDate').value = job.flight?.outbound?.date || '';
@@ -192,7 +207,8 @@ async function saveJobEdits() {
       date: document.getElementById('pickupDate').value,
       time: document.getElementById('pickupTime').value,
       contact: document.getElementById('pickupContact')?.value || '',
-      phone: document.getElementById('pickupPhone').value,
+phone: itiInstances['pickupPhone']?.getNumber() || document.getElementById('pickupPhone').value,
+
       lat: pickupLat,
       lng: pickupLng
     },
@@ -201,7 +217,8 @@ async function saveJobEdits() {
       date: document.getElementById('deliveryDate').value,
       time: document.getElementById('deliveryTime').value,
       contact: document.getElementById('deliveryContact')?.value || '',
-      phone: document.getElementById('deliveryPhone').value,
+  phone: itiInstances['deliveryPhone']?.getNumber() || document.getElementById('deliveryPhone').value,
+
       lat: deliveryLat,
       lng: deliveryLng
     },
@@ -258,7 +275,8 @@ async function deleteJob() {
    const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`, { method: 'DELETE' });
 
     showToast('Job deleted', 'blue');
- setTimeout(() => window.location.href = 'html-shenkar-2025-ys.onrender.com/admin-jobs.html', 1000);
+ setTimeout(() => window.location.href = 'https://html-shenkar-2025-ys.onrender.com/admin-jobs.html', 1000);
+
   } catch {
     showToast('Failed to delete job', 'red');
   }

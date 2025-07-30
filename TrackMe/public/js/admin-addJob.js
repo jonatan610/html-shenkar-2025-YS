@@ -1,5 +1,6 @@
 import API_BASE_URL from './config.js';
 let currentJobId = "";
+let itiInstances = {};
 
 
 // Populate the courier dropdown from server
@@ -179,7 +180,7 @@ async function submitJob() {
 
     formData.append("pickupDate", document.getElementById('pickupDate').value);
     formData.append("pickupTime", document.getElementById('pickupTime').value);
-    formData.append("pickupPhone", document.getElementById('pickupPhone').value);
+formData.append("pickupPhone", itiInstances['pickupPhone']?.getNumber() || "");
     formData.append("pickupAddress", pickupAddress);
     formData.append("pickupContact", document.getElementById('pickupContact')?.value || "");
     formData.append("pickupLat", pickupLat);
@@ -198,7 +199,7 @@ async function submitJob() {
 
     formData.append("deliveryDate", document.getElementById('deliveryDate').value);
     formData.append("deliveryTime", document.getElementById('deliveryTime').value);
-    formData.append("deliveryPhone", document.getElementById('deliveryPhone').value);
+formData.append("deliveryPhone", itiInstances['deliveryPhone']?.getNumber() || "");
     formData.append("deliveryAddress", deliveryAddress);
     formData.append("deliveryContact", document.getElementById('deliveryContact')?.value || "");
     formData.append("deliveryLat", deliveryLat);
@@ -260,14 +261,15 @@ document.addEventListener("DOMContentLoaded", () => {
     enableEditing();
     initGoogleAddressAutocomplete();
 
-    const phoneInputs = document.querySelectorAll("input[type='tel']");
-    phoneInputs.forEach(input => {
-        window.intlTelInput(input, {
-            initialCountry: "il",
-            preferredCountries: ["il", "us", "gb", "fr", "de"],
-            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/utils.js",
-        });
+const phoneInputs = document.querySelectorAll("input[type='tel']");
+phoneInputs.forEach(input => {
+    const iti = window.intlTelInput(input, {
+        initialCountry: "il",
+        preferredCountries: ["il", "us", "gb", "fr", "de"],
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/utils.js",
     });
+    itiInstances[input.id] = iti; 
+});
 
     const uploadBtn = document.getElementById("uploadButton");
     if (uploadBtn) {
