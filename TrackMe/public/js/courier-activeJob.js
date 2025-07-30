@@ -194,21 +194,9 @@ function formatIso(isoStr) {
   });
 }
 
-const deliveryEl = document.getElementById('active-delivery');
 
-if (job.delivery?.date && job.delivery?.time) {
-
-  deliveryEl.textContent = formatDateTime(job.delivery.date, job.delivery.time);
-} else if (job.delivery?.date) {
-
-  deliveryEl.textContent = job.delivery.date;
-} else if (job.delivery?.deliveryDateTime) {
-
-  const dt = new Date(job.delivery.deliveryDateTime);
-  deliveryEl.textContent = dt.toLocaleString('en-GB', {
-    day: '2-digit', month: 'short', year: 'numeric',
-    hour: '2-digit', minute: '2-digit'
-  });
-} else {
-  deliveryEl.textContent = '—';
-}
+  const infoItems = document.querySelectorAll(".info-item");
+  if (infoItems.length >= 2) {
+    infoItems[0].querySelector(".info-value").textContent = job.delivery?.address || "—";
+    infoItems[1].querySelector(".info-value").textContent = job.delivery?.date || "—";
+  }
