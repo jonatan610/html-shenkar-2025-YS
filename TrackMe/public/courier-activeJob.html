@@ -15,7 +15,7 @@
             <section class="container5">
                 <img src="assets/icons/back.svg" alt="Back" class="button-icon" id="job-arrow" />
                 <section class="heading">
-                    <section id="active-job-id" class="job">Job #0001</section>
+                    <section class="job">Job #0001</section>
                     <section class="div">Active</section>
                 </section>
             </section>
@@ -26,76 +26,72 @@
             <section class="container7">
                 <section class="span1">
                     <img src="assets/icons/plane.svg" alt="Destination" class="frame-icon" />
-                    <section id="active-destination-label" class="destination">
-                        Destination
-                    </section>
-                    <section id="active-destination" class="span2">
-                        New York, USA
-                    </section>
-                    <section class="container8">
-                        <section class="span3">
-                            <img src="assets/icons/clock.svg" alt="Delivery" class="frame-icon" />
-                            <section id="active-delivery-label" class="delivery">
-                                Delivery
-                            </section>
-                            <section id="active-delivery" class="span4">
-                                Mar 4, 2024 at 2:30 PM
-                            </section>
-                        </section>
-                        <!-- Status Update -->
-                        <section class="container10">Update Status</section>
-                        <section class="container11">Current Status: <span id="current-status">None</span></section>
-                        <section class="container12">
+                    <section class="destination">Destination</section>
+                </section>
+                <section class="span2">New York, USA</section>
+            </section>
 
-                            <button onclick="showPopup('Package Picked Up')">Package Picked Up</button>
-                            <button onclick="showPopup('In Transit')">In Transit</button>
-                            <button onclick="showPopup('Landed / On the way to delivery')">Landed / On the way to
-                                delivery</button>
-                            <button onclick="showPopup('Delivered')">Delivered</button>
+            <section class="container8">
+                <section class="span3">
+                    <img src="assets/icons/clock.svg" alt="Delivery" class="frame-icon" />
+                    <section class="delivery">Delivery</section>
+                </section>
+                <section class="span4">Mar 4, 2024 at 2:30 PM</section>
+            </section>
 
-                        </section>
-                    </section>
+            <!-- Status Update -->
+            <section class="container10">Update Status</section>
+            <section class="container11">Current Status: <span id="current-status">None</span></section>
+            <section class="container12">
 
-                    <!-- Bottom Action Buttons -->
-                    <section class="section4">
-                        <section class="container19">
-                            <button class="button10">
-                                <img src="assets/icons/phone.svg" alt="Call" />
-                                <section class="span11">Call Support</section>
-                            </button>
-                            <button class="button11">
-                                <img src="assets/icons/chat.svg" alt="Chat" />
-                                <section class="span12">Open Chat</section>
-                            </button>
-                        </section>
-                        <section class="container19">
-                            <button class="button12">
-                                <img src="assets/icons/documents.svg" alt="Documents" />
-                                <section class="span13">Documents</section>
-                            </button>
-                            <button class="button13">
-                                <img src="assets/icons/error.svg" alt="Issue" />
-                                <section class="span14">Report Issue</section>
-                            </button>
-                        </section>
-                    </section>
+                <button onclick="showPopup('Package Picked Up')">Package Picked Up</button>
+                <button onclick="showPopup('In Transit')">In Transit</button>
+                <button onclick="showPopup('Landed / On the way to delivery')">Landed / On the way to delivery</button>
+                <button onclick="showPopup('Delivered')">Delivered</button>
 
-                    <!-- Status Confirmation Popup -->
-                    <section id="status-popup" class="status-popup">
-                        <section class="popup-box">
-                            <h2>Update Status</h2>
-                            <p>Are you sure you want to update the status to</p>
-                            <p><strong id="new-status-text">...</strong>?</p>
-                            <section class="popup-buttons">
-                                <button class="popup-confirm" onclick="confirmStatus()">Confirm</button>
-                                <button class="popup-cancel" onclick="closePopup()">Cancel</button>
-                            </section>
-                        </section>
-                    </section>
+            </section>
+        </section>
 
-                    <script type="module" src="js/courier-activeJob.js"></script>
+        <!-- Bottom Action Buttons -->
+        <section class="section4">
+            <section class="container19">
+                <button class="button10">
+                    <img src="assets/icons/phone.svg" alt="Call" />
+                    <section class="span11">Call Support</section>
+                </button>
+                <button class="button11">
+                    <img src="assets/icons/chat.svg" alt="Chat" />
+                    <section class="span12">Open Chat</section>
+                </button>
+            </section>
+            <section class="container19">
+                <button class="button12">
+                    <img src="assets/icons/documents.svg" alt="Documents" />
+                    <section class="span13">Documents</section>
+                </button>
+                <button class="button13">
+                    <img src="assets/icons/error.svg" alt="Issue" />
+                    <section class="span14">Report Issue</section>
+                </button>
+            </section>
+        </section>
 
-                    <script type="module" src="js/config.js"></script>
+        <!-- Status Confirmation Popup -->
+        <section id="status-popup" class="status-popup">
+            <section class="popup-box">
+                <h2>Update Status</h2>
+                <p>Are you sure you want to update the status to</p>
+                <p><strong id="new-status-text">...</strong>?</p>
+                <section class="popup-buttons">
+                    <button class="popup-confirm" onclick="confirmStatus()">Confirm</button>
+                    <button class="popup-cancel" onclick="closePopup()">Cancel</button>
+                </section>
+            </section>
+        </section>
+
+      <script type="module" src="js/courier-activeJob.js"></script>
+
+    <script type="module" src="js/config.js"></script>
 </body>
 
 </html>
