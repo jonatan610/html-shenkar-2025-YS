@@ -298,15 +298,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-window.closeCallPopup = closeCallPopup;
-window.closeChatPopup = closeChatPopup;
-
-window.closeDocumentsPopup = closeDocumentsPopup;
-window.openDocumentsPopup  = openDocumentsPopup; 
-window.closeDeliveryPopup  = closeDeliveryPopup;
-window.toggleMenu        = toggleMenu;
-window.closeBurgerMenu   = closeBurgerMenu;
-window.callNumber          = callNumber;
-window.sendChatMessage  = sendChatMessage;
-window.openFullChat     = openFullChat;
-window.copyAddress      = copyAddress;
+// expose module functions as globals for inline onclick handlers
+window.callNumber           = callNumber;
+window.closeBurgerMenu      = closeBurgerMenu;
+window.closeCallPopup       = closeCallPopup;
+window.closeChatPopup       = closeChatPopup;
+window.closeDeliveryPopup   = closeDeliveryPopup;
+window.closeDocumentsPopup  = closeDocumentsPopup;
+window.copyAddress          = copyAddress;
+window.openDocumentsPopup   = openDocumentsPopup;
+window.openFullChat         = openFullChat;
+window.sendChatMessage      = sendChatMessage;
+window.toggleMenu           = toggleMenu;
