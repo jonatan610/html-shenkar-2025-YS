@@ -299,3 +299,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 window.closeCallPopup = closeCallPopup;
+window.closeChatPopup = closeChatPopup;
+
+window.closeDocumentsPopup = closeDocumentsPopup;
+window.openDocumentsPopup  = openDocumentsPopup; 
+window.closeDeliveryPopup  = closeDeliveryPopup;
