@@ -965,6 +965,18 @@ select.editable-field:focus {
 }
 
 
+/* Status Colors */
+.status-select.active {
+  background-color: #d1fae5; /* ירוק בהיר */
+  color: #047857;           /* ירוק כהה */
+}
+
+.status-select.on-hold {
+  background-color: #fee2e2; /* אדום בהיר */
+  color: #b91c1c;           /* אדום כהה */
+}
+
+/* Dropdown Options */
 .state-options {
   display: none;
   position: absolute;
