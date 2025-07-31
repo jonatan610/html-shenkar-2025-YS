@@ -40,7 +40,7 @@ const storage = multer.diskStorage({
     cb(null, jobDir);
   },
   filename: (req, file, cb) => {
-    // Convert filename to UTF-8 to avoid Hebrew/Unicode corruption
+    // Convert filename to UTF-8 to avoid corruption with Hebrew/Unicode
     const safeName = Buffer.from(file.originalname, "latin1").toString("utf8");
     cb(null, safeName);
   }
@@ -54,10 +54,11 @@ app.post('/api/upload', upload.any(), (req, res) => {
   }
 
   const jobId = req.body.jobId;
+
+  // Use file.filename (the corrected UTF-8 name) instead of originalname
   const uploadedFiles = req.files.map(file => ({
-    filename: file.originalname,
-    // Use encodeURIComponent to build a safe URL
-    url: `/uploads/${jobId}/${encodeURIComponent(file.originalname)}`
+    filename: file.filename, 
+    url: `/uploads/${jobId}/${encodeURIComponent(file.filename)}`
   }));
 
   res.status(200).json({
@@ -67,7 +68,7 @@ app.post('/api/upload', upload.any(), (req, res) => {
 });
 
 // === File download endpoint ===
-// This ensures the browser downloads the file instead of opening it
+// Ensures the browser downloads the file instead of opening it
 app.get('/api/download/:jobId/:filename', (req, res) => {
   const { jobId, filename } = req.params;
   const filePath = path.join(__dirname, 'uploads', jobId, filename);

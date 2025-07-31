@@ -10,9 +10,6 @@ const Job     = require('../models/Job');
 const Courier = require('../models/Courier');
 const Counter = require('../models/Counter');
 
-// NOTE: Do NOT use app.use() here, it belongs in server.js (main entry file)
-// Example (in server.js): app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 // === Geocoding function using Google Maps API ===
 async function geocodeAddress(address) {
   if (!address) return { lat: undefined, lng: undefined };
@@ -58,8 +55,10 @@ const storage = multer.diskStorage({
     cb(null, dir);
   },
   filename: (req, file, cb) => {
-    // Use timestamp to avoid overwriting files with the same name
-    const uniqueName = Date.now() + '-' + file.originalname;
+    // Fix encoding issue with Hebrew/Unicode filenames
+    const safeName = Buffer.from(file.originalname, "latin1").toString("utf8");
+    // Add timestamp to avoid overwriting files
+    const uniqueName = Date.now() + '-' + safeName;
     cb(null, uniqueName);
   }
 });
@@ -181,7 +180,7 @@ router.post('/jobs', upload.any(), async (req, res) => {
     // Attach uploaded files if any
     if (req.files && req.files.length > 0) {
       newJob.files = req.files.map(f => ({
-        filename: f.originalname,
+        filename: f.filename, // use corrected UTF-8 name
         path: f.path,
         size: f.size,
         mimetype: f.mimetype
@@ -206,7 +205,7 @@ router.post('/jobs/:jobId/uploads', upload.any(), async (req, res) => {
     job.files = job.files || [];
     req.files.forEach(file => {
       job.files.push({
-        filename: file.originalname,
+        filename: file.filename, // fixed UTF-8 name
         path: file.path,
         size: file.size,
         mimetype: file.mimetype
