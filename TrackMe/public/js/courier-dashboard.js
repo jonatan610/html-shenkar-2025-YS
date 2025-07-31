@@ -362,18 +362,21 @@ window.openFullChat         = openFullChat;
 window.sendChatMessage      = sendChatMessage;
 window.toggleMenu           = toggleMenu;
 
+
+
+// Get the logged-in email from local storage
+const loggedInEmail = localStorage.getItem('userEmail');
+
+// Extract username from email (everything before @)
 function extractUsernameFromEmail(email) {
-    return email.split('@')[0];
+  return email.split('@')[0];
 }
 
-
-const loggedInEmail = localStorage.getItem('userEmail'); 
-
-
+// If email exists, update the greeting text
 if (loggedInEmail) {
-    const username = extractUsernameFromEmail(loggedInEmail);
-    const greetingElement = document.getElementById('courier-greeting');
-    if (greetingElement) {
-        greetingElement.textContent = `Hello, ${username}`;
-    }
+  const username = extractUsernameFromEmail(loggedInEmail);
+  const greetingElement = document.getElementById('courier-greeting');
+  if (greetingElement) {
+    greetingElement.textContent = `Hello, ${username}`;
+  }
 }
