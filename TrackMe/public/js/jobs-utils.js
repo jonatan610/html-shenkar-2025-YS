@@ -1,11 +1,26 @@
-// jobs-utils.js
+// === Utility functions ===
+function extractCountry(address = "") {
+  const parts = address.split(",").map(p => p.trim());
+  return parts[parts.length - 1] || "Unknown";
+}
+
+function formatDate(dateString) {
+  if (!dateString) return "N/A";
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-GB");
+}
+
+function capitalize(str = "") {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export function renderJobs(jobs, container) {
   container.innerHTML = "";
 
   jobs.forEach(job => {
     const country = extractCountry(job.delivery?.address || "");
     const deliveryDate = formatDate(job.delivery?.date);
-    const status = job.status || "active";
+    const status = job.state || job.status || "active"; 
     const jobId = job.jobId || job._id?.slice(-5).toUpperCase();
 
     const card = document.createElement("a");
@@ -32,20 +47,4 @@ export function renderJobs(jobs, container) {
     `;
     container.appendChild(card);
   });
-}
-
-// === Utility functions ===
-function extractCountry(address = "") {
-  const parts = address.split(",").map(p => p.trim());
-  return parts[parts.length - 1] || "Unknown";
-}
-
-function formatDate(dateString) {
-  if (!dateString) return "N/A";
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-GB");
-}
-
-function capitalize(str = "") {
-  return str.charAt(0).toUpperCase() + str.slice(1);
 }

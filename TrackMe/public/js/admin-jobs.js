@@ -115,6 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch(`${API_BASE_URL}/api/jobs`)
     .then(res => res.json())
     .then(jobs => {
+       jobs.forEach(job => {
+      if (!job.state) job.state = 'active'; 
+    });
       allJobs = jobs.sort((a, b) => new Date(b.delivery?.date || 0) - new Date(a.delivery?.date || 0));
       renderJobs(allJobs.slice(0, visibleCount), jobList);
 
