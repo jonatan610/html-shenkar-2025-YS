@@ -316,44 +316,44 @@ function setupDocumentsUpload() {
   });
 
   // Send upload
-  sendBtn?.addEventListener("click", async () => {
-    const file = fileInput.files[0];
-    if (!file) {
-      alert("Please select a file first.");
-      return;
+sendBtn?.addEventListener("click", async () => {
+  const file = fileInput.files[0];
+  if (!file) {
+    alert("Please select a file first.");
+    return;
+  }
+
+  const jobId = getJobIdFromURL();
+  const formData = new FormData();
+  formData.append("document", file);
+  formData.append("message", messageInput.value); // אופציונלי
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/jobs/${jobId}/uploads`, {
+      method: "POST",
+      body: formData
+    });
+
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({}));
+      throw new Error(error.message || "Upload failed");
     }
 
-    const jobId = getJobIdFromURL();
-    const formData = new FormData();
-    formData.append("document", file);
-    formData.append("message", messageInput.value);
-    formData.append("jobId", jobId);
+    const data = await res.json();
+    showToast("✅ File uploaded successfully", "blue");
+    console.log("Server response:", data);
 
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/uploads`, {
-        method: "POST",
-        body: formData
-      });
+    uploadPopup.classList.add("hidden");
+    fileInput.value = "";
+    messageInput.value = "";
+    uploadBox.querySelector("p").textContent = "Choose a file";
 
-      if (!res.ok) {
-        const error = await res.json().catch(() => ({}));
-        throw new Error(error.message || "Upload failed");
-      }
+  } catch (err) {
+    showToast("❌ Upload error: " + err.message, "red");
+    console.error(err);
+  }
+});
 
-      const data = await res.json();
-      showToast("✅ File uploaded successfully", "blue");
-      console.log("Server response:", data);
-
-      uploadPopup.classList.add("hidden");
-      fileInput.value = "";
-      messageInput.value = "";
-      uploadBox.querySelector("p").textContent = "Choose a file";
-
-    } catch (err) {
-      showToast("❌ Upload error: " + err.message, "red");
-      console.error(err);
-    }
-  });
 }
 
 // ========== Chat Button ==========
