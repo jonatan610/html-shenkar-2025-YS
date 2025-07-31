@@ -1,34 +1,28 @@
 import API_BASE_URL from './config.js';
+
 const currentJobId = localStorage.getItem("currentJobId") || null;
 let mapInitialized = false;
 let currentJob = null;  
 
+// Toggle burger menu
 function toggleMenu() {
   const menu = document.getElementById("burger-popup");
   menu.classList.toggle("hidden");
 }
 
+// Close burger menu
 function closeBurgerMenu() {
   const menu = document.getElementById("burger-popup");
   menu.classList.add("hidden");
 }
 
-function openDocumentsPopup() {
-  document.getElementById("documents-popup").classList.remove("hidden");
-}
-
-function closeDocumentsPopup() {
-  document.getElementById("documents-popup").classList.add("hidden");
-}
-
+// Chat popup
 function openChatPopup() {
   document.getElementById("chat-popup").classList.remove("hidden");
 }
-
 function closeChatPopup() {
   document.getElementById("chat-popup").classList.add("hidden");
 }
-
 function sendChatMessage() {
   const input = document.getElementById("chat-input");
   const message = input.value.trim();
@@ -38,6 +32,7 @@ function sendChatMessage() {
   }
 }
 
+// Delivery popup
 function openDeliveryPopup() {
   const popup = document.getElementById("delivery-popup");
   if (!popup || !currentJob) return;
@@ -64,9 +59,7 @@ function openDeliveryPopup() {
   }
   navigateText.textContent = `Navigate to ${locationType}`;
 
-  console.log("openDeliveryPopup locationData:", locationData);
-
-
+  // Initialize map with small delay
   if (locationData?.lat && locationData?.lng) {
     setTimeout(() => {
       initMap(locationData.lat, locationData.lng);
@@ -74,6 +67,7 @@ function openDeliveryPopup() {
   }
 }
 
+// Google Maps initialization
 function initMap(lat, lng) {
   if (!window.google || !google.maps) {
     console.error("Google Maps library not loaded yet!");
@@ -92,11 +86,11 @@ function initMap(lat, lng) {
   });
 }
 
-
 function closeDeliveryPopup() {
   document.getElementById("delivery-popup").classList.add("hidden");
 }
 
+// Copy address to clipboard
 function copyAddress() {
   const address = document.getElementById("copy-address-btn")?.getAttribute("data-address") || "";
   if (!address) return alert("No address to copy");
@@ -106,15 +100,22 @@ function copyAddress() {
     .catch(() => alert("Failed to copy address."));
 }
 
+// Call popup
 function closeCallPopup() {
   document.getElementById("call-popup").classList.add("hidden");
 }
-
 function callNumber() {
   const number = document.getElementById("popup-phone").textContent;
   window.location.href = `tel:${number}`;
 }
+function openCallPopup(title, phone) {
+  document.getElementById("call-popup").classList.remove("hidden");
+  document.getElementById("popup-title").textContent = title || "";
+  document.getElementById("popup-phone").textContent = phone || "";
+  document.getElementById("popup-button-text").textContent = phone ? `Call ${title}` : "No number available";
+}
 
+// Open full chat page
 function openFullChat() {
   const jobId = localStorage.getItem("currentJobId");
   if (!jobId) {
@@ -124,6 +125,7 @@ function openFullChat() {
   window.location.href = `courier-chat.html?id=${jobId}`;
 }
 
+// Map courier status to UI string
 function mapCourierStatusToUi(status) {
   switch (status) {
     case 'waiting-for-pickup': return 'Waiting for Pickup';
@@ -135,6 +137,7 @@ function mapCourierStatusToUi(status) {
   }
 }
 
+// Update progress lights according to status
 function updateStatusIcons(statusText) {
   const steps = [
     'waiting for pickup',
@@ -166,6 +169,7 @@ function updateStatusIcons(statusText) {
   }
 }
 
+// Render job info on dashboard
 function renderJobToDashboard(job) {
   document.querySelector(".job-id").textContent = `Job ID # ${job.jobId}`;
   document.querySelector(".status-badge").textContent = job.status || "Unknown";
@@ -182,18 +186,13 @@ function renderJobToDashboard(job) {
   localStorage.setItem("currentJobId", job.jobId);
 }
 
+// Logout
 function handleLogout() {
   localStorage.clear();
   window.location.href = "courier-login.html";
 }
 
-function openCallPopup(title, phone) {
-  document.getElementById("call-popup").classList.remove("hidden");
-  document.getElementById("popup-title").textContent = title || "";
-  document.getElementById("popup-phone").textContent = phone || "";
-  document.getElementById("popup-button-text").textContent = phone ? `Call ${title}` : "No number available";
-}
-
+// Initial load of job data
 document.addEventListener("DOMContentLoaded", async () => {
   const courierId = localStorage.getItem("courierId");
   if (!courierId) {
@@ -204,10 +203,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/jobs/current/${courierId}`);
-
     if (!res.ok) throw new Error("No job assigned to this courier");
-    const data = await res.json();
 
+    const data = await res.json();
     if (!data || !data.jobId) {
       document.querySelector(".main-content").innerHTML = "<p>No active job assigned.</p>";
       updateStatusIcons('');
@@ -222,10 +220,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateStatusIcons('');
   }
 
+  // Attach action buttons
   document.querySelectorAll(".action-button").forEach(button => {
     button.addEventListener("click", () => {
       const action = button.getAttribute("data-action");
-      const jobId = localStorage.getItem("currentJobId");
 
       switch (action) {
         case "Call Center":
@@ -268,6 +266,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
+  // Arrow to job details
   const jobArrow = document.getElementById("job-arrow");
   if (jobArrow) {
     jobArrow.addEventListener("click", () => {
@@ -275,30 +274,78 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
+  // Logout button
   const logoutButton = document.querySelector(".logout");
   if (logoutButton) {
     logoutButton.addEventListener("click", handleLogout);
   }
 });
 
+// Load job map on page load if jobId exists
+async function loadJob(jobId) {
+  const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`);
+  if (!res.ok) throw new Error('Failed to load job');
+  const job = await res.json();
 
-async function loadJob(jobId) { const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`);
-   if (!res.ok) throw new Error('Failed to load job');
-   const job = await res.json();
-
-   if (job.delivery?.lat && job.delivery?.lng) {
-     initMap(job.delivery.lat, job.delivery.lng);
-   }
+  if (job.delivery?.lat && job.delivery?.lng) {
+    initMap(job.delivery.lat, job.delivery.lng);
+  }
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   if (currentJobId) {
     loadJob(currentJobId);
   }
 });
 
+// Load job documents dynamically
+async function loadDocuments(jobId) {
+  const container = document.getElementById("documents-container");
+  if (!container) return;
 
-// expose module functions as globals for inline onclick handlers
+  container.innerHTML = "<p>Loading documents...</p>";
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`);
+    if (!res.ok) throw new Error("Failed to fetch documents");
+    const job = await res.json();
+
+    const docs = job.documents || [];
+    if (docs.length === 0) {
+      container.innerHTML = "<p>No documents uploaded for this job.</p>";
+      return;
+    }
+
+    container.innerHTML = docs.map(doc => `
+      <section class="document-entry">
+        <section class="document-label">${doc.name}</section>
+        <section class="document-actions">
+          <a href="${doc.url}" target="_blank">
+            <img src="assets/icons/eye.svg" alt="View" />
+          </a>
+          <a href="${doc.url}" download>
+            <img src="assets/icons/download.svg" alt="Download" />
+          </a>
+        </section>
+      </section>
+    `).join("");
+  } catch (err) {
+    console.error("Error loading documents:", err);
+    container.innerHTML = "<p>Failed to load documents.</p>";
+  }
+}
+
+// Documents popup
+function openDocumentsPopup() {
+  document.getElementById("documents-popup").classList.remove("hidden");
+  if (currentJobId) {
+    loadDocuments(currentJobId);
+  }
+}
+function closeDocumentsPopup() {
+  document.getElementById("documents-popup").classList.add("hidden");
+}
+
+// Expose functions globally for inline handlers
 window.callNumber           = callNumber;
 window.closeBurgerMenu      = closeBurgerMenu;
 window.closeCallPopup       = closeCallPopup;
