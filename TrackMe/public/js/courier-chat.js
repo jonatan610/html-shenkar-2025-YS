@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const uploadPopup = document.querySelector(".upload-popup");
   const closeBtn = document.querySelector(".close-btn");
   const cancelUpload = document.querySelector(".cancel-upload");
+  const fileInput = document.getElementById("file-input"); // File input inside popup
+  const uploadBtn = document.getElementById("upload-btn"); // Upload confirm button
   const jobTitle = document.querySelector(".job");
 
   // Get jobId from URL
@@ -30,13 +32,23 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Add message to chat area
-  const addMessage = (text, isOutgoing = true, sender = 'courier', time = null) => {
+  const addMessage = (text, isOutgoing = true, sender = 'courier', time = null, isFile = false) => {
     const messageSection = document.createElement("section");
     messageSection.className = `message ${isOutgoing ? "outgoing" : "incoming"}`;
 
     const bubble = document.createElement("section");
     bubble.className = "bubble";
-    bubble.textContent = text;
+
+    // If the message is a file link, render it as a clickable link
+    if (isFile) {
+      const link = document.createElement("a");
+      link.href = text;
+      link.target = "_blank";
+      link.textContent = "📎 File";
+      bubble.appendChild(link);
+    } else {
+      bubble.textContent = text;
+    }
 
     const meta = document.createElement("section");
     meta.className = "meta";
@@ -63,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chatArea.scrollTop = chatArea.scrollHeight;
   };
 
-  // Send message
+  // Send text message
   sendButton.addEventListener("click", () => {
     const text = inputField.value.trim();
     if (!text || !jobId) return;
@@ -94,14 +106,42 @@ document.addEventListener("DOMContentLoaded", () => {
     uploadPopup.classList.add("hidden");
   });
 
-socket.on('receiveMessage', ({ message, sender, time, job }) => {
-  if (job === jobId && sender !== 'courier') {
-    addMessage(message, false, sender, time);
-  }
-});
+  // Handle file upload
+  uploadBtn.addEventListener("click", async () => {
+    const file = fileInput.files[0];
+    if (!file || !jobId) return;
 
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("jobId", jobId);
+    formData.append("sender", "courier");
 
+    try {
+      const res = await fetch(`${API_BASE_URL}/upload`, {
+        method: "POST",
+        body: formData,
+      });
 
+      const data = await res.json();
+      if (data?.fileUrl) {
+        addMessage(data.fileUrl, true, "courier", null, true);
+        socket.emit("sendMessage", { jobId, message: data.fileUrl, sender: "courier", isFile: true });
+      }
+    } catch (err) {
+      console.error("File upload failed:", err);
+      alert("Failed to upload file");
+    }
+
+    uploadPopup.classList.add("hidden");
+    fileInput.value = "";
+  });
+
+  // Listen for incoming messages
+  socket.on('receiveMessage', ({ message, sender, time, job, isFile }) => {
+    if (job === jobId && sender !== 'courier') {
+      addMessage(message, false, sender, time, isFile);
+    }
+  });
 
   // Back button logic
   const backButton = document.getElementById('back-button');
