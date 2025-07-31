@@ -1129,3 +1129,9 @@
   filter: none; 
 }
 
+#courier-greeting {
+  font-family: inherit;   
+  font-size: 1rem;        
+  font-weight: normal;  
+  color: #333;       
+}

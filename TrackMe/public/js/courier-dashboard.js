@@ -361,3 +361,19 @@ window.openDocumentsPopup   = openDocumentsPopup;
 window.openFullChat         = openFullChat;
 window.sendChatMessage      = sendChatMessage;
 window.toggleMenu           = toggleMenu;
+
+function extractUsernameFromEmail(email) {
+    return email.split('@')[0];
+}
+
+
+const loggedInEmail = localStorage.getItem('userEmail'); 
+
+
+if (loggedInEmail) {
+    const username = extractUsernameFromEmail(loggedInEmail);
+    const greetingElement = document.getElementById('courier-greeting');
+    if (greetingElement) {
+        greetingElement.textContent = `Hello, ${username}`;
+    }
+}
