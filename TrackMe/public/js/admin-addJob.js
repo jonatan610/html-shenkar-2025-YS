@@ -218,7 +218,7 @@ async function submitJob() {
         currentJobId = job.jobId;
         showToast("✅ Job created successfully. Job ID: " + job.jobId, "blue");
         setTimeout(() => {
-            window.location.href = "admin-jobs.html";
+          window.location.href = `admin-jobs.html?jobId=${job.jobId}`;
         }, 1000);
     } catch (err) {
         showToast("❌ Error: " + err.message, "red");
