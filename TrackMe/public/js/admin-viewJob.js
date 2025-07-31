@@ -88,10 +88,11 @@ function populateJobDetails(job) {
   // Job ID & Status
   document.getElementById('job-id').textContent = job.jobId || job._id;
   document.getElementById('statusLabel').textContent = job.status || '—';
-  const statusBtn = document.getElementById('statusToggle');
-  if (statusBtn && statusBtn.tagName === 'SELECT') {
-    statusBtn.value = job.status || '';
-  }
+const statusBtn = document.getElementById('statusToggle');
+if (statusBtn) {
+  document.getElementById("statusLabel").textContent = job.status || 'Active';
+}
+
 
   // Courier
   document.getElementById('courier-name').textContent = job.courier?.fullName || '—';
@@ -135,6 +136,7 @@ function populateJobDetails(job) {
 
 // ========== Enable Editing ==========
 function enableEditing() {
+  // Convert span contact fields into editable inputs
   document.querySelectorAll('.job-details__value').forEach(span => {
     const input = document.createElement('input');
     input.type = 'text';
@@ -145,7 +147,18 @@ function enableEditing() {
     span.replaceWith(input);
   });
 
-  // Show save button
+  // Enable editing for all existing readonly inputs
+  document.querySelectorAll('.editable-field, input, textarea, select').forEach(el => {
+    el.removeAttribute('readonly');
+    el.removeAttribute('disabled');
+    el.classList.add('editing'); // optional styling
+  });
+
+  // Enable status toggle
+  const statusToggle = document.getElementById('statusToggle');
+  if (statusToggle) statusToggle.removeAttribute('disabled');
+
+  // Hide Edit button and show Save button
   const editBtn = document.getElementById('editJobBtn');
   if (editBtn) editBtn.style.display = 'none';
 
@@ -161,11 +174,14 @@ function enableEditing() {
   }
 }
 
-// ========== Save Edits ==========
-async function saveJobEdits() {
-  const jobId = normalizeJobId(getJobIdFromURL());
-  if (!jobId) return showToast('Missing job ID', 'red');
 
+// ========== Save Edits ==========
+async function saveJobEdits(override = {}) {
+  const jobId = normalizeJobId(getJobIdFromURL());
+  if (!jobId) {
+    showToast('❌ Missing job ID', 'red');
+    return;
+  }
   // Addresses & coordinates
   const pickupAddress = document.getElementById('pickupAddress').value;
   let pickupLat = document.getElementById('pickupLat')?.value || "";
@@ -215,12 +231,14 @@ async function saveJobEdits() {
         time: document.getElementById('flightReturnTime').value,
         code: document.getElementById('flightReturnCode').value,
       },
-    }
+    },
+    // ✅ Include status if editable
+    status: document.getElementById('statusToggle')?.value || ''
   };
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`, {
-      method: 'PUT',
+      method: 'PUT', // ✅ safer than PATCH for full object update
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
@@ -264,23 +282,54 @@ async function deleteJob() {
 
 // ========== Status Toggle ==========
 function setupStatusToggle(jobId) {
-  const select = document.getElementById("statusToggle");
-  if (!select) return;
-  select.addEventListener("change", async () => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}/status`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: select.value })
-      });
-      if (!res.ok) throw new Error("Failed to update status");
-      showToast("Status updated ✅", "blue");
-      document.getElementById("statusLabel").textContent = select.value;
-    } catch (err) {
-      showToast("❌ " + err.message, "red");
+  const button = document.getElementById("statusToggle");
+  const optionsList = document.getElementById("stateOptions");
+  const statusLabel = document.getElementById("statusLabel");
+
+  // Exit if elements are not found
+  if (!button || !optionsList) return;
+
+  // Toggle dropdown open/close on button click
+  button.addEventListener("click", () => {
+    optionsList.classList.toggle("open");
+  });
+
+  // Add click handler for each status option
+  optionsList.querySelectorAll("li").forEach(li => {
+    li.addEventListener("click", async () => {
+      const newStatus = li.dataset.value; // Get the selected status value
+
+      try {
+        // Send update request to server
+        const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: newStatus })
+        });
+
+        if (!res.ok) throw new Error("Failed to update status");
+
+        // Update UI after successful response
+        statusLabel.textContent = li.textContent;
+        optionsList.classList.remove("open");
+        showToast("Status updated ✅", "blue");
+
+      } catch (err) {
+        // Show error toast if update fails
+        showToast("❌ " + err.message, "red");
+      }
+    });
+  });
+
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!button.contains(e.target) && !optionsList.contains(e.target)) {
+      optionsList.classList.remove("open");
     }
   });
 }
+
 
 // ========== Upload Documents ==========
 function setupDocumentsUpload() {
@@ -326,7 +375,7 @@ sendBtn?.addEventListener("click", async () => {
   const jobId = getJobIdFromURL();
   const formData = new FormData();
   formData.append("document", file);
-  formData.append("message", messageInput.value); // אופציונלי
+  formData.append("message", messageInput.value); // optional
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/jobs/${jobId}/uploads`, {
@@ -409,3 +458,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     showToast('Failed to load job', 'red');
   }
 });
+
