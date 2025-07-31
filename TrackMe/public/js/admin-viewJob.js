@@ -316,6 +316,7 @@ function setupStateToggle(jobId) {
         stateLabel.textContent = li.textContent;
         optionsList.classList.remove("open");
         showToast("State updated ✅", "blue");
+              updateStatusIcons(newState);
       } catch (err) {
         showToast("❌ " + err.message, "red");
       }

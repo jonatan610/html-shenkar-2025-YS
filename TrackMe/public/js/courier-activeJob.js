@@ -25,7 +25,7 @@ async function initJobDetails() {
 
     // Header
     document.getElementById('active-job-id').textContent = `Job #${job.jobId}`;
-
+document.querySelector('.status-label').textContent = job.state || 'Unknown';
     // Summary values
     document.getElementById('active-destination').textContent =
       job.delivery?.address || '—';

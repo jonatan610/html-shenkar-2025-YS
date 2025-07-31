@@ -203,12 +203,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const res = await fetch(`${API_BASE_URL}/api/jobs/current/${courierId}`);
     if (!res.ok) throw new Error("No job assigned to this courier");
 
-    const data = await res.json();
-    if (!data || !data.jobId) {
-      document.querySelector(".main-content").innerHTML = "<p>No active job assigned.</p>";
-      updateStatusIcons('');
-      return;
-    }
+const data = await res.json();
+if (!data || !data.jobId) {
+  document.querySelector(".main-content").innerHTML = `
+    <div class="no-job-message">
+      <h2>🚫 No active job assigned</h2>
+    </div>
+  `;
+  updateStatusIcons('');
+  return;
+}
+
 
     currentJob = data;
     renderJobToDashboard(data);
