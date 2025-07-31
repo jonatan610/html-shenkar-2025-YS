@@ -298,6 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Load job documents dynamically
+// Load job documents dynamically
 async function loadDocuments(jobId) {
   const container = document.getElementById("documents-container");
   if (!container) return;
@@ -309,30 +310,37 @@ async function loadDocuments(jobId) {
     if (!res.ok) throw new Error("Failed to fetch documents");
     const job = await res.json();
 
-    const docs = job.documents || [];
+    // ✅ Use either `documents` or `files`
+    const docs = job.documents || job.files || [];
     if (docs.length === 0) {
       container.innerHTML = "<p>No documents uploaded for this job.</p>";
       return;
     }
 
-    container.innerHTML = docs.map(doc => `
-      <section class="document-entry">
-        <section class="document-label">${doc.name}</section>
-        <section class="document-actions">
-          <a href="${doc.url}" target="_blank">
-            <img src="assets/icons/eye.svg" alt="View" />
-          </a>
-          <a href="${doc.url}" download>
-            <img src="assets/icons/download.svg" alt="Download" />
-          </a>
+    // ✅ Build file URL (assuming your server exposes /uploads folder)
+    container.innerHTML = docs.map(doc => {
+      const fileUrl = `${API_BASE_URL}/uploads/${job.jobId}/${encodeURIComponent(doc.filename)}`;
+
+      return `
+        <section class="document-entry">
+          <section class="document-label">${doc.filename}</section>
+          <section class="document-actions">
+            <a href="${fileUrl}" target="_blank">
+              <img src="assets/icons/eye.svg" alt="View" />
+            </a>
+            <a href="${fileUrl}" download>
+              <img src="assets/icons/download.svg" alt="Download" />
+            </a>
+          </section>
         </section>
-      </section>
-    `).join("");
+      `;
+    }).join("");
   } catch (err) {
     console.error("Error loading documents:", err);
     container.innerHTML = "<p>Failed to load documents.</p>";
   }
 }
+
 
 // Documents popup
 function openDocumentsPopup() {
