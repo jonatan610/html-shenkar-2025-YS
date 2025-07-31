@@ -9,7 +9,9 @@ const axios    = require('axios');
 const Job     = require('../models/Job');
 const Courier = require('../models/Courier');
 const Counter = require('../models/Counter');
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// NOTE: Do NOT use app.use() here, it belongs in server.js (main entry file)
+// Example (in server.js): app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // === Geocoding function using Google Maps API ===
 async function geocodeAddress(address) {
@@ -52,11 +54,13 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const jobId = req.body.jobId || req.params.jobId || 'unknown';
     const dir   = path.join(__dirname, `../uploads/${jobId}`);
-    fs.mkdirSync(dir, { recursive: true });
+    fs.mkdirSync(dir, { recursive: true }); // ensure directory exists
     cb(null, dir);
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    // Use timestamp to avoid overwriting files with the same name
+    const uniqueName = Date.now() + '-' + file.originalname;
+    cb(null, uniqueName);
   }
 });
 const upload = multer({ storage });
@@ -193,22 +197,24 @@ router.post('/jobs', upload.any(), async (req, res) => {
 });
 
 // === Upload file to existing job by jobId ===
-router.post('/jobs/:jobId/uploads', upload.single('document'), async (req, res) => {
+router.post('/jobs/:jobId/uploads', upload.any(), async (req, res) => {
   try {
     const job = await Job.findOne({ jobId: req.params.jobId });
     if (!job) return res.status(404).json({ message: 'Job not found' });
 
     // Push file metadata to job
     job.files = job.files || [];
-    job.files.push({
-      filename: req.file.originalname,
-      path: req.file.path,
-      size: req.file.size,
-      mimetype: req.file.mimetype
+    req.files.forEach(file => {
+      job.files.push({
+        filename: file.originalname,
+        path: file.path,
+        size: file.size,
+        mimetype: file.mimetype
+      });
     });
 
     await job.save();
-    res.json({ message: 'File uploaded successfully', job });
+    res.json({ message: 'Files uploaded successfully', job });
   } catch (err) {
     console.error('Upload failed:', err);
     res.status(500).json({ message: 'File upload failed' });

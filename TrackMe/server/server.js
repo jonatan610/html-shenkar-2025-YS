@@ -20,8 +20,11 @@ const io = new Server(server, {
 });
 
 // === Middleware ===
-app.use(express.static(path.join(__dirname, '..', 'public')));  
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded files
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+// Serve uploaded files under /uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.use(cors());
 app.use(express.json());
 
@@ -31,48 +34,34 @@ const storage = multer.diskStorage({
     const jobId = req.body.jobId;
     if (!jobId) return cb(new Error("Missing jobId in request body"));
 
-    // Create directory for the job if it does not exist
+    // Create a directory for this job if it doesn't exist
     const jobDir = path.join(__dirname, 'uploads', jobId);
     fs.mkdirSync(jobDir, { recursive: true });
     cb(null, jobDir);
   },
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    const allowedFields = [
-      "courier_letter",
-      "flight_ticket",
-      "tsa_clearance",
-      "passport_us",
-      "hotel_voucher",
-      "customs_clearance"
-    ];
-    const name = file.fieldname;
-    if (!allowedFields.includes(name)) return cb(new Error("Invalid file type: " + name));
-    cb(null, `${name}${ext}`);
+    // Use original file name to keep uploads flexible
+    cb(null, file.originalname);
   }
 });
 const upload = multer({ storage });
 
 // === File upload endpoint ===
-app.post('/api/upload', upload.fields([
-  { name: 'courier_letter' },
-  { name: 'flight_ticket' },
-  { name: 'tsa_clearance' },
-  { name: 'passport_us' },
-  { name: 'hotel_voucher' },
-  { name: 'customs_clearance' },
-]), (req, res) => {
-  if (!req.files || Object.keys(req.files).length === 0) {
+app.post('/api/upload', upload.any(), (req, res) => {
+  if (!req.files || req.files.length === 0) {
     return res.status(400).json({ error: 'No files uploaded' });
   }
 
-  // Map uploaded files
-  const fileMap = {};
-  for (const field in req.files) {
-    fileMap[field] = req.files[field][0].filename;
-  }
+  const jobId = req.body.jobId;
+  const uploadedFiles = req.files.map(file => ({
+    filename: file.originalname,
+    url: `/uploads/${jobId}/${file.originalname}`
+  }));
 
-  res.status(200).json({ message: 'Files uploaded successfully', files: fileMap });
+  res.status(200).json({
+    message: 'Files uploaded successfully',
+    files: uploadedFiles
+  });
 });
 
 // === Job routes ===
@@ -92,11 +81,13 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   console.log(`✅ User connected: ${socket.id}`);
 
+  // Join a job-specific room
   socket.on('joinJobRoom', (jobId) => {
     socket.join(jobId);
     console.log(`📦 Socket ${socket.id} joined room: ${jobId}`);
   });
 
+  // Handle sending messages
   socket.on('sendMessage', ({ jobId, message, sender }) => {
     io.to(jobId).emit('receiveMessage', {
       message,
