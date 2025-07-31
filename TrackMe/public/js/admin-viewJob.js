@@ -85,13 +85,21 @@ async function getLatLngFromAddress(address) {
 
 // ========== Populate Job Details ==========
 function populateJobDetails(job) {
-  // Job ID & Status
+  // Job ID & State
   document.getElementById('job-id').textContent = job.jobId || job._id;
-  document.getElementById('statusLabel').textContent = job.status || '—';
-const statusBtn = document.getElementById('statusToggle');
-if (statusBtn) {
-  document.getElementById("statusLabel").textContent = job.status || 'Active';
-}
+
+  const statusBtn = document.getElementById('statusToggle');
+  const statusLabel = document.getElementById('statusLabel');
+
+  if (statusLabel) {
+    statusLabel.textContent = job.state || 'active'; 
+  }
+
+  if (statusBtn) {
+    statusBtn.value = job.state || 'active';  
+  }
+
+
 
 
   // Courier
@@ -281,55 +289,45 @@ async function deleteJob() {
 }
 
 // ========== Status Toggle ==========
-function setupStatusToggle(jobId) {
-  const button = document.getElementById("statusToggle");
+function setupStateToggle(jobId) {
+  const button = document.getElementById("stateToggle");
   const optionsList = document.getElementById("stateOptions");
-  const statusLabel = document.getElementById("statusLabel");
+  const stateLabel = document.getElementById("stateLabel");
 
-  // Exit if elements are not found
   if (!button || !optionsList) return;
 
-  // Toggle dropdown open/close on button click
   button.addEventListener("click", () => {
     optionsList.classList.toggle("open");
   });
 
-  // Add click handler for each status option
   optionsList.querySelectorAll("li").forEach(li => {
     li.addEventListener("click", async () => {
-      const newStatus = li.dataset.value; // Get the selected status value
+      const newState = li.dataset.value;
 
       try {
-        // Send update request to server
         const res = await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: newStatus })
+          body: JSON.stringify({ state: newState })
         });
 
-        if (!res.ok) throw new Error("Failed to update status");
+        if (!res.ok) throw new Error("Failed to update state");
 
-        // Update UI after successful response
-        statusLabel.textContent = li.textContent;
+        stateLabel.textContent = li.textContent;
         optionsList.classList.remove("open");
-        showToast("Status updated ✅", "blue");
-
+        showToast("State updated ✅", "blue");
       } catch (err) {
-        // Show error toast if update fails
         showToast("❌ " + err.message, "red");
       }
     });
   });
 
-
-  // Close when clicking outside
   document.addEventListener("click", (e) => {
     if (!button.contains(e.target) && !optionsList.contains(e.target)) {
       optionsList.classList.remove("open");
     }
   });
 }
-
 
 // ========== Upload Documents ==========
 function setupDocumentsUpload() {
@@ -450,7 +448,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const job = await res.json();
     populateJobDetails(job);
     setupEventListeners();
-    setupStatusToggle(jobId);
+   setupStateToggle(jobId);;
     setupChatButton(jobId);
     setupDocumentsUpload();
   } catch (err) {

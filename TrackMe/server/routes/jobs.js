@@ -55,7 +55,7 @@ const storage = multer.diskStorage({
     cb(null, dir);
   },
   filename: (req, file, cb) => {
-    // Fix encoding issue with Hebrew/Unicode filenames
+    // Fix encoding issues with filenames containing non-Latin characters
     const safeName = Buffer.from(file.originalname, "latin1").toString("utf8");
     // Add timestamp to avoid overwriting files
     const uniqueName = Date.now() + '-' + safeName;
@@ -174,6 +174,7 @@ router.post('/jobs', upload.any(), async (req, res) => {
           code: flightReturnCode
         }
       },
+      // Default state is "active"
       state: state || 'active'
     });
 
@@ -309,7 +310,7 @@ router.get('/jobs/current/:courierId', async (req, res) => {
       courierStatus: { $in: [
         'waiting-for-pickup','package-picked-up','in-transit','landed','delivered'
       ]},
-      state: { $in: ['active','delivered'] }
+      state: { $in: ['active','on-hold'] }
     }).populate('courier');
 
     if (!job) {

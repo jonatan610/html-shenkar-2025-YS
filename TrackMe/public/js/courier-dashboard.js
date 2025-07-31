@@ -169,7 +169,8 @@ function updateStatusIcons(statusText) {
 // === Render Job Info ===
 function renderJobToDashboard(job) {
   document.querySelector(".job-id").textContent = `Job ID # ${job.jobId}`;
-  document.querySelector(".status-badge").textContent = job.status || "Unknown";
+document.querySelector(".status-badge").textContent = job.state || "Unknown";
+
 
   const infoItems = document.querySelectorAll(".info-item");
   if (infoItems.length >= 2) {

@@ -223,7 +223,6 @@ async function submitJob() {
 
     // --- Status defaults ---
     formData.append("courierStatus", "waiting-for-pickup");
-    formData.append("status", "Active");
 
     try {
         const res = await fetch(`${API_BASE_URL}/api/jobs`, {
