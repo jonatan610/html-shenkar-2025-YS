@@ -33,9 +33,7 @@
                                    margin: 0 auto;
                                    background-color: var(--surface-secondary);
                                }
-                               /* ===========================
-   Layout: Header
-   =========================== */
+
                                
                                .site-header {
                                    background-color: var(--surface-primary);

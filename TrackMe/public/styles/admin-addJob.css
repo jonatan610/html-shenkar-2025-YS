@@ -474,7 +474,7 @@ select.editable-field:focus {
 }
 
 .job-upload-box:hover {
-  border-color: #2563eb; /* כחול כהדגשה */
+  border-color: #2563eb; 
 }
 
 .job-upload-box img {

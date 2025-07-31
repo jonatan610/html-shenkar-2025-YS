@@ -49,7 +49,7 @@ async function generateJobId() {
 // === Multer storage configuration ===
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const jobId = req.body.jobId || 'unknown';
+    const jobId = req.body.jobId || req.params.jobId || 'unknown';
     const dir   = path.join(__dirname, `../uploads/${jobId}`);
     fs.mkdirSync(dir, { recursive: true });
     cb(null, dir);
@@ -101,22 +101,22 @@ router.post('/jobs', upload.any(), async (req, res) => {
       deliveryDate, deliveryTime, deliveryPhone, deliveryAddress, deliveryContact, deliveryLat, deliveryLng,
       flightOutDate, flightOutTime, flightOutCode,
       flightReturnDate, flightReturnTime, flightReturnCode,
-      status, courierStatus
+      state, courierStatus
     } = req.body;
 
-    // Prevent assigning the same courier to two active jobs
+    // Prevent assigning the same courier to two active/on-hold jobs
     const existing = await Job.findOne({
       courier,
-      status: { $in: ['Active', 'on-hold'] }
+      state: { $in: ['active', 'on-hold'] }
     });
     if (existing) {
-      return res.status(400).json({ message: "Courier already assigned to an active job." });
+      return res.status(400).json({ message: "Courier already assigned to an active/on-hold job." });
     }
 
     // Generate unique jobId if not provided
     const finalJobId = jobId || await generateJobId();
 
-    // Handle pickup coordinates (fallback to geocoding)
+    // Handle pickup coordinates
     let pickupCoords = {
       lat: pickupLat ? Number(pickupLat) : undefined,
       lng: pickupLng ? Number(pickupLng) : undefined
@@ -125,7 +125,7 @@ router.post('/jobs', upload.any(), async (req, res) => {
       pickupCoords = await geocodeAddress(pickupAddress);
     }
 
-    // Handle delivery coordinates (fallback to geocoding)
+    // Handle delivery coordinates
     let deliveryCoords = {
       lat: deliveryLat ? Number(deliveryLat) : undefined,
       lng: deliveryLng ? Number(deliveryLng) : undefined
@@ -170,10 +170,10 @@ router.post('/jobs', upload.any(), async (req, res) => {
           code: flightReturnCode
         }
       },
-      status: status || 'Active'
+      state: state || 'active'
     });
 
-    // Attach uploaded files info
+    // Attach uploaded files if any
     if (req.files && req.files.length > 0) {
       newJob.files = req.files.map(f => ({
         filename: f.originalname,
@@ -188,6 +188,29 @@ router.post('/jobs', upload.any(), async (req, res) => {
   } catch (err) {
     console.error('Failed to save job:', err);
     res.status(500).json({ message: 'Failed to create job' });
+  }
+});
+
+// === Upload file to existing job by jobId ===
+router.post('/jobs/:jobId/uploads', upload.single('document'), async (req, res) => {
+  try {
+    const job = await Job.findOne({ jobId: req.params.jobId });
+    if (!job) return res.status(404).json({ message: 'Job not found' });
+
+    // Push file metadata to job
+    job.files = job.files || [];
+    job.files.push({
+      filename: req.file.originalname,
+      path: req.file.path,
+      size: req.file.size,
+      mimetype: req.file.mimetype
+    });
+
+    await job.save();
+    res.json({ message: 'File uploaded successfully', job });
+  } catch (err) {
+    console.error('Upload failed:', err);
+    res.status(500).json({ message: 'File upload failed' });
   }
 });
 
@@ -280,7 +303,7 @@ router.get('/jobs/current/:courierId', async (req, res) => {
       courierStatus: { $in: [
         'waiting-for-pickup','package-picked-up','in-transit','landed','delivered'
       ]},
-      status: { $in: ['Active','delivered'] }
+      state: { $in: ['active','delivered'] }
     }).populate('courier');
 
     if (!job) {

@@ -1,5 +1,7 @@
 import API_BASE_URL from './config.js';
 let currentJobId = "";
+const urlParams = new URLSearchParams(window.location.search);
+currentJobId = urlParams.get("jobId") || "";
 let itiInstances = {};
 
 
@@ -250,12 +252,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const uploadBox = document.querySelector(".upload-popup .upload-box");
     const messageInput = document.querySelector(".upload-popup textarea");
 
-    // פתיחת הפופאפ
+    
     uploadButton?.addEventListener("click", () => {
         uploadPopup.classList.remove("hidden");
     });
 
-    // סגירה (X או Cancel)
+  
     [closeBtn, cancelBtn].forEach(btn => {
         btn?.addEventListener("click", () => {
             uploadPopup.classList.add("hidden");
@@ -265,47 +267,50 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // פתיחת file picker
+   
     uploadBox?.addEventListener("click", () => fileInput.click());
 
-    // הצגת שם הקובץ
-    fileInput?.addEventListener("change", () => {
-        const file = fileInput.files[0];
-        uploadBox.querySelector("p").textContent = file ? file.name : "Choose a file";
-    });
 
-    // שליחת הקובץ
-    sendBtn?.addEventListener("click", async () => {
-        const file = fileInput.files[0];
-        if (!file) {
-            alert("Please select a file first.");
-            return;
+fileInput?.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    uploadBox.querySelector("p").textContent = file ? file.name : "Choose a file";
+});
+
+
+sendBtn?.addEventListener("click", async () => {
+    const file = fileInput.files[0];
+    if (!file) {
+        showToast("Please select a file first", "red");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("document", file);  
+    formData.append("message", messageInput.value);
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/jobs/${currentJobId}/uploads`, {
+            method: "POST",
+            body: formData,
+            credentials: "include"
+        });
+
+        if (!res.ok) {
+            const text = await res.text();
+            throw new Error(text || "Upload failed");
         }
 
-        const formData = new FormData();
-        formData.append("document", file);
-        formData.append("message", messageInput.value);
+        showToast("✅ File uploaded successfully", "blue");
 
-        try {
-            const res = await fetch(`${API_BASE_URL}/api/uploads`, {
-                method: "POST",
-                body: formData
-            });
+       
+        uploadPopup.classList.add("hidden");
+        fileInput.value = "";
+        messageInput.value = "";
+        uploadBox.querySelector("p").textContent = "Choose a file";
 
-            if (!res.ok) throw new Error("Upload failed");
-            const data = await res.json();
-
-            showToast("✅ File uploaded successfully", "blue");
-            console.log("Server response:", data);
-
-            uploadPopup.classList.add("hidden");
-            fileInput.value = "";
-            messageInput.value = "";
-            uploadBox.querySelector("p").textContent = "Choose a file";
-
-        } catch (err) {
-            showToast("❌ Upload error: " + err.message, "red");
-            console.error(err);
-        }
-    });
+    } catch (err) {
+        showToast("❌ Upload error: " + err.message, "red");
+        console.error(err);
+    }
+});
 });

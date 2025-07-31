@@ -169,11 +169,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function getDeliveryIso(job) {
-  // פורמט כפול—תאריך ושעה נפרדים
   if (job.delivery?.date && job.delivery?.time) {
     return `${job.delivery.date}T${job.delivery.time}`;
   }
-  // שדות מאוחדים נפוצים
+ 
   return (
     job.delivery?.deliveryDateTime ||
     job.delivery?.deliveryAt       ||

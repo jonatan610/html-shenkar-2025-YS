@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "f60e4b8a-1db0-4dc0-ac6a-4a5351d1a461",
+		"name": "TrackMe API",
+		"description": "Auto‑generated Postman Collection for TrackMe server (Jobs, Couriers, Upload).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47091680",
+		"_collection_link": "https://lunar-module-geoscientist-35998933-8985003.postman.co/workspace/228b165d-7f42-47ca-83af-3546f85ddf42/collection/47091680-f60e4b8a-1db0-4dc0-ac6a-4a5351d1a461?action=share&source=collection_link&creator=47091680"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "API is running"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Jobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/jobs",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Job",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"New Job\",\n  \"courier\": \"Courier 1\",\n  \"status\": \"active\",\n  \"pickup\": {\n    \"address\": \"123 Main St\",\n    \"date\": \"2025-07-30\",\n    \"time\": \"14:30\",\n    \"phone\": \"0501234567\"\n  },\n  \"delivery\": {\n    \"address\": \"456 Market St\",\n    \"date\": \"2025-07-31\",\n    \"time\": \"10:00\",\n    \"phone\": \"0509876543\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/jobs",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Job by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/jobs/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"jobs",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id"
+						}
+					]
+				},
+				"description": "Replace :id with MongoDB ObjectID or business JobId"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Job",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"status\": \"on-hold\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/jobs/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"jobs",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id"
+						}
+					]
+				},
+				"description": "Replace :id with Job ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Job",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/jobs/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"jobs",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id"
+						}
+					]
+				},
+				"description": "Replace :id with Job ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Couriers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/couriers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"couriers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Courier",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fullName\": \"Courier 11\",\n  \"email\": \"courier11@trackme.com\",\n  \"password\": \"Pass111!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/couriers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"couriers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Courier by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/couriers/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"couriers",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id"
+						}
+					]
+				},
+				"description": "Replace :id with Courier ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Courier",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"fullName\": \"Updated Name\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/couriers/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"couriers",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id"
+						}
+					]
+				},
+				"description": "Replace :id with Courier ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Courier",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/couriers/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"couriers",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id"
+						}
+					]
+				},
+				"description": "Replace :id with Courier ID"
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Documents",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "jobId",
+							"value": "JOB-2025-0001",
+							"type": "text"
+						},
+						{
+							"key": "courier_letter",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "flight_ticket",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "tsa_clearance",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "passport_us",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "hotel_voucher",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "customs_clearance",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/upload",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"upload"
+					]
+				},
+				"description": "Multipart form-data upload of documents for a job."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5500",
+			"type": "string"
+		}
+	]
+}

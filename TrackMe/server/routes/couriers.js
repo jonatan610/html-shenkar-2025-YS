@@ -5,7 +5,7 @@ const Courier = require('../models/Courier');
 
 router.get('/', async (req, res) => {
   try {
-    const couriers = await Courier.find({}, { password: 0 }); // exclude password
+    const couriers = await Courier.find({}, { password: 0 }); 
     res.json(couriers);
   } catch (err) {
     res.status(500).json({ message: 'Error fetching couriers' });
@@ -23,7 +23,7 @@ router.post('/login', async (req, res) => {
     const isMatch = await courier.comparePassword(password);
     if (!isMatch) return res.status(401).json({ message: 'Invalid email or password' });
 
-    // מוצאים ג'וב פעיל של אותו courier
+ 
     const Job = require('../models/Job');
     const job = await Job.findOne({
       courier: courier._id,

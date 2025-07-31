@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 const jobSchema = new mongoose.Schema({
@@ -16,13 +17,19 @@ const jobSchema = new mongoose.Schema({
   },
   courierStatus: {
     type: String,
-    enum: ['waiting-for-pickup', 'package-picked-up', 'in-transit', 'landed', 'delivered'],
+    enum: [
+      'waiting-for-pickup',
+      'package-picked-up',
+      'in-transit',
+      'landed',
+      'delivered'
+    ],
     default: 'waiting-for-pickup'
   },
-  status: {
+  state: {
     type: String,
-    enum: ["Active", "on-hold", "delivered", "completed"],
-    default: "Active"
+    enum: ["active", "on-hold", "delivered", "completed"],
+    default: "active"
   },
   pickup: {
     date: String,
@@ -59,11 +66,7 @@ const jobSchema = new mongoose.Schema({
       size: Number,       // file size in bytes
       mimetype: String    // MIME type (e.g., "application/pdf")
     }
-  ],
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-});
+  ]
+}, { timestamps: true }); 
 
 module.exports = mongoose.model('Job', jobSchema);

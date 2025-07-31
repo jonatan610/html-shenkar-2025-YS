@@ -1,8 +1,3 @@
-/**
- * Admin login script
- * Correct email: admin@trackme.com
- * Correct password: Admin@2024
- */
 
 import API_BASE_URL from './config.js';
 document.addEventListener("DOMContentLoaded", () => {

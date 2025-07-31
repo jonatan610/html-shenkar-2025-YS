@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(async () => {
     console.log("Connected to MongoDB. Seeding couriers...");
 
-    await Courier.deleteMany(); // Optional: clear existing couriers
+    await Courier.deleteMany(); 
 
     const couriers = [
 { fullName: "Courier 1",  email: "courier1@trackme.com",  password: "Pass123!" },
@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI)
    
     ];
 
-    // Hash passwords before inserting
+
     const hashedCouriers = await Promise.all(
       couriers.map(async courier => ({
         ...courier,

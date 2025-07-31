@@ -1,4 +1,4 @@
-/* courier-chat.css */
+
 
 body, html {
   margin: 0;
@@ -124,7 +124,7 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px; /* רווח מהכותרת אם צריך */
+  margin-bottom: 8px; 
 }
 
 .upload-icon {
@@ -180,7 +180,7 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; /* רווח בין האייקון לטקסט */
+  gap: 8px; 
   border-radius: 12px;
   background-color: #f3f4f6;
   width: 327px;

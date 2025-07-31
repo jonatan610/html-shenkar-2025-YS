@@ -385,7 +385,6 @@ statusOptions?.querySelectorAll("li").forEach(li => {
     const newStatus = li.dataset.value;
     document.getElementById("statusLabel").textContent = li.textContent;
     statusOptions.style.display = "none";
-    // שליחת העדכון לשרת:
     const jobId = document.getElementById('job-id').textContent; // או קח אותו מ-url/searchparams
 await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}/status`, {
 
@@ -393,7 +392,7 @@ await fetch(`${API_BASE_URL}/api/jobs/by-jobid/${jobId}/status`, {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: newStatus }),
     });
-    // (אפשר להציג toast להצלחה)
+  
   });
 });
 document.addEventListener("click", function (e) {
@@ -403,12 +402,11 @@ document.addEventListener("click", function (e) {
 });
 
 function setupChatButton(jobId) {
-  // תואם ל‑HTML
+  
   const chatBtn = document.getElementById('chatJobBtn');
-  if (!chatBtn) return;            // הגנה
+  if (!chatBtn) return;          
 
   chatBtn.addEventListener('click', () => {
-    // ניווט לדף הצ׳אט של האדמין
     window.location.href = `admin-chat.html?id=${jobId}`;
   });
 }
@@ -423,12 +421,12 @@ function setupChatButton(jobId) {
     const uploadBox = document.querySelector(".upload-popup .upload-box");
     const messageInput = document.querySelector(".upload-popup textarea");
 
-    // פתיחת הפופאפ
+
     uploadButton?.addEventListener("click", () => {
         uploadPopup.classList.remove("hidden");
     });
 
-    // סגירה (X או Cancel)
+ 
     [closeBtn, cancelBtn].forEach(btn => {
         btn?.addEventListener("click", () => {
             uploadPopup.classList.add("hidden");
@@ -438,46 +436,54 @@ function setupChatButton(jobId) {
         });
     });
 
-    // פתיחת file picker
+
     uploadBox?.addEventListener("click", () => fileInput.click());
 
-    // הצגת שם הקובץ
+
     fileInput?.addEventListener("change", () => {
         const file = fileInput.files[0];
         uploadBox.querySelector("p").textContent = file ? file.name : "Choose a file";
     });
 
-    // שליחת הקובץ
-    sendBtn?.addEventListener("click", async () => {
-        const file = fileInput.files[0];
-        if (!file) {
-            alert("Please select a file first.");
-            return;
+  
+   sendBtn?.addEventListener("click", async () => {
+    const file = fileInput.files[0];
+    if (!file) {
+        alert("Please select a file first.");
+        return;
+    }
+
+    const jobId = getJobIdFromURL();  
+
+    const formData = new FormData();
+    formData.append("document", file);
+    formData.append("message", messageInput.value);
+    formData.append("jobId", jobId);   
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/uploads`, {
+            method: "POST",
+            body: formData
+        });
+
+        if (!res.ok) {
+            const error = await res.json().catch(() => ({}));
+            throw new Error(error.message || "Upload failed");
         }
 
-        const formData = new FormData();
-        formData.append("document", file);
-        formData.append("message", messageInput.value);
+        const data = await res.json();   // ← אתה צריך גם לקבל את התשובה
+        showToast("✅ File uploaded successfully", "blue");
+        console.log("Server response:", data);
 
-        try {
-            const res = await fetch(`${API_BASE_URL}/api/uploads`, {
-                method: "POST",
-                body: formData
-            });
+        uploadPopup.classList.add("hidden");
+        fileInput.value = "";
+        messageInput.value = "";
+        uploadBox.querySelector("p").textContent = "Choose a file";
 
-            if (!res.ok) throw new Error("Upload failed");
-            const data = await res.json();
+    } catch (err) {
+        showToast("❌ Upload error: " + err.message, "red");
+        console.error(err);
+    }
+});
 
-            showToast("✅ File uploaded successfully", "blue");
-            console.log("Server response:", data);
-
-            uploadPopup.classList.add("hidden");
-            fileInput.value = "";
-            messageInput.value = "";
-            uploadBox.querySelector("p").textContent = "Choose a file";
-
-        } catch (err) {
-            showToast("❌ Upload error: " + err.message, "red");
-            console.error(err);
-        }
-    });
+    

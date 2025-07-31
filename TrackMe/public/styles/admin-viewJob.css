@@ -1,5 +1,4 @@
-/* Main container */
-/* === טופס כללי === */
+
 .form-row {
   display: flex;
   gap: 24px;
@@ -21,7 +20,7 @@ label {
   margin-bottom: 4px;
 }
 
-/* === שדות קלט === */
+
 input[type="text"],
 input[type="tel"],
 input[type="date"],
@@ -48,7 +47,7 @@ select.editable-field:focus {
   background-color: #eef2ff;
 }
 
-/* === כפתור שמירה === */
+
 .save-button {
   padding: 14px 32px;
   background-color: #1E3A8A;
@@ -65,7 +64,7 @@ select.editable-field:focus {
   background-color: #3b82f6;
 }
 
-/* === שורת טלפון עם קידומת === */
+
 .phone-row {
   display: flex;
   gap: 12px;
@@ -77,7 +76,7 @@ select.editable-field:focus {
   flex: 1;
 }
 
-/* === מזהה ג׳וב - תצוגה בלבד === */
+
 .job-id-inline {
   display: flex;
   align-items: center;
@@ -205,24 +204,104 @@ select.editable-field:focus {
   color: #dc2626;
 }
 
-/* Status badge */
-.status-badge {
+/* Container */
+.state-dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: sans-serif;
+}
+
+/* Dropdown button */
+.state-select {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 12px;
-  background-color: #d1fae5;
-  color: #047857;
-  border-radius: 9999px;
-  font-size: 12px;
+  justify-content: space-between;
+  min-width: 140px;
+  padding: 6px 12px;
+  background-color: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
   font-weight: 500;
-  height: 28px;
-  line-height: 1;
+  color: #374151;
+  transition: all 0.2s ease;
 }
-.status-badge__icon {
+
+.state-select:hover {
+  background-color: #f3f4f6;
+}
+
+/* Chevron icon */
+.chevron-icon {
   width: 16px;
   height: 16px;
+  margin-left: 8px;
+  transition: transform 0.2s ease;
 }
+
+.state-dropdown.open .chevron-icon {
+  transform: rotate(180deg);
+}
+
+/* Options list */
+.state-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 6px;
+  width: 100%;
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  display: none;
+  padding: 4px 0;
+  z-index: 10;
+}
+
+.state-dropdown.open .state-options {
+  display: block;
+}
+
+/* Option items */
+.state-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #374151;
+  transition: background-color 0.2s ease;
+}
+
+.state-option:hover {
+  background-color: #f3f4f6;
+}
+
+/* Badge-like states */
+.state-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Active state - green */
+.state-badge.active {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+/* On-Hold state - red */
+.state-badge.on-hold {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
 
 /* Courier Info */
 .courier-info {
@@ -778,7 +857,7 @@ select.editable-field:focus {
 }
 
 .job-upload-box:hover {
-  border-color: #2563eb; /* כחול כהדגשה */
+  border-color: #2563eb; 
 }
 
 .job-upload-box img {
@@ -885,3 +964,19 @@ select.editable-field:focus {
   pointer-events: none;
 }
 
+
+.state-options {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 10;
+}
+
+.status-dropdown.open .state-options {
+  display: block;
+}

@@ -63,11 +63,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Store courier ID for session
   localStorage.setItem("courierId", result.courier.id);
 
-  // Store current job ID (אם השרת מחזיר את זה)
+  // Store current job ID 
   if (result.job && result.job.jobId) {
     localStorage.setItem("currentJobId", result.job.jobId);
   } else {
-    // אם לא מחזיר, אפשר להשאיר ריק או להשיג בשרת בנפרד
+ 
     localStorage.removeItem("currentJobId");
   }
 
