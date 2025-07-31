@@ -1,5 +1,10 @@
 // jobs-utils.js
 export function renderJobs(jobs, container) {
+  if (!container) {
+    console.warn("⚠️ renderJobs: container element not found");
+    return;
+  }
+
   container.innerHTML = "";
 
   jobs.forEach(job => {
@@ -32,20 +37,4 @@ export function renderJobs(jobs, container) {
     `;
     container.appendChild(card);
   });
-}
-
-// === Utility functions ===
-function extractCountry(address = "") {
-  const parts = address.split(",").map(p => p.trim());
-  return parts[parts.length - 1] || "Unknown";
-}
-
-function formatDate(dateString) {
-  if (!dateString) return "N/A";
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-GB");
-}
-
-function capitalize(str = "") {
-  return str.charAt(0).toUpperCase() + str.slice(1);
 }

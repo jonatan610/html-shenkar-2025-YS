@@ -1,7 +1,8 @@
 import API_BASE_URL from './config.js';
 let currentJobId = "";
 const urlParams = new URLSearchParams(window.location.search);
-currentJobId = urlParams.get("jobId") || "";
+currentJobId = urlParams.get("jobId") || localStorage.getItem("currentJobId") || "";
+
 let itiInstances = {};
 
 
@@ -213,13 +214,14 @@ async function submitJob() {
             const error = await res.json();
             throw new Error(error.message || 'Job creation failed');
         }
+const job = await res.json();
+currentJobId = job.jobId;
+localStorage.setItem("currentJobId", job.jobId);  
+showToast("✅ Job created successfully. Job ID: " + job.jobId, "blue");
+setTimeout(() => {
+  window.location.href = `admin-jobs.html?jobId=${job.jobId}`;
+}, 1000);
 
-        const job = await res.json();
-        currentJobId = job.jobId;
-        showToast("✅ Job created successfully. Job ID: " + job.jobId, "blue");
-        setTimeout(() => {
-          window.location.href = `admin-jobs.html?jobId=${job.jobId}`;
-        }, 1000);
     } catch (err) {
         showToast("❌ Error: " + err.message, "red");
     }
