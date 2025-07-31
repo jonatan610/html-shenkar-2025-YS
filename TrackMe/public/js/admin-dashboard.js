@@ -129,3 +129,8 @@ function handleLogout() {
 window.toggleMenu = toggleMenu;
 window.closeBurgerMenu = closeBurgerMenu;
 window.handleLogout = handleLogout;
+
+import { renderJobs } from "./jobs-utils.js";
+
+const container = document.getElementById("jobsContainer");
+renderJobs(jobs, container);

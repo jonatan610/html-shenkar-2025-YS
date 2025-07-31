@@ -1,16 +1,21 @@
 import API_BASE_URL from './config.js';
+
+// --- Initialize jobId from URL or localStorage ---
 let currentJobId = "";
 const urlParams = new URLSearchParams(window.location.search);
 currentJobId = urlParams.get("jobId") || localStorage.getItem("currentJobId") || "";
 
+// Store phone input plugin instances
 let itiInstances = {};
 
-
-// Populate the courier dropdown from server
+// =======================================================
+// Populate courier dropdown dynamically from the server
+// =======================================================
 async function populateCourierDropdown() {
     const select = document.getElementById('courierSelect');
     if (!select) return;
 
+    // Clear existing options except the first one (placeholder)
     select.querySelectorAll("option:not(:first-child)").forEach(o => o.remove());
 
     try {
@@ -27,7 +32,9 @@ async function populateCourierDropdown() {
     }
 }
 
-// Enable editing of the job fields
+// =======================================================
+// Enable editing of job fields dynamically
+// =======================================================
 function enableEditing() {
     document.querySelectorAll(".job-details__value").forEach(el => {
         const input = document.createElement("input");
@@ -35,6 +42,7 @@ function enableEditing() {
         input.className = "editable-field";
         input.value = el.textContent || "";
 
+        // Add IDs for address fields so autocomplete can work
         if (el.closest(".job-details--pickup") && el.previousElementSibling?.textContent.includes("Address")) {
             input.id = "pickupAddress";
         }
@@ -45,6 +53,7 @@ function enableEditing() {
         el.replaceWith(input);
     });
 
+    // Add "Create Job" button if not already present
     if (!document.getElementById("createJob")) {
         const createBtn = document.createElement("section");
         createBtn.className = "action-button";
@@ -60,7 +69,9 @@ function enableEditing() {
     }
 }
 
-// Show a confirmation popup with a callback
+// =======================================================
+// Reusable popup confirmation dialog
+// =======================================================
 function showConfirmationPopup(message, onConfirm, color = "blue") {
     const overlay = document.createElement("section");
     overlay.className = "popup-overlay";
@@ -81,7 +92,9 @@ function showConfirmationPopup(message, onConfirm, color = "blue") {
     });
 }
 
-// Show a notification toast
+// =======================================================
+// Toast notifications
+// =======================================================
 function showToast(text, color = "blue") {
     const toast = document.createElement("section");
     toast.className = `popup-toast toast-${color}`;
@@ -90,7 +103,9 @@ function showToast(text, color = "blue") {
     setTimeout(() => toast.remove(), 3000);
 }
 
-// === Google Places autocomplete AND save lat/lng ===
+// =======================================================
+// Initialize Google Places autocomplete (Pickup & Delivery)
+// =======================================================
 function initGoogleAddressAutocomplete() {
     // Pickup
     const pickupInput = document.getElementById("pickupAddress");
@@ -129,21 +144,26 @@ function initGoogleAddressAutocomplete() {
     }
 }
 
-
+// =======================================================
+// Get Lat/Lng from plain text address (fallback if autocomplete fails)
+// =======================================================
 async function getLatLngFromAddress(address) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const geocoder = new google.maps.Geocoder();
         geocoder.geocode({ address }, (results, status) => {
             if (status === "OK" && results[0]) {
                 const loc = results[0].geometry.location;
                 resolve({ lat: loc.lat(), lng: loc.lng() });
             } else {
-                resolve({ lat: "", lng: "" }); 
+                resolve({ lat: "", lng: "" });
             }
         });
     });
 }
 
+// =======================================================
+// Submit new job to backend
+// =======================================================
 async function submitJob() {
     const courierId = document.getElementById('courierSelect').value;
     if (!courierId) {
@@ -154,7 +174,7 @@ async function submitJob() {
     const formData = new FormData();
     formData.append("courier", courierId);
 
-    // --- Pickup ---
+    // --- Pickup section ---
     const pickupAddress = document.getElementById('pickupAddress')?.value || "";
     let pickupLat = document.getElementById('pickupLat')?.value || "";
     let pickupLng = document.getElementById('pickupLng')?.value || "";
@@ -173,7 +193,7 @@ async function submitJob() {
     formData.append("pickupLat", pickupLat);
     formData.append("pickupLng", pickupLng);
 
-    // --- Delivery ---
+    // --- Delivery section ---
     const deliveryAddress = document.getElementById('deliveryAddress')?.value || "";
     let deliveryLat = document.getElementById('deliveryLat')?.value || "";
     let deliveryLng = document.getElementById('deliveryLng')?.value || "";
@@ -192,7 +212,7 @@ async function submitJob() {
     formData.append("deliveryLat", deliveryLat);
     formData.append("deliveryLng", deliveryLng);
 
-    // --- Flight details ---
+    // --- Flight details section ---
     formData.append("flightOutDate", document.getElementById('flightOutDate').value);
     formData.append("flightOutTime", document.getElementById('flightOutTime').value);
     formData.append("flightOutCode", document.getElementById('flightOutCode').value);
@@ -201,6 +221,7 @@ async function submitJob() {
     formData.append("flightReturnTime", document.getElementById('flightReturnTime').value);
     formData.append("flightReturnCode", document.getElementById('flightReturnCode').value);
 
+    // --- Status defaults ---
     formData.append("courierStatus", "waiting-for-pickup");
     formData.append("status", "Active");
 
@@ -214,27 +235,33 @@ async function submitJob() {
             const error = await res.json();
             throw new Error(error.message || 'Job creation failed');
         }
-const job = await res.json();
-currentJobId = job.jobId;
-localStorage.setItem("currentJobId", job.jobId);  
-showToast("✅ Job created successfully. Job ID: " + job.jobId, "blue");
-setTimeout(() => {
-  window.location.href = `admin-jobs.html?jobId=${job.jobId}`;
-}, 1000);
+
+        // Save jobId for later use
+        const job = await res.json();
+        currentJobId = job.jobId;
+        localStorage.setItem("currentJobId", job.jobId);
+
+        showToast("✅ Job created successfully. Job ID: " + job.jobId, "blue");
+
+        // Redirect after short delay
+        setTimeout(() => {
+            window.location.href = `admin-jobs.html?jobId=${job.jobId}`;
+        }, 1000);
 
     } catch (err) {
         showToast("❌ Error: " + err.message, "red");
     }
 }
 
-
-// === INIT ===
+// =======================================================
+// INIT on DOMContentLoaded
+// =======================================================
 document.addEventListener("DOMContentLoaded", () => {
     populateCourierDropdown();
     enableEditing();
     initGoogleAddressAutocomplete();
 
-    // === Phone inputs init ===
+    // --- Initialize phone inputs with intlTelInput ---
     const phoneInputs = document.querySelectorAll("input[type='tel']");
     phoneInputs.forEach(input => {
         const iti = window.intlTelInput(input, {
@@ -242,10 +269,10 @@ document.addEventListener("DOMContentLoaded", () => {
             preferredCountries: ["il", "us", "gb", "fr", "de"],
             utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17/build/js/utils.js",
         });
-        itiInstances[input.id] = iti; 
+        itiInstances[input.id] = iti;
     });
 
-    // === Upload Popup logic ===
+    // --- Upload popup logic ---
     const uploadPopup = document.querySelector(".upload-popup");
     const uploadButton = document.querySelector("#uploadButton");
     const closeBtn = document.querySelector(".upload-popup .close-btn");
@@ -255,12 +282,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const uploadBox = document.querySelector(".upload-popup .upload-box");
     const messageInput = document.querySelector(".upload-popup textarea");
 
-    
     uploadButton?.addEventListener("click", () => {
         uploadPopup.classList.remove("hidden");
     });
 
-  
     [closeBtn, cancelBtn].forEach(btn => {
         btn?.addEventListener("click", () => {
             uploadPopup.classList.add("hidden");
@@ -270,50 +295,54 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-   
     uploadBox?.addEventListener("click", () => fileInput.click());
 
+    fileInput?.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        uploadBox.querySelector("p").textContent = file ? file.name : "Choose a file";
+    });
 
-fileInput?.addEventListener("change", () => {
-    const file = fileInput.files[0];
-    uploadBox.querySelector("p").textContent = file ? file.name : "Choose a file";
-});
-
-
-sendBtn?.addEventListener("click", async () => {
-    const file = fileInput.files[0];
-    if (!file) {
-        showToast("Please select a file first", "red");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("document", file);  
-    formData.append("message", messageInput.value);
-
-    try {
-        const res = await fetch(`${API_BASE_URL}/api/jobs/${currentJobId}/uploads`, {
-            method: "POST",
-            body: formData,
-            credentials: "include"
-        });
-
-        if (!res.ok) {
-            const text = await res.text();
-            throw new Error(text || "Upload failed");
+    // --- Handle file upload ---
+    sendBtn?.addEventListener("click", async () => {
+        // Prevent upload if no job exists
+        if (!currentJobId) {
+            showToast("❌ No job selected. Please create a job first.", "red");
+            return;
         }
 
-        showToast("✅ File uploaded successfully", "blue");
+        const file = fileInput.files[0];
+        if (!file) {
+            showToast("Please select a file first", "red");
+            return;
+        }
 
-       
-        uploadPopup.classList.add("hidden");
-        fileInput.value = "";
-        messageInput.value = "";
-        uploadBox.querySelector("p").textContent = "Choose a file";
+        const formData = new FormData();
+        formData.append("document", file);
+        formData.append("message", messageInput.value);
 
-    } catch (err) {
-        showToast("❌ Upload error: " + err.message, "red");
-        console.error(err);
-    }
-});
+        try {
+            const res = await fetch(`${API_BASE_URL}/api/jobs/${currentJobId}/uploads`, {
+                method: "POST",
+                body: formData,
+                credentials: "include"
+            });
+
+            if (!res.ok) {
+                const text = await res.text();
+                throw new Error(text || "Upload failed");
+            }
+
+            showToast("✅ File uploaded successfully", "blue");
+
+            // Reset popup
+            uploadPopup.classList.add("hidden");
+            fileInput.value = "";
+            messageInput.value = "";
+            uploadBox.querySelector("p").textContent = "Choose a file";
+
+        } catch (err) {
+            showToast("❌ Upload error: " + err.message, "red");
+            console.error(err);
+        }
+    });
 });
