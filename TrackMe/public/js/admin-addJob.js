@@ -215,6 +215,7 @@ async function submitJob() {
         }
 
         const job = await res.json();
+        currentJobId = job.jobId;
         showToast("✅ Job created successfully. Job ID: " + job.jobId, "blue");
         setTimeout(() => {
             window.location.href = "admin-jobs.html";
