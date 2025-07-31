@@ -9,6 +9,7 @@ const axios    = require('axios');
 const Job     = require('../models/Job');
 const Courier = require('../models/Courier');
 const Counter = require('../models/Counter');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // === Geocoding function using Google Maps API ===
 async function geocodeAddress(address) {

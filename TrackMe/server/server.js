@@ -1,4 +1,3 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -21,12 +20,10 @@ const io = new Server(server, {
 });
 
 // === Middleware ===
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));  
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded files
 app.use(cors());
 app.use(express.json());
-
-
-
 
 // === Multer setup for file uploads ===
 const storage = multer.diskStorage({
@@ -34,6 +31,7 @@ const storage = multer.diskStorage({
     const jobId = req.body.jobId;
     if (!jobId) return cb(new Error("Missing jobId in request body"));
 
+    // Create directory for the job if it does not exist
     const jobDir = path.join(__dirname, 'uploads', jobId);
     fs.mkdirSync(jobDir, { recursive: true });
     cb(null, jobDir);
@@ -55,6 +53,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+// === File upload endpoint ===
 app.post('/api/upload', upload.fields([
   { name: 'courier_letter' },
   { name: 'flight_ticket' },
@@ -67,6 +66,7 @@ app.post('/api/upload', upload.fields([
     return res.status(400).json({ error: 'No files uploaded' });
   }
 
+  // Map uploaded files
   const fileMap = {};
   for (const field in req.files) {
     fileMap[field] = req.files[field][0].filename;
@@ -83,7 +83,7 @@ app.use('/api', jobRoutes);
 const courierRoutes = require('./routes/couriers');
 app.use('/api/couriers', courierRoutes);
 
-// === Health check ===
+// === Health check endpoint ===
 app.get('/', (req, res) => {
   res.send('API is running');
 });
